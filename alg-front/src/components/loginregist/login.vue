@@ -41,6 +41,7 @@
                             this.cookie.setCookie('pwd',this.pwd);
                             // this.cookie.setCookie('user_id',res.data[0].id);
                         }
+                        this.$router.push('/shopcart');
                     }).catch(err => {
                         console.log(err);
                     })
