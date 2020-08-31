@@ -1,0 +1,113 @@
+<template>
+    <div class="login">
+        
+        账户：<el-input placeholder="请输入用户名" v-model="user" ></el-input><br>
+        <p>{{textuser}}</p>
+        密码：<el-input placeholder="请输入密码" v-model="pwd1" show-password></el-input><br>
+        <p>{{textpwd1}}</p>
+        确认：<el-input placeholder="请再次输入密码" v-model="pwd2" show-password></el-input><br>
+        <p>{{textpwd2}}</p>
+        <el-row>
+            <el-button type="primary" @click="regist">注册</el-button>
+        </el-row>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            user:"",
+            pwd1:"",
+            pwd2:"",
+            textuser:'5-18个字符，需以字母开头',
+            textpwd1:'6~16个字符，区分大小写',
+            textpwd2:'再次输入密码'
+        }
+    },
+    watch: {
+        "user":function(){
+            if (this.user != '') {
+				let reg = /^[A-Za-z][A-Za-z\d]{4,17}$/;
+				if (this.user.match(reg)) {
+					this.textuser = '';
+				} else {
+					this.textuser = '用户名格式错误';
+				}
+			} else {
+				this.textuser = '用户名不能为空';
+			}
+			return this.textuser;
+        },
+        "pwd1":function(){
+            if (this.pwd1 != '') {
+				let reg = /^.{6,16}$/i;
+				if (this.pwd1.match(reg)) {
+					let res1 = /^[0-9][0-9]{5,15}$/;
+					let res2 = /^[A-Za-z][A-Za-z]{5,15}$/;
+					if (this.pwd1.match(res1)) {
+						this.textpwd1 = '密码过于简单不能纯数字';
+					} else if (this.pwd1.match(res2)) {
+						this.textpwd1 = '密码过于简单不能纯字母';
+					} else {
+						this.textpwd1 = '';
+					}
+				} else {
+					this.textpwd1 = '密码格式错误';
+				}
+			} else {
+				this.textpwd1 = '密码不能为空';
+			}
+			return this.textpwd1;
+        },
+        "pwd2":function(){
+            if(this.pwd1 === this.pwd2) {
+                this.textpwd2 = '';
+            }else {
+                this.textpwd2 = '两次密码不相同';
+            }
+            return this.textpwd2;
+        }
+    },
+    methods: {
+        regist(){
+            //当提示信息为空时，发起请求注册，注册成功后跳转到登录子路由
+            if(this.textuser === '' && this.textpwd1 === '' && this.textpwd2 === ''){
+                this.$http.post('/regist',{
+                    username:this.user,
+                    password:this.pwd1
+                }).then(res => {
+                    // this.$router.router.push()
+                    console.log(res.data);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        }
+    },
+}
+</script>
+<style scoped>
+    .el-input {
+        width: 300px;
+        height: 50px;
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+    .pwd-oper {
+        width: 500px;
+        display: flex;
+        justify-content: space-around;
+        margin: 5px auto;
+    }
+    .login {
+        width: 500px;
+        box-shadow: 0,0 0 6px rgba(0, 0, 0, .04),0 2px 4px rgba(0, 0, 0, .12);
+        border-radius: 4px;
+        /* margin: -20px auto; */
+    }
+    p {
+        font-size: 10px;
+        color: lightgray;
+        margin-bottom: 5px;
+    }
+</style>
