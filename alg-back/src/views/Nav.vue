@@ -16,67 +16,91 @@
           <span>注销</span>
         </div>
       </div>
-      <!-- 头部结束 -->
-      <!-- 核心区开始 -->
-      <div class="main">
-        <div class="main-boxs"></div>
-      </div>
-      <!-- 核心区结束 -->
     </div>
+    <!-- 头部结束 -->
     <!-- 侧边开始 -->
     <div>
       <div class="nav-left">
+        <!-- 导航栏头部logo -->
         <div class="head-logo">
           <img src="../assets/img/logo.png" alt="#" />
           <span class="span-one">A&LG</span>
           <span class="span-two">后台管理系统</span>
           <i class="el-icon-caret-left"></i>
         </div>
-        <!-- :cmessage="isClick" :clickli="value" -->
+        <!-- 导航栏操作列表 -->
         <div class="list">
-          <el-collapse v-model="activeName" accordion @change="handleChange">
-            <el-collapse-item name="1" :soncotent="pname" id="">
-              <template slot="title">
-                <i class="header-icon el-icon-s-home">后台主页</i>
-              </template>
-              <pulldownboult ></pulldownboult>
-            </el-collapse-item>
-            <el-collapse-item name="2">
-              <template slot="title">
-                <i class="header-icon el-icon-s-order">订单管理</i>
-              </template>
-            </el-collapse-item>
-            <el-collapse-item name="3">
-              <template slot="title">
-                <i class="header-icon el-icon-s-goods">商品管理</i>
-              </template>
-            </el-collapse-item>
-            <el-collapse-item name="4">
-              <template slot="title">
-                <i class="header-icon el-icon-s-data">库存管理</i>
-              </template>
-            </el-collapse-item>
-            <el-collapse-item name="5">
-              <template slot="title">
-                <i class="header-icon el-icon-picture">界面管理</i>
-              </template>
-            </el-collapse-item>
-            <el-collapse-item name="6">
-              <template slot="title">
-                <i class="header-icon el-icon-menu">用户信息管理</i>
-              </template>
-            </el-collapse-item>
-          </el-collapse>
+          <el-col :span="12">
+            <el-menu
+              default-active="2"
+              class="el-menu-vertical-demo"
+              @open="handleOpen"
+              @close="handleClose"
+              @select="handClick"
+              background-color="#1c1c1c"
+              text-color="#c2c2c2"
+              active-text-color="#ffd04b"
+            >
+              <!-- 后台主页 -->
+              <el-menu-item index="1">
+                <i class="el-icon-s-home"></i>
+                <span slot="title">后台主页</span>
+              </el-menu-item>
+              <!-- 订单管理 -->
+              <el-menu-item index="2">
+                <i class="el-icon-s-order"></i>
+                <span slot="title">订单管理</span>
+              </el-menu-item>
+              <!-- 商品管理 -->
+              <el-submenu index="3">
+                <template slot="title">
+                  <i class="el-icon-s-goods"></i>
+                  <span>商品管理</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="3-1">新增商品</el-menu-item>
+                  <el-menu-item index="3-2">狗狗商品</el-menu-item>
+                  <el-menu-item index="3-3">猫猫商品</el-menu-item>
+                  <el-menu-item index="3-4">奇趣小宠</el-menu-item>
+                  <el-menu-item index="3-5">水族市场</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <!-- 库存管理 -->
+              <el-menu-item index="4">
+                <i class="el-icon-s-data"></i>
+                <span slot="title">库存管理</span>
+              </el-menu-item>
+              <!-- 界面管理 -->
+              <el-submenu index="5">
+                <template slot="title">
+                  <i class="el-icon-picture"></i>
+                  <span>界面管理</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="5-1">修改百科</el-menu-item>
+                  <el-menu-item index="5-2">新增百科</el-menu-item>
+                  <el-menu-item index="5-3">修改图片</el-menu-item>
+                  <el-menu-item index="5-4">上传图片</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <!-- 用户信息管理 -->
+              <el-menu-item index="6">
+                <i class="el-icon-menu"></i>
+                <span slot="title">用户信息管理</span>
+              </el-menu-item>
+            </el-menu>
+          </el-col>
         </div>
       </div>
       <!-- 侧边结束 -->
     </div>
+    <!-- 侧边开始 -->
   </div>
 </template>
 
 <script>
-import pulldown from "../components/common/pullDown";
-import pulldownboult from "../components/common/pullDownBoult";
+// 引入中央控制总线
+import bus from "../assets/js/bus";
 
 export default {
   data() {
@@ -86,27 +110,54 @@ export default {
       //将e.target.innerHTML传给子组件
       value: "",
       activeName: "1",
-      pname: "",
+      soncotent: "",
+      // 点击的index初始值
+      clickIndex: { f: "", s: "" },
     };
   },
   methods: {
     // 获取点击的activeName
     handleChange(val) {
       console.log(val);
-      this.pname = val;
-      console.log(this.pname);
+      if (val) {
+        this.soncotent = val;
+        console.log(this.soncotent);
+      }
+    }, //点击事件 将点击的值赋给clickIndex
+    handClick(key, keyPath) {
+      if (
+        key == "1" ||
+        key == "2" ||
+        key == "3" ||
+        key == "4" ||
+        key == "5" ||
+        key == "6"
+      ) {
+        this.clickIndex.f = key;
+      } else {
+        this.clickIndex.s = key;        
+      }
+      this.passClickIndex(this.clickIndex);      
+      // console.log(this.clickIndex.f,this.clickIndex.s)
     },
-    hand() {
-      console.log(1);
+    //展开事件 // 将点击的值赋给clickIndex
+    handleOpen(index, keyPath) {
+      this.clickIndex.f = index;
+      this.passClickIndex(this.clickIndex);  
+      //  console.log(this.clickIndex.f,this.clickIndex.s)
+    },
+    //关闭事件  将点击的值赋给clickIndex
+    handleClose(index) {
+      this.clickIndex.f = index;
+      this.passClickIndex(this.clickIndex);  
+      // console.log(this.clickIndex.f,this.clickIndex.s)
+    },
+    passClickIndex(index) {
+      bus.$emit("passClickIndex", this.clickIndex);
     },
   },
   // 注册子组件
-  components: {
-    pulldown,
-    pulldownboult: {
-      props: ["soncotent"],
-    },
-  },
+  components: {},
 };
 </script>
 
@@ -193,44 +244,26 @@ export default {
   color: #c2c2c2;
 }
 
-/* 修改样式 */
-.el-collapse-item__header {
-  background-color: #1c1c1c !important;
-  border-bottom: 1px solid #2c3441 !important;
-  color: #c2c2c2 !important;
-  font-size: 16px !important;
-  padding-left: 20px;
+/* 修改模版样式 */
+
+.el-menu-vertical-demo {
+  width: 250px;
+  height: 100%;
 }
-.el-collapse-item__content {
-  background-color: #1c1c1c !important;
+.el-submenu,
+.el-menu-item {
   border-bottom: 1px solid #2c3441 !important;
+}
+.el-menu-vertical-demo :hover {
+  background-color: rgb(71, 76, 92) !important;
+}
+.el-menu-item-group__title {
+  padding-top: 0px !important;
 }
 /* 设置鼠标滑过，加左边框效果 */
-.el-collapse-item :hover {
+/* .el-menu-vertical-demo li :hover {
   border-left: 8px solid #15a848;
   transition: all 0.3s linear;
   background-color: rgb(71, 76, 92);
-}
-.el-icon-arrow-right :hover {
-  border-left: 0px solid #15a848;
-  transition: all 0.3s linear;
-  background-color: #2c3441;
-}
-/* 设置主要内容区排版 */
-.main {
-  background-color: #fff;
-  height: 100%;
-  width: 100%;
-  top: 60px;
-  position: relative;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-.main-boxs {
-  width: 100%;
-  position: absolute;
-  border-top: 1px solid #eee;
-  left: 250px;
-  padding: 10px;
-}
+} */
 </style>
