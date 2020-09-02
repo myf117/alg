@@ -12,6 +12,7 @@
         </div>
         <el-row>
             <el-button type="primary" @click="login">登录</el-button>
+            <el-button type="primary" @click="toHome">返回主页</el-button>
         </el-row>
     </div>
 </template>
@@ -26,6 +27,10 @@
             }
         },
         methods: {
+            //返回主页
+            toHome(){
+                this.$router.push("/");
+            },
             //当输入后，发起请求登录，登录成功后去到某个界面
             login(){
                 if(this.user !== '' && this.pwd !== ''){
@@ -41,7 +46,8 @@
                             this.cookie.setCookie('pwd',this.pwd);
                             // this.cookie.setCookie('user_id',res.data[0].id);
                         }
-                        this.$router.push('/shopcart');
+                        // this.$router.push('/shopcart');
+                        this.$router.go(-1);
                     }).catch(err => {
                         console.log(err);
                     })

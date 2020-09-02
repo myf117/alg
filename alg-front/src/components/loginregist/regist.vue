@@ -8,7 +8,8 @@
         确认：<el-input placeholder="请再次输入密码" v-model="pwd2" show-password></el-input><br>
         <p>{{textpwd2}}</p>
         <el-row>
-            <el-button type="primary" @click="regist">注册</el-button>
+            <el-button type="primary" @click="regist" class="button">注册</el-button>
+            <el-button type="primary" @click="toHome" class="button">返回主页</el-button>
         </el-row>
     </div>
 </template>
@@ -69,6 +70,10 @@ export default {
         }
     },
     methods: {
+        //返回主页
+        toHome(){
+            this.$router.push("/");
+        },
         regist(){
             //当提示信息为空时，发起请求注册，注册成功后跳转到登录子路由
             if(this.textuser === '' && this.textpwd1 === '' && this.textpwd2 === ''){
@@ -109,5 +114,8 @@ export default {
         font-size: 10px;
         color: lightgray;
         margin-bottom: 5px;
+    }
+    .el-button {
+        color: #ffffff;
     }
 </style>

@@ -98,9 +98,9 @@
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-onerror@2.1.0@egg-onerror\\config\\locales",
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-i18n@2.1.1@egg-i18n\\config\\locales",
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-watcher@3.1.1@egg-watcher\\config\\locales",
-        "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-schedule@3.6.4@egg-schedule\\config\\locales",
+        "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-schedule@3.6.5@egg-schedule\\config\\locales",
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-multipart@2.10.3@egg-multipart\\config\\locales",
-        "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-development@2.6.0@egg-development\\config\\locales",
+        "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-development@2.7.0@egg-development\\config\\locales",
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-logrotator@3.1.0@egg-logrotator\\config\\locales",
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-static@2.2.0@egg-static\\config\\locales",
         "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-view@2.1.2@egg-view\\config\\locales",
@@ -154,7 +154,8 @@
       "ignoreDirs": [],
       "fastReady": false,
       "reloadOnDebug": true,
-      "overrideDefault": false
+      "overrideDefault": false,
+      "overrideIgnore": false
     },
     "logrotator": {
       "filesRotateByHour": null,
@@ -325,7 +326,7 @@
       "listen": {
         "path": "",
         "port": 8001,
-        "hostname": "localhost"
+        "hostname": "192.168.6.24"
       }
     },
     "clusterClient": {
@@ -430,8 +431,8 @@
       "optionalDependencies": [],
       "env": [],
       "from": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg@2.27.0@egg\\config\\plugin.js",
-      "path": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-schedule@3.6.4@egg-schedule",
-      "version": "3.6.4"
+      "path": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-schedule@3.6.5@egg-schedule",
+      "version": "3.6.5"
     },
     "multipart": {
       "enable": true,
@@ -458,8 +459,8 @@
         "local"
       ],
       "from": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg@2.27.0@egg\\config\\plugin.js",
-      "path": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-development@2.6.0@egg-development",
-      "version": "2.6.0"
+      "path": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\node_modules\\_egg-development@2.7.0@egg-development",
+      "version": "2.7.0"
     },
     "logrotator": {
       "enable": true,

@@ -12,5 +12,6 @@ class userController extends Controller {
         let result = await this.ctx.service.userService.regist(username,password);
         this.ctx.response.body = result;
     }
+
 }
 module.exports = userController;

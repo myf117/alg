@@ -1,8 +1,39 @@
 module.exports = app => {
     const {router, controller} = app;
+    //登录
     router.post('/login',controller.userController.login);
+    //注册
     router.post('/regist',controller.userController.regist);
+    //请求购物车数据
     router.get('/showlist',controller.shopCartController.showList);
+    //从购物车更改商品数量
     router.get('/shopcount',controller.shopCartController.shopCount);
+    //删除选中商品
     router.get('/delshoplist',controller.shopCartController.delShopList);
+    //
+    // router.get('/delshoplist',controller.shopCartController.delShopList);
+    //加入购物车
+    router.get('/addToCart',controller.shopCartController.addToCart);
+    //提交订单
+    router.post('/addToOrder',controller.shopCartController.addToOrder);
+    //上传文件
+    router.post('/uploadFile',controller.adminController.upFile);
+    //管理员添加商品
+    router.post('/uploadProduct',controller.adminController.uploadProduct);
+    //根据类别显示商品
+    router.get('/showClassProduct',controller.shoppingController.showClassProduct);
+    //搜索商品
+    router.get('/getAllProduct',controller.shoppingController.getAllProduct);
+    //首页导航栏底部获取商品信息
+    router.get('/getproduct',controller.shoppingController.getproduct);
+    //首页获取轮播图
+    router.get('/getlunbo',controller.shoppingController.getlunbo);
+    //管理员获取全部商品信息
+    router.get('/adminGetProduct',controller.adminController.adminGetProduct);
+    //管理员获取全部订单信息
+    router.get('/getAllOrder',controller.adminController.getAllOrder);
+    //管理员上传轮播图图片
+    router.post('/uplunbo',controller.adminController.uplunbo);
+    //根据类别获取百科信息
+    router.get('/getClassBaike',controller.baikeController.getClassBaike);
 }

@@ -12,12 +12,11 @@
             type="selection"
             width="55">
             </el-table-column>
-            <!-- <el-table-column
-            label="图片"
-            width="120"
-            height="150">
-            <img :src="img_url">
-            </el-table-column> -->
+            <el-table-column label="商品图片">
+            　　<template slot-scope="scope">
+            　　　　<img :src="scope.row.img_url" width="60" height="60" class="head_pic"/>
+            　　</template>
+            </el-table-column>
             <el-table-column
             label="商品名称"
             prop="product_name"
@@ -132,9 +131,35 @@ export default {
             selected.forEach(item => {
                 this.sum = this.sum + item.price * item.count;
             });
+            this.sum = parseFloat(this.sum).toFixed(2);
         },
             //提交订单
-        submitMenu(){},
+        submitMenu(){
+            if(this.multipleSelection.length){
+                for(let i = 0; i < this.multipleSelection.length; i++){
+                    this.$http.post('/addToOrder',{
+                            user:this.cookie.getCookie('user'),
+                            product_name:this.multipleSelection[i].product_name,
+                            total:parseFloat(this.sum),
+                            count:this.multipleSelection[i].count
+                    }).then(res => {
+                        console.log(res.data);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            }else {
+                this.$alert('您还未选择商品', '提示', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                        this.$message({
+                            type: 'info',
+                            message: `确定`
+                        });
+                    }
+                });
+            }
+        },
          //全选或选中某行
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -186,12 +211,12 @@ export default {
             const sums = [];
             columns.forEach((column,index) => {
                 if(index === 0){
-                    sums[index] = '总价';
+                    sums[index] = '商品数量';
                     return;
                 }
                 const values = data.map(item => Number(item[column.property]));
-                //计算购物车商品数量以及购物车所有商品总价
-                if (column.property === 'count' || column.property === 'price') {
+                //计算购物车商品数量
+                if (column.property === 'count') {
                     sums[index] = values.reduce((prev, curr) => {
                         const value = Number(curr);
                         if (!isNaN(value)) {
@@ -238,7 +263,11 @@ export default {
         margin: 0 10px;
     }
     #shop-table {
-        margin-bottom: 10px;
+        width: 800px;
+        margin: 10px auto;
+    }
+    tr:first-child {
+        width: 100px !important;
     }
     
 </style>

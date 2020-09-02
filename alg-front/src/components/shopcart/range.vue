@@ -12,7 +12,7 @@
 </script>
 <style scoped>
     .range {
-        width: 800px;
+        width: 700px;
         background-color: #ffffff;
     }
 </style>

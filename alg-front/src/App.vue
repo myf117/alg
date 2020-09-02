@@ -1,16 +1,28 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/shopcart">shopcart</router-link> |
-      <router-link to="/loginregist">登录&注册</router-link>
-    </div>
+      <router-link to="/loginregist">登录&注册</router-link> |
+      <router-link to="/dog">狗狗</router-link>|
+      <router-link to="/cat">猫咪</router-link>|
+      <router-link to="/mini">小宠</router-link>|
+      <router-link to="/water">水族</router-link>
+    </div> -->
     <router-view/>
   </div>
 </template>
+<script>
 
+export default {
+  components:{
+
+  }
+}
+</script>
 <style lang="scss">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
