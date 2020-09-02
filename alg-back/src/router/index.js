@@ -1,29 +1,82 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
-import Nav from '../views/Nav.vue';
-import offside from '../views/offside.vue';
+import mainpage from '../views/mainpage';
+import homepage from "../components/commodity/homepage";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-  const routes = [
+const routes = [
+  // 根路由
   {
     path: '/',
-    name: 'Nav',
-    component: Nav
+    name: 'mainpage',
+    redirect:"/homepage",
+    component: mainpage,
+    children: [
+      // 后台主页路由
+      {
+        path: '/homepage',
+        name: 'homepage',
+        component: homepage
+      },
+      {
+        // 订单管理路由
+        path: 'orderManagement',
+        // 设置路由的懒加载
+        component: () => import('../components/commodity/orderManagement')
+      },
+      {
+        // 添加商品路由
+        path: 'newlyIncreased',
+        // 设置路由的懒加载
+        component: () => import('../components/commodity/newlyIncreased')
+      },
+      {
+        // 修改商品路由
+        path: 'modifyProduct',
+        // 设置路由的懒加载 modifyProduct
+        component: () => import('../components/commodity/modifyProduct')
+      },
+      {
+        // 库存管理路由 inventoryManagement
+        path: 'inventoryManagement',
+        // 设置路由的懒加载 
+        component: () => import('../components/commodity/inventoryManagement')
+      },
+      {
+        // 修改宠物百科路由 petEncyclopedia
+        path: 'petEncyclopedia',
+        // 设置路由的懒加载
+        component: () => import('../components/commodity/petEncyclopedia')
+      },
+      {
+        // 上传宠物百科路由
+        path: 'modifyEncyclopedia',
+        // 设置路由的懒加载 modifyEncyclopedia
+        component: () => import('../components/commodity/modifyEncyclopedia')
+      },
+      {
+        // 图片修改路由 editPicture
+        path: 'editPicture',
+        // 设置路由的懒加载
+        component: () => import('../components/commodity/editPicture')
+      },
+      {
+        // 上传图片路由 uploadImage
+        path: 'uploadImage',
+        // 设置路由的懒加载
+        component: () => import('../components/commodity/uploadImage')
+      },
+      {
+        // 用户信息管理路由 userInfo
+        path: 'userInfo',
+        // 设置路由的懒加载
+        component: () => import('../components/commodity/userInfo')
+      }
+    ]
+
   },
-  {
-    path: '/offside',
-    name: 'offside',
-    component: offside 
-  }
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+
 ]
 
 const router = new VueRouter({

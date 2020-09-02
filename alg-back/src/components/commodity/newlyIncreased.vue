@@ -1,0 +1,268 @@
+<template>
+  <div>
+    <!-- title 开始-->
+    <div class="new-titel">
+      <span>
+        <i class="el-icon-s-platform"></i> 添加商品
+      </span>
+    </div>
+    <!-- title 结束-->
+    <!-- connect 开始-->
+    <div class="new-connent">
+      <form action>
+        <!-- 商品名称 -->
+        <div class="theFrist">
+          <label class="theFrist-ch">商品名称</label>
+          <input type="text" class="theFrist-input" v-model="pdName" />
+        </div>
+        <!-- 价格 -->
+        <div class="theFrist">
+          <label class="theFrist-ch">商品价格</label>
+          <!-- onkeyup="value=value.replace(/[^\d.]/g,'')" 限定输入框输入的数据，只能为整数或小数 -->
+          <input
+            type="text"
+            class="theFrist-input"
+            onkeyup="value=value.replace(/[^\d.]/g,'')"
+            v-model="pdPrice"
+          />
+        </div>
+        <!-- 描述 -->
+        <div class="theFrist">
+          <label class="theFrist-ch">商品描述</label>
+          <input type="text" class="theFrist-input" style="height:100px" v-model="discription" />
+        </div>
+        <!-- 图片上传 -->
+        <div class="theSecond">
+          <label class="theFrist-ch">图片上传</label>
+          <!-- :auto-upload="false" 取消自动上传 -->
+          <!-- :http-request="upLoadFile" 自定义上传方式 -->
+          <!-- :limit="Number(1)"限制上传数量 -->
+          <!-- action="http://192.168.6.24:8001/uploadFile" 后端请求地址 -->
+          <el-upload
+            class="upload-demo"
+            drag
+            action="http://192.168.6.24:8001/uploadFile"
+            multiple
+            :on-success="uploadSuccess"
+            :limit="Number(1)"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将图片拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/png图片，且不超过500kb</div>
+          </el-upload>
+        </div>
+        <classify class="theThirdly"  :res="res" ></classify>
+        <div class="theFourthly">
+          <button class="submitBut" @click="submit">立即提交</button>
+          <button class="resetBut" @click="resetBut">重置</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+    </div>
+    <!-- connect 开始-->
+  </div>
+</template>
+<script >
+import classify from "../common/classify"
+export default {
+  data() {
+    return {
+      //输入框初始化数据 获取输入框值
+      pdName: "", //商品名称
+      pdPrice: "", //商品价格
+      imgUrl: "", //图片地址
+      firstClass: "狗狗商品", //一级分类
+      secondClass: "主粮", //二级分类
+      discription: "",
+      hint: "",  
+      res:false
+    };
+  },
+  methods: {    
+    // 上传成功将图片地址存起来
+    uploadSuccess(response) {
+      this.imgUrl = response;
+      console.log(this.imgUrl);
+    },
+    // 上传失败
+    upLoadFile(file) {
+      console.log("上传失败");
+    },
+    //点击提交
+    submit() {
+      // 当输入框不为空时，发起请求
+      if (
+        this.pdName !== "" &&
+        this.pdPrice !== "" &&
+        this.discription !== "" &&
+        this.imgUrl !== "" &&
+        this.firstClass !== "" &&
+        this.secondClass !== ""
+      ) {
+        // 发起请求，将数据传到后端
+        this.$http
+          .post("/uploadProduct", {
+            product_name: this.pdName,
+            price: this.pdPrice,
+            img_url: this.imgUrl,
+            firstClass: this.firstClass,
+            secondClass: this.secondClass,
+            discription: this.discription,
+          })
+          .then((r) => {
+            this.reset();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } else {
+        if (this.pdName == "") {
+          this.hint = "商品名称不能为空";
+        } else if (this.pdPrice == "") {
+          this.hint = "价格不能为空";
+        } else if (this.discription == "") {
+          this.hint = "商品描述不能为空";
+        } else if (this.imgUrl == "") {
+          this.hint = "请上传图片";
+        }
+        // 输入框为空则弹出提示框
+        this.$alert(this.hint, "提示", {
+          confirmButtonText: "确定",
+        });
+      }
+    },
+    // 设置清空
+    reset: function () {
+      this.pdName = "";
+      this.pdPrice = "";
+      this.discription = "";
+      this.imgUrl = "";
+      this.res=true 
+    },
+    // 点击重置按钮
+    resetBut() {      
+      this.reset();
+      // console.log(this.res)
+    },
+  },
+  components:{
+    classify
+  }
+};
+</script>
+<style >
+/* 设置titel */
+.new-titel {
+  width: 100%;
+  height: 40px;
+  background-color: #eee;
+}
+.new-titel span {
+  display: block;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: #fff;
+}
+/* 设置new-connent */
+.new-connent {
+  position: relative;
+  width: 875px;
+  top: 0px;
+  left: 0px;
+  margin: 10px;
+}
+.theFrist {
+  display: flex;
+  justify-content: left;
+  height: 40px;
+  margin-bottom: 15px;
+}
+.theFrist-ch {
+  display: block;
+  width: 130px;
+  height: 40px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: right;
+  padding: 9px 15px;
+}
+.theFrist-input {
+  outline: none;
+  padding-left: 10px;
+  height: 38px;
+  width: 740px;
+  line-height: 38px;
+  border-width: 1px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 3px;
+}
+/* 图片上传 */
+.theSecond {
+  position: relative;
+  top: 61px;
+  height: 40px;
+}
+.upload-demo {
+  position: absolute;
+  top: 0px;
+  left: 154px;
+}
+/* 将图片上传框的图标设置为绿色 */
+.el-icon-upload {
+  color: #009688 !important;
+}
+/* 商品分类 */
+.classify {
+  position: absolute;
+  top: 15px;
+  left: 154px;
+}
+.theThirdly {
+  position: relative;
+  top: 260px;
+  height: 40px;
+}
+
+.secondLevel {
+  position: absolute;
+  top: 15px;
+  left: 388px;
+}
+/* 重置和提交按钮 */
+.theFourthly {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  top: 305px;
+  left: 154px;
+}
+.theFourthly button {
+  display: inline-block;
+  line-height: 1;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #fff;
+  background-color: #409eff;
+  text-align: center;
+  box-sizing: border-box;
+  font-weight: 500;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-right: 65px;
+  outline: none;
+}
+.theFourthly .resetBut {
+  background-color: #eee;
+  color: #000;
+  outline: none;
+}
+</style>

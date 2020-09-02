@@ -8,7 +8,7 @@ import axios from 'axios';
 
 //定义全局的axios
 Vue.prototype.$http = axios;
-// axios.defaults.baseURL = 'localhost:7001';
+axios.defaults.baseURL = 'http://192.168.6.24:8001';
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
