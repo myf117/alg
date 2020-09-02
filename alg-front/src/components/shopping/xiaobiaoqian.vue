@@ -1,9 +1,9 @@
 <template>
     <div class="divone">
         <!-- //登录 -->
-        <a href="#" @click="tologin" class="a">登录</a>
+        <a href="#"  class="a">登录</a>
         <span>|</span>
-        <a href="#" style="margin-left:15px" @click="toregist" class="a">注册</a>
+        <a href="#" style="margin-left:15px" class="a">注册</a>
         <span>|</span>
         <div class="weibo" >
             <div ></div>
@@ -34,34 +34,41 @@
 let pp=document.getElementsByClassName("tubiao1")
 export default {
     methods:{
-        tologin(){
+        checkUser(){
+            let a = document.getElementsByClassName('a');
             if(this.cookie.getCookie('user')){
-                let a = document.getElementsByClassName('a');
                 a[0].innerHTML = this.cookie.getCookie('user');
                 a[1].innerHTML = '退出';
-                a[1].onclick = function(){
+                a[1].onclick = ()=>{
                     this.$router.push('/loginregist/login');
                 }
-                this.$router.push('/mypage')
+                a[0].onclick = ()=>{
+                    this.$router.push('/mypage');
+                }
             }else {
-                this.$router.push('/loginregist/login');
-            }
-            
-        },
-        toregist(){
-            if(!this.cookie.getCookie('user')){
-                this.$router.push('loginregist/regist');
+                a[0].innerHTML = '登录';
+                a[1].innerHTML = '注册';
+                a[0].onclick = ()=>{
+                    this.$router.push('/loginregist/login');
+                }
+                a[1].onclick = ()=>{
+                    this.$router.push('/loginregist/regist');
+                }
             }
         }
-    }
+    },
+    mounted() {
+        this.checkUser()
+    },
 }
 </script>
 <style>
     .divone{
         display: inline-block;
+        height:40px;
     }
 
-    .a{
+    .a{ 
         font:14px/14px "Microsoft YaHei";
         color: black;
         margin:0 13px;
@@ -98,24 +105,32 @@ export default {
         background-position: -71px 0;
     }
     .weibo .tubiao1 img,.weixin .tubiao2 img,.phone .tubiao3 img{
-        width: 50px;
-        height: 50px;
-        padding:20px;
+        width: 40px;
+        height: 40px;
+        margin-top:10px;
+        
     }
     .weibo .tubiao1,.weixin .tubiao2,.phone .tubiao3{
         margin:0;
         padding:0;
         border:1px solid #DDDDDD;
         border-top: 1px solid white;
-        width:90px;
-        height: 90px;
+        width:73px;
+        height: 69px;
         position: absolute;
         top:34px;
         right:-1px;
         display: none;
     }
+    .phone .tubiao3{
+        right:-1px;
+    }
+    .weibo:hover,.weixin:hover,.phone:hover{
+         cursor: pointer;
+    }
     .weibo:hover .tubiao1{
         display: inline-block;
+       
     }
     .weixin:hover .tubiao2{
         display: inline-block;

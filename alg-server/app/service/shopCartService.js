@@ -23,7 +23,7 @@ class shopCartService extends Service{
         return list;
     }
     //加入购物车
-    async addToCart(id,user){
+    async addToCart(id,user,count){
         let sql = 'select id from user where username=?';
         let result = await this.ctx.app.mysql.query(sql,[user]);
         let user_id = result[0].id;
@@ -32,25 +32,27 @@ class shopCartService extends Service{
         let product_name = result[0].product_name;
         let price = result[0].price;
         let img_url = result[0].img_url;
+        count = Number(count);
         sql = 'select * from shopcart where user_id=? and product_name=?';
         let list = await this.ctx.app.mysql.query(sql,[user_id,product_name]);
         if(list.length){
             sql = 'update shopcart set count=? where user_id=? and product_name=?';
-            list = await this.ctx.app.mysql.query(sql,[list[0].count + 1,user_id,product_name]);
+            list = await this.ctx.app.mysql.query(sql,[list[0].count + count,user_id,product_name]);
             return list;
         }else {
             sql = 'insert into shopcart(product_name,price,count,img_url,user_id) values(?,?,?,?,?)';
-            list = await this.ctx.app.mysql.query(sql,[product_name,price,1,img_url,user_id]);
+            list = await this.ctx.app.mysql.query(sql,[product_name,price,count,img_url,user_id]);
             return list;
         }
     }
     //提交订单
-    async addToOrder(user,product_name,total,count){
-        let sql = 'select id from user where username=?';
-        let list = await this.ctx.app.mysql.query(sql,[user]);
-        console.log(typeof product_name,typeof count);
-        sql = 'insert into order(user_id,product_name,count,total,isresolve) values(?,?,?,?,1)';
-        list = await this.ctx.app.mysql.query(sql,[list[0].id,product_name,count,total]);
+    async addToOrder(uname,pname,total,count,otime,oid,address,phone){
+        phone = `${phone}`;
+        let sql = 'insert into orderp(oid,otime,address,phone,uname,pname,count,total,resolve) values(?,?,?,?,?,?,?,?,?)';
+        let list = await this.ctx.app.mysql.query(sql,[oid,otime,address,phone,uname,pname,count,total,'未处理']);
+        //订单添加数据库成功后，将购物车对应的商品删除掉
+        sql = 'delete from shopcart where product_name = ?';
+        list = await this.ctx.app.mysql.query(sql,[pname]);
         return list;
     }
 }

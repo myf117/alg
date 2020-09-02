@@ -2,7 +2,7 @@
   <div>
     <div class="daohanglan">
       <div class="img">
-        <img class="img1" src="../assets/logoll.png" alt />
+        <img class="img1" src="../assets/logoll.png" @click="toHome" />
       </div>
       <el-tabs @tab-click="checked" type="border-card">
         <el-tab-pane name="myzhuye">
@@ -50,6 +50,9 @@ export default {
     };
   },
   methods: {
+    toHome(){
+      this.$router.push('/');
+    },
     checked(tab, event) {
       console.log(tab.name);
       if (tab.name == "myzhuye") {

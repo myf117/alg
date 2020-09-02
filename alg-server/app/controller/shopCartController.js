@@ -21,15 +21,20 @@ class shopCartController extends Controller{
     async addToCart(){
         let id = this.ctx.request.query.id;
         let user = this.ctx.request.query.user;
-        let result = await this.ctx.service.shopCartService.addToCart(id,user);
+        let count = this.ctx.request.query.count;
+        let result = await this.ctx.service.shopCartService.addToCart(id,user,count);
         this.ctx.response.body = result;
     }
     async addToOrder(){
-        let user = this.ctx.request.body.user;
-        let product_name = this.ctx.request.body.product_name;
+        let uname = this.ctx.request.body.uname;
+        let pname = this.ctx.request.body.pname;
         let total = this.ctx.request.body.total;
         let count = this.ctx.request.body.count;
-        let result = await this.ctx.service.shopCartService.addToOrder(user,product_name,total,count);
+        let otime = this.ctx.request.body.otime;
+        let oid = this.ctx.request.body.oid;
+        let address = this.ctx.request.body.address;
+        let phone = this.ctx.request.body.phone;
+        let result = await this.ctx.service.shopCartService.addToOrder(uname,pname,total,count,otime,oid,address,phone);
         this.ctx.response.body = result;
     }
 }

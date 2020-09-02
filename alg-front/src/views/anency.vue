@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		<div class="e-dog-2">
-			<baike></baike>
+			<baikejieshaocat></baikejieshaocat>
 		</div>
 		<div class="e-dog2">
 			<div class="eba2"></div>
@@ -28,9 +28,11 @@
 		</div>
 		</div>
 		<div class="e-dog-3">
-			<baike></baike>
+			<baikexiaochong></baikexiaochong>
 		</div>
+		<div style="background-color: #F3F3F3;height: 300px;padding: 80px 50px;">
 		<bottom></bottom>
+		</div>
 	</div>
 </template>
 
@@ -41,6 +43,8 @@
 	import hot  from "../components/anency/hot";
 	import baike  from "../components/anency/baikejieshao";
 	import bottom  from "./bottom.vue";
+    import baikejieshaocat  from "../components/anency/baikejieshaocat.vue";
+	import baikexiaochong  from "../components/anency/baikexiaochong.vue";
 	export default{
 		components:{
 			top:top,
@@ -48,7 +52,9 @@
 			lunbo:lunbo,
 			hot:hot,
 			baike:baike,
-			bottom:bottom
+			bottom:bottom,
+			baikejieshaocat:baikejieshaocat,
+			baikexiaochong:baikexiaochong
 		}
 	}
 </script>
@@ -85,7 +91,7 @@
 		margin: 0 auto;
 		margin-top: 10px;
 		height: 370px;
-		border: 1px solid #CC99CC;
+		/* border: 1px solid #CC99CC; */
 	}
 	.e-dog1{
 		width: 1200px;

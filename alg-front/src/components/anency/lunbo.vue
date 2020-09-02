@@ -3,8 +3,8 @@
 		<div class="box1">
 			<div class="block">
 			    <el-carousel trigger="click" height="360px">
-			      <el-carousel-item v-for="item in 4" :key="item">
-			        <h3 class="small">{{ item }}</h3>
+			      <el-carousel-item v-for="item in mainimg" :key="item.id">
+			       <img :src="item.img" style="width: 880px;height: 360px;">
 			      </el-carousel-item>
 			    </el-carousel>
 			  </div>
@@ -33,6 +33,12 @@
 					{id:2,img:require("../../assets/img/cart.png"),content:"宠物饲养",content1:"在这里，我们用安全伴他成长"},
 					{id:3,img:require("../../assets/img/message.png"),content:"宠物交流",content1:"在这里，我们用鼓励陪它同行"},
 					{id:4,img:require("../../assets/img/hosptal.png"),content:"宠物医疗",content1:"在这里，我们用呵护保他健康"}
+				],
+				mainimg:[
+					{id:1,img:require("../../assets/img/main.jpg")},
+					{id:2,img:require("../../assets/img/main1.jpg")},
+					{id:3,img:require("../../assets/img/main3.jpg")},
+					{id:4,img:require("../../assets/img/main4.jpg")}
 				]
 			}
 		}

@@ -44,15 +44,33 @@ Vue.use(VueRouter)
         path: 'water',
         name: 'water',
         component: () => import('../views/Water.vue')
+      },
+      {
+        path:'/gouwu',
+        component: () => import( '../views/gouwu.vue')
       }
 
   ]},
   {
     path: '/shopcart',
     name: 'shopcart',
-    component: () => import('../views/shopcart.vue')
-  }
-  ,
+    component: () => import('../views/shopcart.vue'),
+    redirect:'/shopcart/carttable',
+    children:[
+      {
+        path:'order',
+        name:'order',
+        component:() => import('../components/shopcart/order.vue')
+      },
+      {
+        path:'carttable',
+        name:'carttable',
+        component:() => import('../components/shopcart/shoptable.vue')
+      }
+    ]
+  },
+  
+  
   {
     path: '/loginregist',
     name: 'loginregist',
@@ -73,6 +91,7 @@ Vue.use(VueRouter)
     path: '/mypage',
     name: 'Mypage',
     component: () => import('../views/Mypage.vue'),
+    redirect:'/mypage/zhuye',
     children:[
       {
         path: 'zhuye',
@@ -86,15 +105,17 @@ Vue.use(VueRouter)
         path: 'productall',
         name: 'Productall',
         component: () => import( '../components/usercenter/productall.vue')
+      },
+      {
+        path: 'gerenziliao',
+        name: 'Gerenziliao',
+        component: () => import( '../components/usercenter/gerenziliao.vue')
       }
 
     ]
-  },
-  {
-    path: '/gerenziliao',
-    name: 'Gerenziliao',
-    component: () => import( '../components/usercenter/gerenziliao.vue')
   }
+  
+  
   
 ]
 

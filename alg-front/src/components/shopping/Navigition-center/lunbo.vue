@@ -1,7 +1,7 @@
 <template>
 
-   <div class="block">
-    <el-carousel height="360px">
+   <div class="myblock" style="width:100%">
+    <el-carousel  height="360px">
       <el-carousel-item v-for="item in newArray" :key="item.name">
         <h3 class="small"><img id="lunbolarge" :src=item.src ></h3>
       </el-carousel-item>

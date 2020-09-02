@@ -1,16 +1,18 @@
 <template>
-    <div class="search">
+    <div class="mysearch">
         <div class="center">
             <input type="text" placeholder="素力高" id="input">
         <button type="button" id="button">搜索</button>
         </div>
         <div class="bottom">
-            <span>热门搜索：</span>
+            <span class="searchsss">热门搜索：</span>
             <a href="#" style="margin-left:20px">主粮</a>
             <a href="#" style="margin-left:20px">零食</a>
             <a href="#" style="margin-left:20px">保健</a>
             <a href="#" style="margin-left:20px">猫砂</a>
             <a href="#" style="margin-left:20px">玩具</a>
+          
+            
         </div>
     </div>
 </template>
@@ -21,9 +23,9 @@ export default {
 </script>
 <style>
     #input{
-        width: 394px;
+        width: 414px;
     padding: 5px 10px;
-    height: 26px;
+    height: 44px;
     font: 16px/26px "Microsoft YaHei";
     color: #ccc;
     border: 3px solid #e53;
@@ -41,11 +43,9 @@ export default {
     cursor: pointer;
     border:1px solid white;
     border-left: none;
+    border-top:1px solid #e53 ;
     border-bottom: 1px solid #e53;
     margin-bottom: 10px;
-    }
-    .buttom span{
-        text-align: left;
     }
     #input:focus{
     outline: none;
@@ -53,7 +53,14 @@ export default {
     #button:focus{
         outline: none;
     }
-    .bottom > span,.bottom > a{
+    .bottom{
+        display: flex;
+        justify-items: center;
+    }
+    .bottom .searchsss{
+        margin-top:10px;
+    }
+    .bottom > span,.bottom  a{
         margin-top:0;
         color: #999;
         font-size: 12px;

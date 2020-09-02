@@ -1,7 +1,7 @@
 <template>
   <div class="nav-div">
     <div class="nav-left">
-      <span>全部商品分类</span>
+      <span class="allshopping">全部商品分类</span>
       <div class="divimg"></div>
       <div class="hidden1">
           <div class="hidden1-1">
@@ -167,7 +167,7 @@
      
     </div>
     <div class="nav-center">
-      <span @click="toDog">狗狗</span>
+      <span @click="toDog" id="dogsss">狗狗</span>
       <span @click="toCat">猫猫</span>
       <span @click="toMini">小宠</span>
       <span @click="toWater">水族</span>
@@ -175,30 +175,56 @@
     <div class="nav-right" @click="toCart">
       <div></div>
       <span class="number1">购物车</span>
-      <span class="number2">0</span>
-      <span class="hiddens"></span>
+      <span class="number2">{{cartNum}}</span>
+      <!-- <span class="hiddens">
+            请先登录购物车！！！
+      </span> -->
     </div>
   </div>
 </template>
 <script>
   export default {
+    data() {
+      return {
+        cartNum:0
+      }
+    },
     methods: {
       toDog(){
+        // let path = '/Nav/dog';
+        // this.checkPath(path);
         this.$router.push('/dog')
       },
       toCat(){
+        // let path = '/Nav/cat';
+        // this.checkPath(path);
         this.$router.push('/cat')
       },
       toMini(){
+        // let path = '/Nav/mini';
+        // this.checkPath(path);
         this.$router.push('/mini')
       },
       toWater(){
+        // let path = '/Nav/water';
+        // this.checkPath(path);
         this.$router.push('/water')
       },
       toCart(){
         this.$router.push('/shopcart')
+      },
+      checkPath(path){
+        if(decodeURI(this.$route.fullPath)===path){
+					//$router 进行编程导航，路由跳转
+					this.$router.go(0)
+				}else{
+					this.$router.push(path);
+				}
       }
-    }
+    },
+    mounted() {
+      this.cartNum = this.$store.cartNum;
+    },
   };
 </script>
 <style>
@@ -217,11 +243,11 @@
   display: inline-block;
 }
 .nav-left {
-  width: 170px;
-  background: #c20;
+  width: 190px;
+  background-color: #c20;
   height: 36px;
   padding: 0 10px;
-  margin-left: 100px;
+   margin-left: -55px; 
   position: relative;
 }
 .nav-left .hidden1{
@@ -283,11 +309,10 @@
   background: #c20;
   padding: 0 0 0 10px;
   border: 2px solid #c20;
-  border-bottom: none;
   position: relative;
   z-index: 999;
   color: #fff;
-  height: 34px;
+  height: 36px;
   margin-right: 100px;
 }
 .nav-right div{
@@ -321,9 +346,14 @@
     top:34px;
     right:-2px;
     display: none;
+    text-align: center;
+    line-height:100px ;
 }
 .nav-right:hover{
     background-color: #FFF3EF;
+    border:2px solid #e53;
+    border-bottom: 1px solid #FFF3EF;
+    cursor: pointer;
 }
 .nav-right:hover div{
     background-image: url(http://b.boqiicdn.com/v2/images/toolbar.png);
@@ -401,6 +431,7 @@ a{
   height:30px;
   margin-top: 10px;
   border-bottom: 1px dashed #cccccc;
+  display: flex;
 }
 .nav-left .hidden1 .hidden11  #float1 a,
  .hidden11  #float2 a,
@@ -416,8 +447,10 @@ a{
  .hidden44  #float3 a
  {
   font:14px/16px "Microsoft YaHei";
-  padding: 20px  0px;
   margin:0px 13px 0 0;
+}
+.nav-left .hidden1  a:hover{
+   color: #ee5533;
 }
 .nav-left .hidden1 .hidden11  #float1 .a-top,
  .hidden11  #float2 .a-top,
@@ -433,8 +466,8 @@ a{
  .hidden44  #float3 .a-top
 {
     color: #ee5533;
-    padding: 20px 30px;
-    margin-right: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 .nav-left .hidden1 .hidden11:hover .floatright1{
   display: inline-block;

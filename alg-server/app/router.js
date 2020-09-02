@@ -36,4 +36,6 @@ module.exports = app => {
     router.post('/uplunbo',controller.adminController.uplunbo);
     //根据类别获取百科信息
     router.get('/getClassBaike',controller.baikeController.getClassBaike);
+    //个人中心完善用户信息
+    router.post('/gerenziliao',controller.userController.addMessage);
 }

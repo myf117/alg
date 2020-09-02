@@ -10,7 +10,7 @@
     <el-tab-pane label="宠物百科" name="second"></el-tab-pane>
      
   </el-tabs>
-    <smallsign></smallsign>
+    <smallsign style="margin-top:6px"></smallsign>
     <div class="nav2-1">
             <logo></logo>
             <search></search>
@@ -21,6 +21,7 @@
         <div class="lunbo1"><lunbo></lunbo></div>
         <div class="shopping1div"><shopping1></shopping1>
         </div>
+        <!-- <rightfloat></rightfloat> -->
     <router-view></router-view>
     
     </div>
@@ -87,7 +88,11 @@ export default {
 }
 </script>
 <style>
-
+@media only screen and (max-width: 1200px) {
+    body {
+        width: 1200px;
+    }
+}
 .div1{
     position: relative;
 }

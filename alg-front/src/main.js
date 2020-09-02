@@ -6,6 +6,14 @@ import ElementUI, { Form } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import cookie from "./assets/js/cookie.js";
+import pagebottom from "./views/bottom.vue"
+import rightfloat from "./views/RightFloatNav.vue";
+// 这个是什么？
+// import VuePhotoZoomPro from "vue-photo-zoom-pro";
+
+// Vue.use(VuePhotoZoomPro);
+Vue.component("pagebottom",pagebottom);
+Vue.component("rightfloat",rightfloat);
 
 Vue.prototype.cookie = cookie
 //定义全局的axios

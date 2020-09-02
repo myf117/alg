@@ -1,6 +1,6 @@
 <template>
-    <div class="product">
-        <img :src="img" width="150" height="150">
+    <div class="product" >
+        <img :src="img" width="150" height="160" style="width:150px;height:160px" @click="toXQ(product_id)">
         <p class="price">￥{{price}}</p>
         <p class="dis">{{discription}}</p>
         <div @click="addToCart()" class="shopcart">
@@ -23,17 +23,24 @@
                     this.$http.get('/addToCart',{
                         params:{
                             id:this.product_id,
-                            user:this.cookie.getCookie('user')
+                            user:this.cookie.getCookie('user'),
+                            count:0
                         }
                     }).then(res => {
-                        console.log('添加购物车成功');
-                        
+                        // console.log('添加购物车成功');
+                        this.$alert('添加购物车成功', '成功提示', {
+							confirmButtonText: '确定'
+						});
                     }).catch(err => {
                         console.log(err);
                     })
                 }else {
                     this.$router.push("/loginregist/login");
                 }
+            },
+            toXQ(value){
+                this.$router.push(`/gouwu?product_id=${value}`);
+                console.log(value)
             }
         },
         mounted() {

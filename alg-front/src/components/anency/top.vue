@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="bigbox">
-			<img src="../../../public/logo.png" @click="toHome">
+			<img src="../../../public/logo.png" alt="" @click="toHome">
 			<div>
 			<input type="text" class="search" placeholder="请输入词条/问题关键字">
 			<button type="button">点击搜索</button>	
@@ -15,7 +15,7 @@
 	export default{
 		methods: {
 			toHome(){
-				this.$router.push("/");
+				this.$router.push('/');
 			}
 		},
 	}
@@ -34,7 +34,6 @@
 	.bigbox img:first-of-type{
 		width: 161px;
 		height: 79px;
-		cursor: pointer;
 	}
 	.bigbox img:nth-of-type(2){
 		width: 280px;

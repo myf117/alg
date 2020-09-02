@@ -2,38 +2,41 @@
 	<div class="hot-1">
 		<h2>热门宠物</h2>
 		<div class="himg2">
-			<div class="hotimg" v-for="item in himg" :key="item.id">
-				<img :src="item.img">
-				<div class="hotimg-inf">{{item.content}}</div>
+			<div class="hotimg" v-for="item in mainarr" :key="item.id">
+				<img :src="item.pet_img">
+				<div class="hotimg-inf">{{item.pet_name}}</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import Bus from "../../assets/js/Bus"
 	export default{
-		data:function(){
+		data(){
 			return{
-				himg:[
-				{id:1,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:2,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:3,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:4,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:5,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:6,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:7,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:8,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:9,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:10,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:11,img:require("../../assets/img/hosptal.png"),content:"金毛"},
-				{id:12,img:require("../../assets/img/hosptal.png"),content:"金毛"}					
-								]
+				mainarr:[]
 			}
+		},
+		created(){
+			this.$http.get("/getClassBaike",{params:{
+				class_id:1
+			}}).then(res=>{
+				this.mainarr=res.data.slice(0,12)
+				// Bus.$emit('click',this.mainarr)
+				//console.log(this.mainarr)
+			}).catch(err=>{
+				console.log("请求失败")
+			})
+			// Bus.$on('click',target=>{
+			// 	this.mainarr=target.slice(0,12)
+			// 	console.log(this.mainarr)
+			// })
 		}
 	}
 </script>
 
-<style>
+<style scoped="">
 	.hot-1{
 		width: 1200px;
 		height: 400px;

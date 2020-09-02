@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding:20px">
        <div class="personal-side fl">
         <div class="left-modul">
             <span class="ps-sd-md-name ">交易管理</span>
@@ -20,7 +20,7 @@
             </div>
         </div>
          <div class="left-modul">
-            <span class="ps-sd-md-name ">个人设置</span>
+            <span class="ps-sd-md-name " @click="toSetting">个人设置</span>
             <div>
                 <span class="little">个人资料</span><br>
                 <span class="little">安全设置</span><br>
@@ -48,13 +48,13 @@
           <div class="ziliao">
             <div>
               <span>欢迎回来！</span>
-              <router-link to="/gerenziliao">编辑个人资料</router-link>
+              <router-link to="/mypage/gerenziliao">编辑个人资料</router-link>
               <router-view></router-view>
               <!-- <a href>编辑个人资料</a> -->
             </div>
             <div class="zhanghu">
               账户安全：
-              <el-progress :text-inside="true" :stroke-width="20" :percentage="50"></el-progress>
+              <el-progress :text-inside="true" :stroke-width="15" :percentage="60"></el-progress>
             </div>
             <div>
               <a href>账户设置</a>
@@ -113,7 +113,13 @@
 </template>
 
 <script>
-export default {};
+  export default {
+      methods: {
+        toSetting(){
+          this.$router.push('/mypage/gerenziliao');
+        }
+      }
+  };
 </script>
 
 <style>
@@ -208,7 +214,7 @@ export default {};
     
 }
 .left-modul{
-    margin-left: 110px;
+    margin-left: 107px;
     width: 100px;
     text-align: left !important;
     margin-bottom: 10px;

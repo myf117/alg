@@ -12,6 +12,11 @@ class userController extends Controller {
         let result = await this.ctx.service.userService.regist(username,password);
         this.ctx.response.body = result;
     }
+    async addMessage(){
+        let userMessage = this.ctx.request.body.arr;
+        let result = await this.ctx.service.userService.addMessage(userMessage);
+        this.ctx.response.body = result;
+    }
 
 }
 module.exports = userController;

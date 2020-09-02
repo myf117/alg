@@ -1,16 +1,21 @@
 <template>
-  <div class="mypro">
-    <div class="zhanshi">
-      <div class="sear_goods_list" v-for="item in prodArrlist" :key="item.id">
-        <div class="dl">
-          <img :src="item.img_url" alt />
-          <p class="name">{{item.discription}}</p>
-          <p class="sear_price">价格：￥{{item.price}}</p>
-        </div>
-      </div>
+  <div >
+    <!--三元表达式，如果有默认头像，显示默认头像，如果没有，显示本地图片-->
+    <!-- <img :src="adatar?adatar:require('../../assets/touxiang.gif')" alt /> -->
+    <!--文件上传-->
+    <!-- <input
+      type="file"
+      name
+      accept="image/gif, image/jpeg, image/jpg, image/png"
+      @change="fileChange"
+    />-->
+    <div id="photo">
+      <!-- 上传头像 -->
+      <img width="80px" height="80px" id="myImg" />
+      <input type="file" id="myFile" />
     </div>
-
-    <!-- <h2>从mypage组件接收到的值：{{product}}</h2> -->
+    <!--文件提交-->
+    <!-- <button @click="submit">提交</button> -->
   </div>
 </template>
 
@@ -18,64 +23,117 @@
 export default {
   data() {
     return {
-      prodArrlist: [],
+      adatar: "",
     };
   },
-  mounted() {
-    this.prodArrlist = this.product;
-    console.log(this.prodArrlist);
-  },
-  watch: {
-    product: function () {
-      this.prodArrlist = this.product;
+  methods: {
+    upMyFile(formData, config) {
+      this.$http
+        .post("/uploadFile", formData, config)
+        .then((res) => {
+          console.log("文件上传成功");
+          console.log(res.data);
+          this.adatar = res.data;
+          console.log(this.adatar);
+          let myImg = document.getElementById("myImg");
+          myImg.setAttribute("src", this.adatar);
+          console.log(this.adatar);
+          //   this.upPhoto(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("上传文件ajax出错");
+        });
+    },
+    //上传头像到数据库
+    upPhoto(result) {
+      this.$http
+        .post("/upPhoto.do", {
+          photo: result,
+          //   username: username,
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log("上传头像成功");
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("上传头像ajax请求出错");
+        });
     },
   },
-  components: {},
-  props: ["product"],
+  mounted() {
+    //上传并及时返回图片
+    let myFile = document.getElementById("myFile");
+    myFile.onchange = () => {
+      let choose_file = myFile.files[0];
+      let formData = new FormData();
+      formData.append("uploadFile", choose_file, choose_file.name);
+      const config = {
+        headers: {
+          "Content-Type":
+            "multipart/form-data;boundary=" + new Date().getTime(),
+        },
+      };
+      let fType = choose_file.name.substring(
+        choose_file.name.lastIndexOf(".") + 1
+      );
+      if (
+        fType == "jpg" ||
+        fType == "png" ||
+        fType == "jpeg" ||
+        fType == "JPG"
+      ) {
+        let size = choose_file.size / 1024 / 1024;
+        if (size > 2) {
+          alert("文件不能超过2M");
+          return false;
+        }
+        let reader = new FileReader();
+        reader.readAsDataURL(choose_file);
+        this.upMyFile(formData, config);
+        console.log(this.adatar);
+
+        reader.onload = () => {
+          let myImg = document.getElementById("myImg");
+          myImg.setAttribute("src", this.adatar);
+          console.log(this.adatar);
+        };
+      } else {
+        alert("文件格式不正确");
+        return false;
+      }
+    };
+    //上传文件到指定文件夹
+  },
 };
 </script>
 
-<style>
-.mypro {
-  /* width: 1000px;
-  margin: 0 auto;
-  height: 900px; */
-}
-/* .zhanshi {
-  width: 900px;
-  margin: 0 auto;
-  height: 900px;
-} */
-.sear_goods_list {
-  float: left;
-  width: 228px;
-  height: 328px;
-  border: 1px solid #e6e6e6;
-  position: relative;
-  margin: 10px;
-}
-.sear_goods_list:hover {
-  border: 1px solid #f65;
-}
-.sear_goods_list .dl {
-  padding: 9px;
-}
-.sear_goods_list .dl img {
-  width: 210px;
-  height: 210px;
-}
-.sear_goods_list .dl .name {
-  height: 34px;
-  font: 14px Arial, "SimSun";
+<style >
+#photo {
+  border: 1px solid #999999;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  margin: 10px auto;
   overflow: hidden;
-  margin-top: 7px;
+  cursor: pointer;
+  position: relative;
 }
-.sear_goods_list .dl .name:hover {
-  color: #f65;
+#myImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: visible;
 }
-.sear_goods_list .dl .sear_price {
-  color: #f65;
-  font: 16px "Arial";
-  margin-top: 15px;
+#myFile {
+  width: 80px;
+  height: 80px;
+  /* visibility: hidden; */
+  position: absolute;
+  left: 0;
+  top: 20px;
+  opacity: 0;
 }
 </style>

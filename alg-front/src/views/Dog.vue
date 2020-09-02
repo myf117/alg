@@ -60,9 +60,11 @@
                 </el-collapse-item>
             </el-collapse>
         </div>
+        
         <div class="class_right">
             <!-- 右边显示商品 -->
             <showproductall :class_id="clazz_id" :goods_id="good_id"></showproductall>
+            <rightfloat></rightfloat>
             <!-- 分页器 -->
             <pagenation></pagenation>
         </div>

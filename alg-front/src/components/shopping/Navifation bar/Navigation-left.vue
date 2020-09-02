@@ -1,11 +1,19 @@
 <template>
     <div class="imgs">
-        <img src="http://b.boqiicdn.com/v2/images/shopnewlogo.png" alt="">
+        <img src="../../../assets/logoll.png" @click="toHome">
     </div>
 </template>
 <script>
 export default {
-    
+    methods: {
+        toHome(){
+            if(this.$router.fuiipath == '/Nav'){
+                this.$router.go(0);
+            }else {
+                this.$router.push('/');
+            }
+        }
+    },
 }
 </script>
 <style>

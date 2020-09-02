@@ -2,18 +2,28 @@
     <div class="nav2">
         
         <div class="lunbo2"><packingone></packingone></div>
+        <div class="lunbo2"> <packingtwo></packingtwo></div>
+       <div class="lunbo2"> <packingthree></packingthree></div>
+       <div class="lunbo2"> <packingfour></packingfour></div>
+       <div class="lunbo2"><pagebottom style="margin-top:200px"></pagebottom></div>
     </div>
 </template>
 <script>
 
 import packingone from "./Navigition-bottom/Navigitionshopping.vue"
+import packingtwo from "./Navigition-bottom/Navigitionshopping2.vue"
+import packingthree from "./Navigition-bottom/Navigitionshopping3.vue"
+import packingfour from "./Navigition-bottom/Navigitionshopping4.vue"
 export default {
     components:{
-        packingone
+        packingone,
+          packingtwo,
+        packingthree,
+        packingfour
     },
 }
 </script>
-<style >
+<style scope="this api replaced by slot-scope in 2.5.0+">
     .nav2-1{
         
         margin: 0 50px;
@@ -37,5 +47,6 @@ export default {
         width: 100%;
         display: flex;
         justify-content: center;
+        margin:20px 0;
     }
 </style>

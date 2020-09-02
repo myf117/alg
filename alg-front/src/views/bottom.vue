@@ -11,14 +11,14 @@
 			<span>客服热线：400-820-1234</span>
 		</div>
 		<div style="margin-bottom: 5px;">
-			<div><img src="../assets/img/beian.png"><span>川公网安备 3145645484号</span> |
+			<div><img src="../assets/img/beian.png" style="width:20px;height:20px;margin-right:10px"><span>川公网安备 3145645484号</span> |
 			<span>川ICP备154879878号</span>
 			<span>增值电信业务经营许可证：川B2-5456456</span>
 			</div>
 			
 		</div>
         <div style="margin-top: 5px;">
-			<span>Copyright &#169 2007-2020 A&LG.com (成都)信息科技有限公司 版权所有</span></div>	
+			<span>Copyright #169 2007-2020 A&LG.com (成都)信息科技有限公司 版权所有</span></div>	
 		<div style="margin-top: 5px;"><span>公司地址：成都市金牛区XXXXXXXXXXXXXXX</span> | <span>公司电话：028-1234567</span></div>
 		
 		<div class="b-img">
@@ -37,7 +37,7 @@
 <script>
 </script>
 
-<style>
+<style scoped>
 	.beian{
 		width: 1200px;
 		
@@ -46,6 +46,8 @@
 		margin: 10px 0;
 	}
 	.b-img img{
+		width: 100px;
+		height: 35px;
 		margin-right: 10px;
 	}
 </style>

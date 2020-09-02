@@ -1,7 +1,8 @@
 <template>
     <div class="productall">
         <showproduct v-for="item in productArr" :key="item.id" :img_url='item.img_url'
-            :price="item.price" :discription="item.discription" :product_id="item.id" class="showproduct"></showproduct>
+            :price="item.price" :discription="item.discription" :product_id="item.id" class="showproduct"
+            > </showproduct>
     </div>
 </template>
 <script>
@@ -28,6 +29,8 @@
                     }
                 }).then(res => {
                     this.productArr = res.data;
+                    //将查询出的数组暂存在store的productArr中
+                    this.$store.commit('modifyProductArr',this.productArr);
                 }).catch(err => {
                     console.log(err);
                 })
@@ -53,5 +56,6 @@
         display: flex;
         justify-content: left;
         flex-wrap: wrap;
+        height: 680px;
     }
 </style>

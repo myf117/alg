@@ -110,7 +110,10 @@ export default {
 }
 </script>
 <style>
-    .doglogo{
+.numdog{
+    margin: 10px 0;
+}
+.doglogo{
         width: 50px;
     height: 46px;
     background: url(http://a.boqiicdn.com/Images/sitenew/common.png) no-repeat;
@@ -132,9 +135,10 @@ export default {
         position: relative;
     }
     .showtime .show-left{
-        width: 360px;
-        height: 300px;
-        padding:24px;
+        width: 410px;
+        height: 350px;
+        padding:20px;
+        padding-top: 24px;
         border-right:1px solid #e6e6e6;
     }
     .showtime .show-left img{
@@ -151,12 +155,14 @@ export default {
       right:0;
       top: 0;
       flex-direction:row;
+      box-sizing: none !important;
   } 
   .showtime .show-right-top .shoppings{
-      width: 190px;
+      width: 193px;
       height: 180px;
       border-right: 1px solid #e6e6e6 ;
       margin-top:7px;
+      
       text-align: center;
       position: relative;
   }
@@ -171,8 +177,12 @@ export default {
       bottom:10px;
       font:10px/18px "Microsoft YaHei", "微软雅黑", tahoma, arial, sans-serif;
       color: #333;  
+  }.showtime .show-right-top .shoppings:hover{
+      cursor: pointer;
   }
-  
+  .showtime .show-right-top .shoppings:hover .span1{
+      color: #f65;
+  }
   .showtime .show-right-bottom{
       width: 580px;
       height: 153px;
@@ -180,33 +190,44 @@ export default {
       position: absolute;
       right:0;
       bottom: 0;
+      display: flex;
+        align-items: center;
   }
   .showtime .show-right-bottom .jieshaos{
-      width: 190px;
-      height: 80px;
+      width: 195px;
       border-right: 1px solid #e6e6e6 ;
-      margin-top:7px;
       text-align: center;
       position: relative;
   }
   .showtime .show-right-bottom .jieshaos img{
       width: 60px;
-      height: 60px;
+      height: 80px;
+      padding-bottom:20px;
   }
   .showtime .show-right-bottom .jieshaos .span1{
       font:20px/22px "Microsoft YaHei", "微软雅黑", tahoma, arial, sans-serif;
       color: #333;
       position: absolute;
-      right:0;
+      right:20px;
       top:0;
   }
+  .showtime .show-right-bottom  .jieshaos:hover{
+      cursor: pointer;
+  }
+  .showtime .show-right-bottom  .jieshaos:hover .span1{
+      color: #f65;
+  }
   .showtime .show-right-bottom .jieshaos .span2{
-      padding:8px 0 0;
+      width:86px;
+      font-size:10px ;
+      display: inline-block; 
       color:#999;
       line-height: 20px;
-      right:0;
+      margin-top:20px;
+      margin-left: 10px;
+      left:30px;
       bottom:0;
-  }
+       }
 .el-carousel__item h3 {
     color: #475669;
     font-size: 18px;

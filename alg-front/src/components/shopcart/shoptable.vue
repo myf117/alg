@@ -4,7 +4,8 @@
             ref="multipleTable"
             :data="tableData"
             tooltip-effect="dark"
-            style="width: 100%"
+            style="width: 80%"
+            :cell-style="mystyle"
             show-summary
             :summary-method="getTotal"
             @selection-change="handleSelectionChange">
@@ -14,7 +15,8 @@
             </el-table-column>
             <el-table-column label="商品图片">
             　　<template slot-scope="scope">
-            　　　　<img :src="scope.row.img_url" width="60" height="60" class="head_pic"/>
+            　　　　<img :src="scope.row.img_url" width="60" height="60" class="head_pic"
+                    style="width:60px;height:60px"/>
             　　</template>
             </el-table-column>
             <el-table-column
@@ -53,6 +55,7 @@
     </div>
 </template>
 <script>
+import Bus from '../../assets/js/Bus';
 export default {
     data() {
         return {
@@ -61,11 +64,15 @@ export default {
             img_url:'',
             arr:[],
             sum:0,
-            countAll:0
+            countAll:0,
+            address:''
         }
     },
 
     methods: {
+        mystyle(){
+            return 'table-td'
+        },
             //取消选中
         toggleSelection(rows) {
             if (rows) {
@@ -136,18 +143,28 @@ export default {
             //提交订单
         submitMenu(){
             if(this.multipleSelection.length){
-                for(let i = 0; i < this.multipleSelection.length; i++){
-                    this.$http.post('/addToOrder',{
-                            user:this.cookie.getCookie('user'),
-                            product_name:this.multipleSelection[i].product_name,
-                            total:parseFloat(this.sum),
-                            count:this.multipleSelection[i].count
-                    }).then(res => {
-                        console.log(res.data);
-                    }).catch(err => {
-                        console.log(err);
-                    })
-                }
+                this.$confirm('确认提交', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '请填写信息'
+                    });
+                    // let selectedArr = this.multipleSelection;
+                    this.$store.commit('modifySelect',this.multipleSelection);
+                    this.$store.commit('modifySum',this.sum);
+                    //通过BUs总线传递数据
+                    // Bus.$emit('selectedArr',selectedArr);
+                    this.$router.push('/shopcart/order');
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });          
+                });
+                
             }else {
                 this.$alert('您还未选择商品', '提示', {
                     confirmButtonText: '确定',
@@ -160,10 +177,11 @@ export default {
                 });
             }
         },
+        
          //全选或选中某行
         handleSelectionChange(val) {
             this.multipleSelection = val;
-            console.log(this.multipleSelection)
+            // console.log(this.multipleSelection)
             this.getAll(this.multipleSelection);
         },
             //商品数量发生改变
@@ -216,6 +234,7 @@ export default {
                 }
                 const values = data.map(item => Number(item[column.property]));
                 //计算购物车商品数量
+                // console.log(column.property);
                 if (column.property === 'count') {
                     sums[index] = values.reduce((prev, curr) => {
                         const value = Number(curr);
@@ -226,20 +245,29 @@ export default {
                         }
                     }, 0);
                     sums[index];
+                    this.countAll = sums[index];
+                    this.$store.commit('modifyData',sums[index]);
+                    // console.log(this.$store.commit);
                 } else {
                     sums[index] = '--';
                 }
             })
-            this.countAll = sums[3];
             return sums;
         }
         
     },
     mounted() {
+        // this.$store.state.shoplist.cartNum = this.countAll;
+        // console.log(this.$store.state.shoplist.cartNum);
         if(this.cookie.getCookie('user')){
             this.getTableData();
         }else {
             this.$router.push("/loginregist/login");
+        }
+        let cell = document.getElementsByClassName('cell');
+        for(let i = 0; i < cell.length; i++){
+            cell[i].style.width = '150px';
+            cell[i].style.textAlign = 'center';
         }
     },
     watch: {
@@ -268,6 +296,19 @@ export default {
     }
     tr:first-child {
         width: 100px !important;
+    }
+    .el-table-column {
+        text-align: center;
+    }
+    /* .cell {
+        width: 150px;
+    } */
+    /* td {
+        width: 150px;
+    } */
+    .table-td {
+        text-align: center;
+        width: 150px;
     }
     
 </style>
