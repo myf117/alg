@@ -1,6 +1,6 @@
 <template>
     <div class="hoppingone">
-        <div class="shopping1" v-for="item in production" :key="item.id">
+        <div class="shopping1" v-for="item in production" :key="item.id" @click="toXQ(item.myid)">
             <img :src="item.myimg">
             <div class="informations">
             <span id="names">{{item.mynames}}</span>
@@ -17,19 +17,23 @@ export default {
                 {   id:"1",
                     myimg:"",
                     mydiscription:"",
-                    mynames:""
+                    mynames:"",
+                    myid:0
                 },{   id:"2",
                     myimg:"",
                     mydiscription:"",
-                    mynames:""
+                    mynames:"",
+                    myid:0
                 },{   id:"3",
                     myimg:"",
                     mydiscription:"",
-                    mynames:""
+                    mynames:"",
+                    myid:0
                 },{   id:"4",
                     myimg:"",
                     mydiscription:"",
-                    mynames:""
+                    mynames:"",
+                    myid:0
                 }
             ]
         }
@@ -42,9 +46,20 @@ export default {
                 this.production[i].myimg=res.data[i].img_url;
                 this.production[i].mynames=res.data[i].product_name;
                 this.production[i].mydiscription=res.data[i].discription;
+                this.production[i].myid = res.data[i].id;
             }
-            console.log(this.production);
+            // console.log(this.production);
         })
+    },
+    methods: {
+        toXQ(myid){
+            this.$router.push({
+                path:'/gouwu',
+                query:{
+                    product_id:myid
+                }
+            })
+        }
     }
 }
 </script>

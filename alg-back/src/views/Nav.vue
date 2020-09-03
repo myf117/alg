@@ -5,13 +5,13 @@
       <div class="nav-top-set">
         <div>
           <i class="el-icon-user"></i>
-          <span>管理员名字</span>
+          <span>{{user}}</span>
         </div>
         <div>
           <i class="el-icon-edit"></i>
           <span>修改密码</span>
         </div>
-        <div>
+        <div @click="logout">
           <i class="el-icon-switch-button"></i>
           <span>注销</span>
         </div>
@@ -65,13 +65,8 @@
                   <el-menu-item index="3-5">水族市场</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
-              <!-- 库存管理 -->
-              <el-menu-item index="4">
-                <i class="el-icon-s-data"></i>
-                <span slot="title">库存管理</span>
-              </el-menu-item>
               <!-- 界面管理 -->
-              <el-submenu index="5">
+              <el-submenu index="4">
                 <template slot="title">
                   <i class="el-icon-picture"></i>
                   <span>界面管理</span>
@@ -84,7 +79,7 @@
                 </el-menu-item-group>
               </el-submenu>
               <!-- 用户信息管理 -->
-              <el-menu-item index="6">
+              <el-menu-item index="5">
                 <i class="el-icon-menu"></i>
                 <span slot="title">用户信息管理</span>
               </el-menu-item>
@@ -113,9 +108,13 @@ export default {
       soncotent: "",
       // 点击的index初始值
       clickIndex: { f: "", s: "" },
+      user:this.cookie.getCookie('user')
     };
   },
   methods: {
+    logout(){
+      this.$router.push('/login');
+    },
     // 获取点击的activeName
     handleChange(val) {
       console.log(val);
@@ -186,6 +185,7 @@ export default {
   height: 60px;
   line-height: 60px;
   color: rgb(145, 143, 143);
+  cursor: pointer;
 }
 /* 设置logo样式 */
 .head-logo {

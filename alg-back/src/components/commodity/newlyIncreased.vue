@@ -18,11 +18,11 @@
         <!-- 价格 -->
         <div class="theFrist">
           <label class="theFrist-ch">商品价格</label>
-          <!-- onkeyup="value=value.replace(/[^\d.]/g,'')" 限定输入框输入的数据，只能为整数或小数 -->
+          <!-- onkeyup="value=replace(/^(0+)|[^\d.]/g,'')" 限定输入框输入的数据，只能为整数或小数 -->
           <input
             type="text"
             class="theFrist-input"
-            onkeyup="value=value.replace(/[^\d.]/g,'')"
+            onkeyup="value=value.replace(/^(0+)|[^\d.]/g,'')"
             v-model="pdPrice"
           />
         </div>
@@ -54,7 +54,36 @@
             <div class="el-upload__tip" slot="tip">只能上传jpg/png图片，且不超过500kb</div>
           </el-upload>
         </div>
-        <classify class="theThirdly"  :res="res" ></classify>
+        <!-- 分类 -->
+        <div class="theThirdly">
+          <label class="theFrist-cll theFrist-ch">一级分类</label>
+          <div class="classifyne">
+            <el-dropdown split-button type="primary">
+              {{firstClass}}
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  v-for="(item,index) in dropdownArr"
+                  :key="index"
+                  @click.native="dropdownClick"
+                >{{dropdownArr[index]}}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+          <!-- 二级分类 -->
+          <label class="theFrist-cll theFrist-ch2 newf">二级分类</label>
+          <div class="secondLevelne">
+            <el-dropdown split-button type="primary">
+              {{secondClass}}
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  v-for="(item,index) in secondLevelVal"
+                  :key="index"
+                  @click.native="secondLevelClick"
+                >{{secondLevelVal[index]}}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </div>
         <div class="theFourthly">
           <button class="submitBut" @click="submit">立即提交</button>
           <button class="resetBut" @click="resetBut">重置</button>
@@ -68,10 +97,20 @@
   </div>
 </template>
 <script >
-import classify from "../common/classify"
 export default {
   data() {
     return {
+      //分类初始化数据
+      dropdownArr: ["狗狗商品", "猫猫商品", "奇趣小宠", "水族市场"],
+      secondLevelVal: ["主粮", "零食", "玩具"],
+      secondLevelObj: {
+        dog: ["主粮", "零食", "玩具"],
+        cat: ["主粮", "零食", "猫砂", "玩具"],
+        miniPet: ["兔子", "仓鼠", "龙猫"],
+        fish: ["鱼食", "鱼缸", "器材"],
+      },
+      firstClass: "狗狗商品",
+      secondClass: "主粮",
       //输入框初始化数据 获取输入框值
       pdName: "", //商品名称
       pdPrice: "", //商品价格
@@ -79,11 +118,10 @@ export default {
       firstClass: "狗狗商品", //一级分类
       secondClass: "主粮", //二级分类
       discription: "",
-      hint: "",  
-      res:false
+      hint: "",
     };
   },
-  methods: {    
+  methods: {
     // 上传成功将图片地址存起来
     uploadSuccess(response) {
       this.imgUrl = response;
@@ -136,23 +174,43 @@ export default {
         });
       }
     },
+    // 一级分类 给子选项设置click事件,并将值赋值给input框
+    dropdownClick(e) {
+      this.firstClass = e.target.innerHTML.substring(7);
+      // 根据一级分类判断二级分类显示内容
+      switch (this.firstClass) {
+        case "狗狗商品":
+          this.secondLevelVal = this.secondLevelObj.dog;
+          break;
+        case "猫猫商品":
+          this.secondLevelVal = this.secondLevelObj.cat;
+          break;
+        case "奇趣小宠":
+          this.secondLevelVal = this.secondLevelObj.miniPet;
+          break;
+        case "水族市场":
+          this.secondLevelVal = this.secondLevelObj.fish;
+          break;
+      }
+    },
+    //点击二级分类，将选中的值赋给父级
+    secondLevelClick(e) {
+      this.secondClass = e.target.innerHTML.substring(7);
+    },
     // 设置清空
     reset: function () {
       this.pdName = "";
       this.pdPrice = "";
       this.discription = "";
       this.imgUrl = "";
-      this.res=true 
+      this.firstClass = "狗狗商品";
+      this.secondClass = "主粮";
     },
     // 点击重置按钮
-    resetBut() {      
+    resetBut() {
       this.reset();
-      // console.log(this.res)
     },
   },
-  components:{
-    classify
-  }
 };
 </script>
 <style >
@@ -160,7 +218,7 @@ export default {
 .new-titel {
   width: 100%;
   height: 40px;
-  background-color: #eee;
+  background-color:rgba(204, 205, 207, 0.753);
 }
 .new-titel span {
   display: block;
@@ -220,21 +278,27 @@ export default {
   color: #009688 !important;
 }
 /* 商品分类 */
-.classify {
+.classifyne {
   position: absolute;
-  top: 15px;
+  top: 0px;
   left: 154px;
 }
+
 .theThirdly {
   position: relative;
   top: 260px;
   height: 40px;
 }
 
-.secondLevel {
+.secondLevelne {
   position: absolute;
-  top: 15px;
+  top: 0px;
   left: 388px;
+}
+.newf{
+position: absolute;
+top: 8px;
+left: 315px;
 }
 /* 重置和提交按钮 */
 .theFourthly {

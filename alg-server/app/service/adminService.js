@@ -25,5 +25,26 @@ class adminService extends Service{
         let list =  await this.ctx.app.mysql.query(sql,[lunbo_id]);
         return list;
     }
+    async delProduct(arr){
+        let sql = 'delete from product where id=?';
+        let list;
+        list = await this.ctx.app.mysql.query(sql,[arr]);
+        return list;
+    }
+    async modifyProduct(id,name,price,count){
+        let sql = 'update product set product_name=?,price=?,count=? where id=?';
+        let list = await this.ctx.app.mysql.query(sql,[name,price,count,id]);
+        return list;
+    }
+    async gettouxiang(username){
+        let sql = 'select head_url from user where username=?';
+        let list = await this.ctx.app.mysql.query(sql,[username]);
+        return list;
+    }
+    async getperson(username){
+        let sql = 'select * from user where username=?';
+        let list = await this.ctx.app.mysql.query(sql,[username]);
+        return list;
+    }
 }
 module.exports = adminService;

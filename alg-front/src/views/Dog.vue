@@ -63,10 +63,10 @@
         
         <div class="class_right">
             <!-- 右边显示商品 -->
-            <showproductall :class_id="clazz_id" :goods_id="good_id"></showproductall>
+            <showproductall :class_id="clazz_id" :goods_id="good_id" :page="page"></showproductall>
             <rightfloat></rightfloat>
             <!-- 分页器 -->
-            <pagenation></pagenation>
+            <pagenation @pageevent="getPage"></pagenation>
         </div>
     </div>
 </template>
@@ -77,7 +77,8 @@
         data() {
             return {
                 clazz_id:1,
-                good_id:101
+                good_id:101,
+                page:1
             }
         },
         components:{
@@ -92,6 +93,20 @@
                     case '狗狗玩具':this.good_id = 103;break;
                 }
                 
+            },
+            getPage(page){
+                this.page = page;
+            }
+        },
+        mounted() {
+            // if(!this.$route.query.goods_id){
+            //     this.good_id = this.$route.query.goods_id;
+            //     console.log(this.goods_id);
+            // }
+        },
+        watch: {
+            '$route.query.goods_id'(){
+                this.goods_id = this.$route.query.goods_id;
             }
         }
     }

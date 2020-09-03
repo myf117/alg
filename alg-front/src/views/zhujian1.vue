@@ -5,14 +5,14 @@
    <router-link to="/zhujian11/Navv"><span>宠物百科</span></router-link> -->
   <!-- v-model="activeName" @tab-click="handleClick" -->
  
-    <el-tabs  @tab-click="handle" >
+    <el-tabs  @tab-click="handle"  style="height:40px">
     <el-tab-pane label="波奇网" name="first"></el-tab-pane>
     <el-tab-pane label="宠物百科" name="second"></el-tab-pane>
      
   </el-tabs>
     <smallsign style="margin-top:6px"></smallsign>
-    <div class="nav2-1">
-            <logo></logo>
+    <div class="nav2-1" style="margin-top:40px">
+            <logo style="margin-left:-35px"></logo>
             <search></search>
             <imgs></imgs>
         </div>
@@ -22,7 +22,9 @@
         <div class="shopping1div"><shopping1></shopping1>
         </div>
         <!-- <rightfloat></rightfloat> -->
-    <router-view></router-view>
+    <keep-alive>
+        <router-view></router-view>
+    </keep-alive>
     
     </div>
     
@@ -95,6 +97,12 @@ export default {
 }
 .div1{
     position: relative;
+}
+.div1 .nav2-1{
+    display: flex;
+    width: 1150px;
+    margin-left: 100px;
+    justify-content: space-between;
 }
     .divone{
         position: absolute;

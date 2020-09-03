@@ -12,13 +12,16 @@
 			<br><br>
 			<span>商品编号：</span><span>100152</span><br><br>
 			<span>已　　售：</span><span style="color:#e53;">171053件</span><br><br>
-			<span>满意指数：</span>
-			<div><span class="index_pf"></span>
+			
+			<div style="display: flex;"><span>满意指数：</span>
+			<span class="index_pf"></span>
 				<span class="index_pf"></span>
 				<span class="index_pf"></span>
 				<span class="index_pf"></span>
-				<span class="index_p9"></span></div>
-			<span style="color: red;">4.9分</span>
+				<span class="index_p9"></span>
+				<span style="color: red;">4.9分</span>
+				</div>
+			
 			<div class="pl_top"><a href="#002" data-bd="act:click" data-bd-event="value:485|type:goods|pos_name:%E5%95%86%E5%9F%8E_%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85_%E5%B7%B2%E8%AF%84%E8%AE%BA%E6%95%B0">已有2356人评论</a></div>
 			<ul class="shouquan">
 				<li>授权认证：
@@ -30,7 +33,7 @@
 						</a>
 					</p>
 				</li>
-				<li>对商品有疑问？<a href="javascript:void(0);" class="zxBtn"></a></li>
+				<li style="display: flex;" ><span style="padding-top: 5px;">对商品有疑问？</span><a href="javascript:void(0);" class="zxBtn"></a></li>
 			</ul>
 		</div>
 		<div class="detail_az">
@@ -68,7 +71,7 @@
 
 	.bz {
 		width: 220px;
-		height: 90px;
+		height: 95px;
 		border-bottom: 1px solid #e6e6e6;
 		text-align: left;
 
@@ -76,19 +79,23 @@
 
 	.bz ul {
 		position: absolute;
-		top: -17px;
+	
 	}
 
 	.bz li {
 		float: left;
-		width: 76px;
+		width: 73px;
 		text-align: center;
 		color: #999999;
 		font-size: 12px;
 		padding-top: 5px;
 		list-style: none;
 	}
-
+.bz li img  , .detail_az img{
+		height: 51px;
+		width: 51px;
+	
+	}
 	.brand {
 		padding: 10px;
 	}
@@ -111,7 +118,8 @@
 	}
 	.shouquan {
 		border-top: 1px #e6e6e6 dashed;
-		padding: 10px;
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 	#gallery  em {
 	    width: 10px;

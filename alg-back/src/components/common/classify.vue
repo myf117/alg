@@ -47,31 +47,9 @@ export default {
       secondClass: "主粮",
     };
   },
-  props: ["res"],
+  // props: ["res"],
   methods: {
-    // 一级分类 给子选项设置click事件,并将值赋值给input框
-    dropdownClick(e) {
-      this.firstClass = e.target.innerHTML.substring(7);
-      // 根据一级分类判断二级分类显示内容
-      switch (this.firstClass) {
-        case "狗狗商品":
-          this.secondLevelVal = this.secondLevelObj.dog;
-          break;
-        case "猫猫商品":
-          this.secondLevelVal = this.secondLevelObj.cat;
-          break;
-        case "奇趣小宠":
-          this.secondLevelVal = this.secondLevelObj.miniPet;
-          break;
-        case "水族市场":
-          this.secondLevelVal = this.secondLevelObj.fish;
-          break;
-      }
-    },
-    //点击二级分类，将选中的值赋给父级
-    secondLevelClick(e) {
-      this.secondClass = e.target.innerHTML.substring(7);
-    },
+    
   },
   watch: {
     "res": function () {

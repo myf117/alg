@@ -76,6 +76,34 @@ class adminController extends Controller{
         let result = await this.ctx.service.adminService.adminGetProduct();
         this.ctx.response.body = result;
     }
+    async delProduct(){
+        // console.log(this.ctx.request.query);
+        let arr = this.ctx.request.query.idArr;
+        // console.log(arr);
+        let result = await this.ctx.service.adminService.delProduct(arr);
+        this.ctx.response.body = result;
+    }
+    async modifyProduct(){
+        let id = this.ctx.request.query.id;
+        let name = this.ctx.request.query.name;
+        let price = this.ctx.request.query.price;
+        let count =this.ctx.request.query.count;
+        let result = await this.ctx.service.adminService.modifyProduct(id,name,price,count);
+        this.ctx.response.body = result;
+    }
+    async gettouxiang() {
+        let username1 = this.ctx.request.query.username;
+        console.log(username1)
+        let result = await this.ctx.service.adminService.gettouxiang(username1);
+        console.log(result)
+        this.ctx.response.body = result;
+    }
+    async getperson() {
+        let username1 = this.ctx.request.query.username1;
+        let result = await this.ctx.service.adminService.getperson(username1);
+        console.log(result)
+        this.ctx.response.body = result;
+    }
 
 }
 module.exports = adminController;

@@ -1,10 +1,10 @@
 <template>
     <div class="mysearch">
-        <div class="center">
-            <input type="text" placeholder="素力高" id="input">
-        <button type="button" id="button">搜索</button>
+        <div class="xxxcenter" style="display:inline-block">
+            <input type="text" placeholder="搜索商品" id="input" v-model="likeName">
+        <button type="button" id="button" @click="productAll">搜索</button>
         </div>
-        <div class="bottom">
+        <div class="sssbottom" style="display:inline-block;margin-right:210px" >
             <span class="searchsss">热门搜索：</span>
             <a href="#" style="margin-left:20px">主粮</a>
             <a href="#" style="margin-left:20px">零食</a>
@@ -18,10 +18,34 @@
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            likeName:''
+        }
+    },
+    methods: {
+        productAll(){
+            console.log(this.likeName);
+            this.$http.get('/getAllProduct',{
+                params:{
+                    keyword:this.likeName
+                }
+            }).then(res => {
+                // console.log(res.data);
+                this.$store.commit('modifySearchArr',res.data);
+                this.$router.push({path:'/productall',query:res.data});
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    },
 }
 </script>
 <style>
+.mysearch{
+    display: flex; 
+    flex-direction: column;
+}
     #input{
         width: 414px;
     padding: 5px 10px;
@@ -53,20 +77,20 @@ export default {
     #button:focus{
         outline: none;
     }
-    .bottom{
+    .sssbottom{
         display: flex;
         justify-items: center;
     }
-    .bottom .searchsss{
+    .sssbottom .searchsss{
         margin-top:10px;
     }
-    .bottom > span,.bottom  a{
+    .sssbottom > span,.sssbottom  a{
         margin-top:0;
         color: #999;
         font-size: 12px;
         font-family: "SimSun";
     }
-    .bottom > a:hover{
+    .sssbottom > a:hover{
         color: #e53;
     }
 </style>

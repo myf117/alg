@@ -45,8 +45,8 @@
                 <span :class="(scope.row.type && scope.row.type == 'sum') ? 'text_bule_underline': ''">{{scope.row.price}}</span>
             </template> -->
         </el-table>
-        <div style="margin-top: 20px">
-            <el-button @click="toggleSelection()">取消选择</el-button>
+        <div style="margin-top: 20px;margin-left:-160px">
+            <el-button style="width:190px" @click="toggleSelection()">取消选择</el-button>
             <el-button @click="delItem(multipleSelection)">删除选中商品</el-button>
             <span id="all">总价：{{sum}}</span>
             <el-button @click="submitMenu()">提交订单</el-button>
@@ -213,7 +213,7 @@ export default {
                     username:this.cookie.getCookie('user')
                 }
             }).then(res => {
-                this.tableData = res.data;
+                this.tableData = res.data.reverse();
             }).catch(err => {
                 console.log(err);
             })

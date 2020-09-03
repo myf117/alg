@@ -17,8 +17,8 @@ export default {
 </script>
 <style scoped>
 .main {
-  background-color:#fff;
-  height:695px ;
+  background-color:rgba(240, 241, 243, 0.521);
+  height:900px;
   width: 100%;
   top: 0px;
   position: relative;

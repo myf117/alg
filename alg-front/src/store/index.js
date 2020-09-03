@@ -10,24 +10,37 @@ export default new Vuex.Store({
     cartNum:0,
     selected:[],
     sum:0,
-    productArr:[]
+    productArr:[],
+    searchArr:[],
+    productMsg:{}
   },
   mutations:{
     modifyData(state,cartNum){
         state.cartNum = cartNum;
-        console.log(state.cartNum);
+        // console.log(state.cartNum);
     },
     modifySelect(state,selected){
       state.selected = selected;
-      console.log(state.selected);
+      // console.log(state.selected);
     },
     modifySum(state,sum){
       state.sum = sum;
-      console.log(state.sum);
+      // console.log(state.sum);
     },
     modifyProductArr(state,arr){
       state.productArr = arr;
-      console.log(state.productArr);
+      // console.log(state.productArr);
+    },
+    modifySearchArr(state,arr){
+      state.searchArr = arr;
+      // console.log(state.searchArr);
+    },
+    modifyProductMsg(state,id,price,url,dis){
+      state.productMsg.product_id = id;
+      state.productMsg.price = price;
+      state.productMsg.img_url = url;
+      state.productMsg.discription = dis;
+      console.log(state.productMsg);
     }
   },
   actions: {

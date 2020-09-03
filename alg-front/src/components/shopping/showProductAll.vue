@@ -13,7 +13,7 @@
                 productArr:[]
             }
         },
-        props:['class_id','goods_id'],
+        props:['class_id','goods_id','page'],
         provide:{
 
         },
@@ -22,15 +22,17 @@
         },
         methods: {
             getAllProduct(){
-                this.$http.get('/showClassProduct',{
+                // console.log(this.goods_id);
+                this.$http.get('/limitClassProduct',{
                     params:{
                         class_id:this.class_id,
-                        goods_id:this.goods_id
+                        goods_id:this.goods_id,
+                        page:this.page
                     }
                 }).then(res => {
                     this.productArr = res.data;
                     //将查询出的数组暂存在store的productArr中
-                    this.$store.commit('modifyProductArr',this.productArr);
+                    // this.$store.commit('modifyProductArr',this.productArr);
                 }).catch(err => {
                     console.log(err);
                 })
@@ -42,6 +44,9 @@
         watch: {
             'goods_id':function(){
                 this.getAllProduct();
+            },
+            'page':function(){
+                this.getAllProduct();
             }
         },
     }
@@ -51,6 +56,7 @@
         margin: 20px;
         width: 150px;
         height: 300px;
+        /* font-size: 4px; */
     }
     .productall {
         display: flex;

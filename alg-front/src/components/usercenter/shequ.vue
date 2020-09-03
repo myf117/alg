@@ -4,10 +4,10 @@
       <div class="main_left">
         <div class="person_info">
           <div class="user_head">
-            <img src="../../assets/touxiang.gif" alt width="120px" height="120px" />
+            <img :src="imgurl1?imgurl1:require('../../assets/touxiang.gif')" alt style="width:120px;height:120px" />
           </div>
           <div class="nick_name">
-            <a href>manglee</a>
+            <a>{{username1}}</a>
           </div>
           <div class="num">
             <span>
@@ -83,7 +83,7 @@
       <div class="plc_main">
         <div class="main_center" id="mainCenter">
           <div class="fn_info">
-            <span class="nick_name">manglee</span>
+            <span class="nick_name">{{username1}}</span>
             <span class="area"></span>
             <span>
               <a href>修改资料</a>
@@ -170,7 +170,33 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      username1:"",
+      imgurl1: ""
+    }
+  },
+  created() {
+    this.username1= this.cookie.getCookie("user")
+    let username= this.cookie.getCookie("user")
+    this.$http
+        .get("/gettouxiang", {
+            params:{username}
+        })
+        .then((res) => {
+          console.log("成功取到头像");
+          console.log(res.data);
+          this.imgurl1 = res.data[0].head_url;
+          console.log(this.imgurl1);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("ajax出错");
+        });
+  },
+  
+};
 </script>
 
 <style >
@@ -189,7 +215,7 @@ body {
   background: url(../../assets/bg.jpg) no-repeat center top;
 }
 .main1 {
-  width: 968px;
+  width: 75%;
   margin: 0 auto;
   border: 1px solid #ebebeb;
   border-top: 2px solid #cdebf5;
@@ -207,7 +233,7 @@ body {
 
 /* 左侧开始 */
 .main_left {
-  width: 169px;
+  width: 17%;
   float: left;
   overflow: hidden;
   zoom: 1;
@@ -350,12 +376,12 @@ ol {
 
 /* 中间开始 */
 .main1 .plc_main {
-  float: left;
+  float: right;
   background: url(../../assets/right_bg.gif) no-repeat right top;
   background-color: rgb(253, 252, 250);
 }
 .main1 .main_center {
-  width: 540px;
+  width: 75%;
   float: left;
   padding: 20px 20px;
   overflow: hidden;
@@ -439,6 +465,9 @@ input[type="hidden" i] {
   background: #ffffff;
   resize: none;
 }
+.talk_box .send_cont textarea:focus{
+  outline: none;
+}
 .talk_box .send_cont .arr_ico {
   width: 15px;
   height: 10px;
@@ -450,8 +479,8 @@ input[type="hidden" i] {
 }
 .talk_box .send_cont .num {
   position: absolute;
-  bottom: 1px;
-  right: 7px;
+  bottom: 5px;
+  right: 10px;
   font-weight: bold;
   color: #808080;
 }
@@ -473,7 +502,7 @@ input[type="hidden" i] {
   padding-top: 5px;
 }
 .face {
-  width: 25px;
+  /* width: 25px; */
   height: 16px;
   line-height: 16px;
   display: inline-block;
@@ -483,7 +512,7 @@ input[type="hidden" i] {
   margin-right: 18px;
 }
 .send_fun > .emot > .img3 {
-  width: 45px;
+  /* width: 45px; */
   height: 16px;
   line-height: 16px;
   display: inline-block;

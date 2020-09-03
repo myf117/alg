@@ -38,4 +38,16 @@ module.exports = app => {
     router.get('/getClassBaike',controller.baikeController.getClassBaike);
     //个人中心完善用户信息
     router.post('/gerenziliao',controller.userController.addMessage);
+    //管理员批量删除商品
+    router.get('/adminDelProduct',controller.adminController.delProduct);
+    //根据id获取商品信息
+    router.get('/getByid',controller.shoppingController.getByid);
+    //管理员修改商品信息
+    router.get('/modifyProduct',controller.adminController.modifyProduct);
+    router.get('/getsearch',controller.baikesearchController.getClasskeyBaike);
+    //个人中心主页的用户头像显示
+    router.get('/gettouxiang',controller.adminController.gettouxiang);
+    router.get('/getperson',controller.adminController.getperson);
+    //分页显示商品
+    router.get('/limitClassProduct',controller.shoppingController.limitClassProduct);
 }

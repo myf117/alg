@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div style="padding-left:50px">
-      <div class="sear_goods_list" v-for="item in product" :key="item.id">
-        <div class="dl">
-          <img :src="item.img_url" alt />
-          <p class="name">{{item.discription}}</p>
-          <p class="sear_price">¼Û¸ñ£º£¤{{item.price}}</p>
-        </div>
+  <div class="showproduct-one">
+    <div style="padding-left:50px" >
+      <div class="sear_goods_list" v-for="item in product" :key="item.id" @click="toXQ(item.id)">
+          <div class="dl">
+            <img :src="item.img_url" alt />
+            <p class="name">{{item.discription}}</p>
+            <p class="sear_price">?{{item.price}}</p>
+          </div>
       </div>
   </div>
   </div>
@@ -24,10 +24,19 @@ export default {
   //   console.log(this);
   //   console.log(this.$route.query);
     this.product=this.$route.query
-    console.log(this.product);
+    // console.log(this.product);
+    // console.log(this.$router);
   },
   methods: {
-   
+    toXQ(product_id){
+      // this.$store.commit('modifyProductMsg',product_id,price,img_url,discription);
+        this.$router.push({
+          name:'gouwu',
+          query:{
+              product_id:product_id
+          }
+      });
+    }
   },
 };
 </script>
@@ -40,6 +49,7 @@ export default {
   border: 1px solid #e6e6e6;
   position: relative;
   margin: 10px;
+  cursor: pointer;
 }
 .sear_goods_list:hover {
   border: 1px solid #f65;
@@ -64,5 +74,8 @@ export default {
   color: #f65;
   font: 16px "Arial";
   margin-top: 15px;
+}
+.showproduct-one {
+  margin: 10px auto;
 }
 </style>

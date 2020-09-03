@@ -1,6 +1,6 @@
 <template>
-    <div class="imgs">
-        <img src="../../../assets/logoll.png" @click="toHome">
+    <div class="imgs" style="display:inline-block;height:100px">
+        <img src="../../../assets/logoll.png" @click="toHome" >
     </div>
 </template>
 <script>

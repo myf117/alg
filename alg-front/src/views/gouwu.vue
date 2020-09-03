@@ -1,24 +1,28 @@
 <template>
-	<div>
+	<div class="gouwubox">
 		<div class="shopbox">
 			<div class="shopleft">
-			<!-- 	<fangdajing class="shop-pic"></fangdajing> -->
-				<!-- <vue-photo-zoom-pro class="shop-pic" url="https://img-new.boqiicdn.com/Data/Shop/0/13/1392/shoppicpath11584500251_y.jpg?imageView2/2/w/360/h/360/q/100/interlace/0"></vue-photo-zoom-pro> -->
+				<div class="shop-pic" >
+					<fangdajing :imgUrl="img_url"></fangdajing>
+					</div>
+				
+				
 				<div class="shop-smallPic">
 					<div @mouseover="picmouseover" @mouseleave="picmouseleave">
-						<img src="../assets/shoppicpath11568013747_y.jpg" :style="active">
+						<img :src="img_url" :style="active">
 					</div>
-					<!-- <div><img src="../assets/shop/shoppicpath11590564071_y.jpg" alt=""></div>
-					<div><img src="../assets/shop/shoppicpath21590564071_y.jpg" alt=""></div> -->
+
+					<!-- <div @mouseover="picmouseover1" @mouseleave="picmouseleave1"><img src="../assets/shop/shoppicpath11590564071_y.jpg" alt="":style="active1"></div>
+					<div @mouseover="picmouseover2" @mouseleave="picmouseleave2"><img src="../assets/shop/shoppicpath21590564071_y.jpg" alt="":style="active2"></div> -->
 				</div>
 
 			</div>
 			<div class="shop-detail">
-				<p>宝路Pedigree 牛肉高汤口味成犬妙鲜包 100g 狗湿粮</p>
+				<p>{{discription}}</p>
 				<li>天天特价，好货任选2件8折</li>
 
 				<div class="money">
-					<dl>波奇价：<i style="color: red;font-size: 30px;"> $3.9</i><i style="color: red;"> 波奇豆抵5%</i></dl><br>
+					<dl>波奇价：<i style="color: red;font-size: 30px;"> ￥{{price}}</i><i style="color: red;"> 波奇豆抵5%</i></dl><br>
 					<dl>厂商指导价：<del style="color: #8C8C8C;">¥4.30</del></dl><br>
 					<dl>促销信息：<i style="background-color: red;color: white;">多买多惠</i> <i style="color: red;"> 2件8折</i></dl>
 					<br><br>
@@ -39,13 +43,11 @@
 			</div>
 			<rightfloat></rightfloat>
 		</div>
-
-	<fangdajing class="shop-pic"></fangdajing>
 	</div>
 </template>
 
 <script>
-	import fangdajing from "../components/shopping/ProductMsg/fangdajing";
+	import fangdajing from "../components/shopping/ProductMsg/fangdajing.vue"
 	import xiala from "../components/shopping/ProductMsg/xiala";
 	import taocan from "../components/shopping/ProductMsg/taocan";
 	import rightlist from "../components/shopping/ProductMsg/rightlist";
@@ -59,8 +61,12 @@
 		data: function() {
 			return {
 				active: "",
+				active1: "",
+				active2: "",
 				num: 1,
-				product_id:0
+				price:0,
+				img_url:'',
+				discription:''
 			}
 		},
 		methods: {
@@ -72,6 +78,18 @@
 			},
 			handleChange(value) {
 				console.log(value);
+			},
+			picmouseover1() {
+				this.active1 = "border: 1px solid red;"
+			},
+			picmouseleave1() {
+				this.active1 = ""
+			},
+			picmouseover2() {
+				this.active2 = "border: 1px solid red;"
+			},
+			picmouseleave2() {
+				this.active2 = ""
 			},
 			goback(){
 				this.$router.go(-1);
@@ -96,27 +114,42 @@
 				}else {
 					this.$router.push('/loginregist/login');
 				}
+			},
+			getMsg(){
+				this.$http.get('/getByid',{
+					params:{
+						product_id:this.$route.query.product_id
+					}
+				}).then(res => {
+					this.price = res.data[0].price;
+					this.img_url = res.data[0].img_url;
+					this.discription = res.data[0].discription;
+				}).catch(err => {
+					console.log(err);
+				})
 			}
 		},
 		mounted() {
-			this.product_id = this.$route.query.product_id;
-			console.log(this.product_id);
+			//不能使用go(0)会无限刷新
+			// this.$router.go(0);
+			this.getMsg();
+		},
+		watch: {
+			'$route.query.product_id'(){
+				this.getMsg();
+			}
 		}
 	}
 </script>
 
 <style>
-	/* .back-pre{
-		color: lightgrey;
-		font-size: 14px;
-		cursor: pointer;
+	.gouwubox {
+		margin-top: 30px;
 	}
-	.back-pre:hover {
-		color: lightsalmon;
-	} */
+
 	.shopbox {
 		width: 1190px;
-		margin-top: 10px;
+		margin-top: 20px;
 		position: relative;
 		margin: auto auto;
 	}

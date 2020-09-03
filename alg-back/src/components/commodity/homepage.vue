@@ -1,13 +1,24 @@
 <template>
-<div>后台主页</div>
+  <div>
+    <div>
+      后台主页
+      <!-- <canvas width="500" height="500" class="clockC"></canvas> -->
+    </div>
+  </div>
 </template>
 <script >
-export default ({
-
-
-})
+import clock from "../../assets/js/clock";
+export default {
+  data() {
+    return {
+      // ctx:""
+    };
+  },
+};
 </script>
-<style scoped>
-
-
+<style >
+.clockC {
+  border: 1px solid black;
+  position: relative;
+}
 </style>

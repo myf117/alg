@@ -17,7 +17,7 @@
         class="demo-ruleForm"
       >
         <el-form-item label="昵称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+          <el-input v-model="ruleForm.name" placeholder="aa"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="ruleForm.sex">
@@ -65,6 +65,7 @@
 export default {
   data() {
     return {
+      myselfxinxi: [],
       ruleForm: {
         name: "", //昵称
         date1: "", //出生日期
@@ -73,7 +74,7 @@ export default {
         adatar: "", //图片地址
         address: "", //收货地址
         phonenum: "", //手机号码
-        username: "",
+        username: ""
       },
       rules: {
         name: [
@@ -122,7 +123,7 @@ export default {
       this.$http
         .post("/gerenziliao", { arr:arr })
         .then((res) => {
-          console.log(111);
+          console.log(res.data);
         })
         .catch((e) => {
           console.log("请求失败");
@@ -145,13 +146,13 @@ export default {
         .post("/uploadFile", formData, config)
         .then((res) => {
           console.log("文件上传成功");
-          console.log(res.data);
+          // console.log(res.data);
           this.ruleForm.adatar = res.data;
           console.log(this.ruleForm.adatar);
           let myImg = document.getElementById("myImg");
+          // console.log(myImg);
           myImg.setAttribute("src", this.ruleForm.adatar);
-          console.log(this.ruleForm.adatar);
-
+          // console.log(this.ruleForm.adatar);
           //   this.upPhoto(res.data);
         })
         .catch((err) => {
@@ -211,8 +212,8 @@ export default {
 
         reader.onload = () => {
           let myImg = document.getElementById("myImg");
-          myImg.setAttribute("src", this.adatar);
-          console.log(this.adatar);
+          myImg.setAttribute("src", this.ruleForm.adatar);
+          console.log(this.ruleForm.adatar);
         };
       } else {
         alert("文件格式不正确");
@@ -220,6 +221,23 @@ export default {
       }
     };
     //上传文件到指定文件夹
+  },
+  created() {
+    let username1 = this.cookie.getCookie("user");
+    this.$http
+      .get("/getperson", {
+        params: {username1},
+      })
+      .then((res) => {
+        console.log("成功取到个人资料");
+        console.log(res.data);
+        this.ruleForm = res.data[0];
+        console.log(this.ruleForm);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("ajax出错");
+      });
   },
 };
 </script>

@@ -97,7 +97,7 @@ export default {
                      goods_id:201
                  }
              }).then(res=>{
-                 console.log(res.data);
+                //  console.log(res.data);
                  for(let i=0;i<3;i++){
                      this.newsArray[i].imgs=res.data[i].img_url;
                      this.newsArray[i].name=res.data[i].product_name;

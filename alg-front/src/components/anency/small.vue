@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<h1>这里是水族页面</h1>
+		<h1>这里是小宠页面</h1>
 		<top></top>
 		<topnav></topnav>
 		<div style="text-align: left;width: 1200px;margin: 10px auto;padding-left: 40px;">
-		<span @click="remain" style="cursor: pointer;">首页</span>><span style="color: #ccc;">水族百科</span></div>
+		<span @click="remain" style="cursor: pointer;">首页</span>><span style="color: #ccc;">小宠百科</span></div>
 	    <anlunbo></anlunbo>
-		<animg></animg>
+		<animg2></animg2>
 		<div style="width: 1200px;height: 800px; margin: 0 auto;">
 			<div style="border-bottom: 3px solid #99cc55;width: 800px;">
-				<h2 style="font-size: 24px;">水族饲养</h2>
+				<h2 style="font-size: 24px;">小宠饲养</h2>
 			</div>
 			<div class="antip">
 				<div class="antip1">
@@ -57,7 +57,7 @@
             
 			
 			<div style="border-bottom: 3px solid #99cc55;width: 800px;">
-            	<h2 style="font-size: 24px;">水族医疗</h2>
+            	<h2 style="font-size: 24px;">小宠医疗</h2>
             </div>
 			<div class="antip">
 				<div class="antip1">
@@ -179,15 +179,15 @@
 	 import top from "./top.vue";
 	import topnav from "./topnav.vue";
 	import anlunbo from "./anlunbo.vue";
-	import animg from "./anhot.vue";
+	import animg2 from "./anhotsmall.vue";
 	import bottom from "../../views/bottom.vue";
 	export default{
 		components:{
 			top:top,
 			topnav:topnav,
 			anlunbo:anlunbo,
-			animg:animg,
-			bottom:bottom
+			bottom:bottom,
+			animg2:animg2,
 			},
 			methods:{
 				remain(){

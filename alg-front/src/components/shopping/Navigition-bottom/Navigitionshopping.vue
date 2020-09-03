@@ -97,7 +97,7 @@ export default {
                      goods_id:102
                  }
              }).then(res=>{
-                 console.log(res.data);
+                //  console.log(res.data);
                  for(let i=0;i<3;i++){
                      this.newsArray[i].imgs=res.data[i].img_url;
                      this.newsArray[i].name=res.data[i].product_name;
@@ -162,7 +162,6 @@ export default {
       height: 180px;
       border-right: 1px solid #e6e6e6 ;
       margin-top:7px;
-      
       text-align: center;
       position: relative;
   }
@@ -186,27 +185,30 @@ export default {
   .showtime .show-right-bottom{
       width: 580px;
       height: 153px;
-      display: inline-block;
+      /* display: inline-block; */
       position: absolute;
       right:0;
       bottom: 0;
       display: flex;
         align-items: center;
+        justify-content: space-between;
   }
+ 
   .showtime .show-right-bottom .jieshaos{
-      width: 195px;
+      width: 210px;
       border-right: 1px solid #e6e6e6 ;
       text-align: center;
       position: relative;
   }
   .showtime .show-right-bottom .jieshaos img{
-      width: 60px;
+      width: 62px;
       height: 80px;
       padding-bottom:20px;
   }
   .showtime .show-right-bottom .jieshaos .span1{
       font:20px/22px "Microsoft YaHei", "微软雅黑", tahoma, arial, sans-serif;
       color: #333;
+      margin-right:2px;
       position: absolute;
       right:20px;
       top:0;

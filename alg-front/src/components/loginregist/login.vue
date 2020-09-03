@@ -1,20 +1,20 @@
 <template>
-    <div class="login">
-        
+    <div class="login" >
         账户：<el-input placeholder="请输入用户名" v-model="user" ></el-input><br>
         密码：<el-input placeholder="请输入密码" v-model="pwd" show-password></el-input><br>
         <div class="pwd-oper">
             <el-switch
             v-model="value"
-            inactive-text="记住密码" @change="getpwd">
+            inactive-text="记住密码" @change="getpwd" style="margin-top:15px">
             </el-switch>
-            <el-link type="primary" @click="unknowPwd">忘记密码</el-link>
+            <el-link type="primary" @click="unknowPwd" style="margin-left:10px;margin-top:15px">忘记密码</el-link>
         </div>
-        <el-row>
-            <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="primary" @click="toHome">返回主页</el-button>
+        <el-row style="margin-top:20px;margin-bottom:100px">
+            <el-button   type="primary"  @click="login" style="margin-right:90px;width:160px">登录</el-button>
+            <el-button   type="primary" @click="toHome" >返回主页</el-button>
         </el-row>
-    </div>
+
+        </div>
 </template>
 <script>
     export default {
@@ -91,6 +91,9 @@
     }
 </script>
 <style scoped>
+    .login{
+       margin-bottom:100px;
+    }
     .el-input {
         width: 300px;
         height: 50px;
@@ -107,5 +110,11 @@
         box-shadow: 0,0 0 6px rgba(0, 0, 0, .04),0 2px 4px rgba(0, 0, 0, .12);
         border-radius: 4px;
         /* margin: -20px auto; */
+    }
+    .el-button{
+        background-color: #ccc;
+    }
+    .el-button:hover{
+        background-color: #dddd;
     }
 </style>

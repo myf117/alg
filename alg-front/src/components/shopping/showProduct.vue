@@ -1,7 +1,7 @@
 <template>
     <div class="product" >
-        <img :src="img" width="150" height="160" style="width:150px;height:160px" @click="toXQ(product_id)">
-        <p class="price">￥{{price}}</p>
+        <img :src="img" width="150" height="160" style="width:140px;height:140px;margin:5px" @click="toXQ(product_id)">
+        <p class="price" style="font-size:10px">￥{{price}}</p>
         <p class="dis">{{discription}}</p>
         <div @click="addToCart()" class="shopcart">
             <span class="el-icon-goods"></span>
@@ -16,6 +16,11 @@
                 img:''
             }
         },
+        // watch: {
+        //     "$route.params"(){
+        //         this.toXQ(product_id,price,img_url,discription)
+        //     }            
+        // },
         props:['product_id','img_url','price','discription'],
         methods: {
             addToCart(){
@@ -24,7 +29,7 @@
                         params:{
                             id:this.product_id,
                             user:this.cookie.getCookie('user'),
-                            count:0
+                            count:1
                         }
                     }).then(res => {
                         // console.log('添加购物车成功');
@@ -38,14 +43,20 @@
                     this.$router.push("/loginregist/login");
                 }
             },
-            toXQ(value){
-                this.$router.push(`/gouwu?product_id=${value}`);
-                console.log(value)
+            toXQ(product_id){
+                
+                this.$router.push({
+                    name:'gouwu',
+                    query:{
+                        product_id:product_id
+                    }
+                });
+                // console.log(value)
             }
         },
         mounted() {
             this.img = this.img_url; 
-        },
+        }
     }
 </script>
 <style scoped>
@@ -56,21 +67,36 @@
         position: relative;
         cursor: pointer;
     }
+    .product:hover{
+        border:2px solid #EE5533;
+    } 
+    .product .dis{
+        width: 90px;
+        font-size: 10px;
+        position: absolute;
+        top:155px;
+        right: 10px;
+    }
     .product:hover {
         top: -10px;
     }
     .price {
+        position: absolute;
+        top:153px;
+        left:10px;
         color: red;
-        font-size: 18px;
     }
     .shopcart {
         background-color: lightgrey;
         font-size: 16px;
         height: 40px;
         line-height: 40px;
-        width: 90%;
+        width: 80%;
         margin: 10px auto 0 auto;
         border-radius: 5px;
+        position: absolute;
+        top:230px;
+        left: 15px;
     }
     .shopcart:hover {
         background-color: red;

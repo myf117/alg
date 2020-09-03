@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'mainpage',
-    redirect:"/homepage",
+    redirect:"/login",
     component: mainpage,
     children: [
       // 后台主页路由
@@ -36,12 +36,6 @@ const routes = [
         path: 'modifyProduct',
         // 设置路由的懒加载 modifyProduct
         component: () => import('../components/commodity/modifyProduct')
-      },
-      {
-        // 库存管理路由 inventoryManagement
-        path: 'inventoryManagement',
-        // 设置路由的懒加载 
-        component: () => import('../components/commodity/inventoryManagement')
       },
       {
         // 修改宠物百科路由 petEncyclopedia
@@ -76,6 +70,11 @@ const routes = [
     ]
 
   },
+  {
+    path:"/login",
+    name:"login",
+    component: () => import('../views/login.vue')
+  }
 
 ]
 

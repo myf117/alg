@@ -1,163 +1,163 @@
 <template>
   <div class="nav-div">
-    <div class="nav-left">
+    <div class="nav-left" style="margin-left:-374px">
       <span class="allshopping">全部商品分类</span>
       <div class="divimg"></div>
       <div class="hidden1">
           <div class="hidden1-1">
-            <div class="hidden11">
+            <div class="hidden11" style="margin-left:-4px">
               <div class="hidden1-1-1">
               </div>
               <span @click="toDog">狗狗商品</span>
-              <a href="#">></a>
+              <a href="javascript:">></a>
               <div class="name1">
-              <a class="p1" href="#">主粮</a>
-              <a class="p2" href="#">零食</a>
-              <a class="p3" href="#">玩具</a>
+              <a class="p1" href="javascript:" @click="toClassGoods(1,101)">主粮</a>
+              <a class="p2" href="javascript:" @click="toClassGoods(1,102)">零食</a>
+              <a class="p3" href="javascript:" @click="toClassGoods(1,103)">玩具</a>
               </div>
               <div class="floatright1">
                 <div id="float1">
-                  <a href="#" class="a-top">狗狗主粮</a>                 
-                  <a href="#">进口粮</a>
-                  <a href="#">国产粮</a>
-                  <a href="#">处方粮</a>
-                  <a href="#">冻干粮</a>
+                  <a href="javascript:" class="a-top" @click="toClassGoods(1,101)">狗狗主粮</a>                 
+                  <a href="javascript:">进口粮</a>
+                  <a href="javascript:">国产粮</a>
+                  <a href="javascript:">处方粮</a>
+                  <a href="javascript:">冻干粮</a>
                 </div>
                 <div id="float2">
-                   <a href="#" class="a-top">狗狗零食</a>                 
-                  <a href="#">罐头湿粮</a>
-                  <a href="#">肉类零食</a>
-                  <a href="#">磨牙洁齿</a>
-                  <a href="#">奶酪饼干</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(1,102)">狗狗零食</a>                 
+                  <a href="javascript:">罐头湿粮</a>
+                  <a href="javascript:">肉类零食</a>
+                  <a href="javascript:">磨牙洁齿</a>
+                  <a href="javascript:">奶酪饼干</a>
                 </div>
                 <div id="float3">
-                   <a href="#" class="a-top">狗狗玩具</a>                 
-                  <a href="#">益智玩具</a>
-                  <a href="#">磨牙玩具</a>
-                  <a href="#">训练玩具</a>
-                  <a href="#">漏食玩具</a>
-                  <a href="#">互动玩具</a>
-                  <a href="#">毛绒玩具</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(1,103)">狗狗玩具</a>                 
+                  <a href="javascript:">益智玩具</a>
+                  <a href="javascript:">磨牙玩具</a>
+                  <a href="javascript:">训练玩具</a>
+                  <a href="javascript:">漏食玩具</a>
+                  <a href="javascript:">互动玩具</a>
+                  <a href="javascript:">毛绒玩具</a>
                 </div>
               </div>
             </div>
               
           </div>
           <div class="hidden1-2">
-            <div class="hidden22">
+            <div class="hidden22" style="margin-left:-4px">
               <div class="hidden2-1-1">
               </div>
-              <span @click="toCat">猫猫用品</span>
-              <a href="#">></a>
+              <span @click="toCat" >猫猫用品</span>
+              <a href="javascript:">></a>
               <div class="name2">
-              <a class="p4" href="#">主粮</a>
-              <a class="p5" href="#">零食</a>
-              <a class="p6" href="#">猫砂</a>
-              <a class="p7" href="#">玩具</a>
+              <a class="p4" href="javascript:" @click="toClassGoods(2,201)">主粮</a>
+              <a class="p5" href="javascript:" @click="toClassGoods(2,202)">零食</a>
+              <a class="p6" href="javascript:" @click="toClassGoods(2,203)">猫砂</a>
+              <a class="p7" href="javascript:" @click="toClassGoods(2,204)">玩具</a>
               </div>
                <div class="floatright2">
                 <div id="float2">
-                  <a href="#" class="a-top">猫咪主粮</a>                 
-                  <a href="#">进口粮</a>
-                  <a href="#">国产粮</a>
-                  <a href="#">处方粮</a>
-                  <a href="#">冻干粮</a>
+                  <a href="javascript:" class="a-top" @click="toClassGoods(2,201)">猫咪主粮</a>                 
+                  <a href="javascript:">进口粮</a>
+                  <a href="javascript:">国产粮</a>
+                  <a href="javascript:">处方粮</a>
+                  <a href="javascript:">冻干粮</a>
                 </div>
                 <div id="float2">
-                   <a href="#" class="a-top">猫咪零食</a>                 
-                  <a href="#">罐头湿粮</a>
-                  <a href="#">肉类零食</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(2,202)">猫咪零食</a>                 
+                  <a href="javascript:">罐头湿粮</a>
+                  <a href="javascript:">肉类零食</a>
                   <a href="#">猫草薄荷</a>
-                  <a href="#">休闲零食</a>
+                  <a href="javascript:">休闲零食</a>
                 </div>
                 <div id="float3">
-                   <a href="#" class="a-top">猫砂猫厕</a>                 
-                  <a href="#">膨润土猫砂</a>
-                  <a href="#">水晶猫砂</a>
-                  <a href="#">松木猫砂</a>
-                  <a href="#">矿物猫砂</a>
-                  <a href="#">猫咪厕所</a>
-                  <a href="#">排便清洁</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(2,203)">猫砂猫厕</a>                 
+                  <a href="javascript:">膨润土猫砂</a>
+                  <a href="javascript:">水晶猫砂</a>
+                  <a href="javascript:">松木猫砂</a>
+                  <a href="javascript:">矿物猫砂</a>
+                  <a href="javascript:">猫咪厕所</a>
+                  <a href="javascript:">排便清洁</a>
                 </div>
                 <div id="float3">
-                   <a href="#" class="a-top">猫咪玩具</a>                 
-                  <a href="#">猫爬架</a>
-                  <a href="#">猫抓板</a>
-                  <a href="#">逗猫玩具</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(2,204)">猫咪玩具</a>                 
+                  <a href="javascript:">猫爬架</a>
+                  <a href="javascript:">猫抓板</a>
+                  <a href="javascript:">逗猫玩具</a>
                 </div>
               </div>
             </div>
               
           </div>
           <div class="hidden1-3">
-            <div class="hidden33">
+            <div class="hidden33" style="margin-left:-4px">
               <div class="hidden3-1-1">
               </div>
               <span @click="toMini">奇趣小宠</span>
-              <a href="#">></a>
+              <a href="javascript:">></a>
               <div class="name3">
-              <a class="p8" href="#">仓鼠</a>
-              <a class="p9" href="#">龙猫</a>
-              <a class="p10" href="#">天竺鼠</a>
+              <a class="p8" href="javascript:" @click="toClassGoods(3,301)">仓鼠</a>
+              <a class="p9" href="javascript:" @click="toClassGoods(3,302)">龙猫</a>
+              <a class="p10" href="javascript:" @click="toClassGoods(3,303)">天竺鼠</a>
               </div> 
               <div class="floatright3">
                 <div id="float2">
-                  <a href="#" class="a-top">仓鼠</a>                 
-                  <a href="#">仓鼠粮</a>
-                  <a href="#">笼窝</a>
-                  <a href="#">器具</a>
-                  <a href="#">玩具</a>
-                  <a href="#">磨牙</a>
-                  <a href="#">清洁</a>
+                  <a href="javascript:" class="a-top" @click="toClassGoods(3,301)">仓鼠</a>                 
+                  <a href="javascript:">仓鼠粮</a>
+                  <a href="javascript:">笼窝</a>
+                  <a href="javascript:">器具</a>
+                  <a href="javascript:">玩具</a>
+                  <a href="javascript:">磨牙</a>
+                  <a href="javascript:">清洁</a>
                 </div>
                 <div id="float2">
-                   <a href="#" class="a-top">龙猫</a>                 
-                  <a href="#">龙猫粮</a>
-                  <a href="#">龙猫用品</a>
-                  <a href="#">龙猫</a>
-                  <a href="#">笼窝</a>
-                  <a href="#">用具</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(3,302)">龙猫</a>                 
+                  <a href="javascript:">龙猫粮</a>
+                  <a href="javascript:">龙猫用品</a>
+                  <a href="javascript:">龙猫</a>
+                  <a href="javascript:">笼窝</a>
+                  <a href="javascript:">用具</a>
                 </div>
                 <div id="float3">
-                   <a href="#" class="a-top">天竺鼠</a>                 
-                  <a href="#">天竺鼠粮</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(3,303)">天竺鼠</a>                 
+                  <a href="javascript:">天竺鼠粮</a>
                 </div>
               </div>
             </div>
               
           </div>
           <div class="hidden1-4">
-            <div class="hidden44">
+            <div class="hidden44" style="margin-left:-4px">
               <div class="hidden4-1-1">
               </div>
               <span @click="toWater">水族市场</span>
-              <a href="#">></a>
+              <a href="javascript:">></a>
               <div class="name4">
-              <a class="p11" href="#">鱼食</a>
-              <a class="p12" href="#">鱼缸</a>
-              <a class="p13" href="#">器材</a>
+              <a class="p11" href="javascript:" @click="toClassGoods(4,401)">鱼食</a>
+              <a class="p12" href="javascript:" @click="toClassGoods(4,402)">鱼缸</a>
+              <a class="p13" href="javascript:" @click="toClassGoods(4,403)">器材</a>
               </div>
               <div class="floatright4">
                 <div id="float2">
-                  <a href="#" class="a-top">鱼粮</a>                 
-                  <a href="#">鱼粮</a>
-                  <a href="#">喂食器</a>
+                  <a href="javascript:" class="a-top" @click="toClassGoods(4,401)">鱼粮</a>                 
+                  <a href="javascript:">鱼粮</a>
+                  <a href="javascript:">喂食器</a>
                 </div>
                 <div id="float2">
-                   <a href="#" class="a-top">鱼缸</a>                 
-                  <a href="#">小型鱼缸</a>
-                  <a href="#">中型鱼缸</a>
-                  <a href="#">大型鱼缸</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(4,402)">鱼缸</a>                 
+                  <a href="javascript:">小型鱼缸</a>
+                  <a href="javascript:">中型鱼缸</a>
+                  <a href="javascript:">大型鱼缸</a>
                 </div>
                 <div id="float3">
-                   <a href="#" class="a-top">器材</a>                 
-                  <a href="#">过滤器</a>
-                  <a href="#">滤材</a>
-                  <a href="#">增氧泵</a>
-                  <a href="#">潜水泵</a>
-                  <a href="#">温控设备</a>
-                  <a href="#">照明设备</a>
-                  <a href="#">清洁用具</a>
+                   <a href="javascript:" class="a-top" @click="toClassGoods(4,403)">器材</a>                 
+                  <a href="javascript:">过滤器</a>
+                  <a href="javascript:">滤材</a>
+                  <a href="javascript:">增氧泵</a>
+                  <a href="javascript:">潜水泵</a>
+                  <a href="javascript:">温控设备</a>
+                  <a href="javascript:">照明设备</a>
+                  <a href="javascript:">清洁用具</a>
                 </div>
               </div>
             </div>
@@ -220,6 +220,27 @@
 				}else{
 					this.$router.push(path);
 				}
+      },
+      toClassGoods(class_id,goods_id){
+        let path;
+        // if(this.$route.path == '/Nav'){
+            switch(class_id){
+            case 1:path='/dog';break;
+            case 2:path='/cat';break;
+            case 3:path='/mini';break;
+            case 4:path='/water';break;
+          }
+          this.$router.push({
+            path:path,
+            query:{
+              class_id:class_id,
+              goods_id:goods_id
+            }
+          });
+        // }else {
+        //   this.$router.go(0);
+        // }
+        
       }
     },
     mounted() {
@@ -369,7 +390,7 @@
 .nav-left .hidden1 .hidden11,.nav-left  .hidden1 .hidden22,.nav-left  .hidden1 .hidden33,.nav-left 
 .hidden1 .hidden44{
   width: 190px;
-  height: 90px;
+  height: 91px;
   display: flex;
   justify-content: left;
   position: relative;
@@ -433,8 +454,10 @@ a{
   border-bottom: 1px dashed #cccccc;
   display: flex;
 }
-.nav-left .hidden1 .hidden11  #float1 a,
- .hidden11  #float2 a,
+.nav-left .hidden1 a
+/* .hidden11  #float1 a */
+/* , */
+/* .hidden11  #float2 a,
  .hidden11  #float3 a,
  .hidden22  #float1 a,
  .hidden22  #float2 a,
@@ -444,8 +467,9 @@ a{
  .hidden33  #float3 a,
   .hidden44  #float1 a,
  .hidden44  #float2 a,
- .hidden44  #float3 a
+ .hidden44  #float3 a */
  {
+   color: #ccc;
   font:14px/16px "Microsoft YaHei";
   margin:0px 13px 0 0;
 }
@@ -481,7 +505,9 @@ a{
 .nav-left .hidden1 .hidden44:hover .floatright4{
   display: inline-block;
 }
+
 .nav-left:hover{
+  color: #c20;
     cursor: pointer;
 }
 .nav-left:hover  .hidden1{

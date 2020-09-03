@@ -42,7 +42,7 @@
     <div class="main">
       <div class="personal-module">
         <div>
-          <img src="../../assets/touxiang.gif" alt class="tou" />
+          <img :src="imgurl?imgurl:require('../../assets/touxiang.gif')" alt class="tou" />
         </div>
         <div>
           <div class="ziliao">
@@ -78,7 +78,7 @@
 
         <div class="dindan">
           <div>
-            <i class="el-icon-s-order"></i>
+            <i class="el-icon-s-order" @click="mydindan"></i>
             <p class="p">我的订单</p>
           </div>
           <div>
@@ -96,8 +96,11 @@
         </div>
       </div>
       <div class="personal-module-shiwu">
-          <span>近期商城实物订单</span>
-          <span><a href="" style="font-size:12px; color: blue;" class="mall">查看实物订单</a></span>
+        <span>近期商城实物订单</span>
+        <span>
+          <router-link to="/shopcart/carttable">查看实物订单</router-link>
+          <!-- <a href style="font-size:12px; color: blue;" class="mall">查看实物订单</a> -->
+        </span>
       </div>
       <div class="personal-module-shiwu">
           <span>猜你喜欢</span>
@@ -113,13 +116,39 @@
 </template>
 
 <script>
-  export default {
-      methods: {
-        toSetting(){
-          this.$router.push('/mypage/gerenziliao');
-        }
-      }
-  };
+export default {
+  data() {
+    return {
+      imgurl: "",
+    };
+  },
+  methods: {
+    toSetting() {
+      this.$router.push("/mypage/gerenziliao");
+    },
+    mydindan() {
+      this.$router.push("/shopcart/order");
+    },
+  },
+  created() {
+    console.log(this.cookie.getCookie("user"));
+    let username = this.cookie.getCookie("user");
+    this.$http
+        .get("/gettouxiang", {
+            params:{username}
+        })
+        .then((res) => {
+          console.log("成功取到头像");
+          console.log(res.data);
+          this.imgurl = res.data[0].head_url;
+          console.log(this.imgurl);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("ajax出错");
+        });
+  },
+};
 </script>
 
 <style>
@@ -145,6 +174,7 @@
 .tou {
   width: 100px;
   height: 100px;
+  border-radius: 100%;
 }
 .ziliao {
   padding-left: 20px;

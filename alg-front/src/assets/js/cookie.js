@@ -1,6 +1,13 @@
     // 设置cookie
+    import Base64 from "./base64.js";
     function setCookie(c_name,value){
-        document.cookie= c_name + "=" + escape(value);
+        if(c_name === 'pwd'){
+            //对密码加密，采用base64方式进行加密
+            document.cookie = c_name + "=" + Base64.encode(value);
+        }else {
+            //不加密用户名
+            document.cookie= c_name + "=" + escape(value);
+        }
     };
     
     // 读取cookie
@@ -13,8 +20,13 @@
             c_start=c_start + c_name.length+1;
             var c_end=document.cookie.indexOf(";",c_start);
             if (c_end==-1) 
-                c_end = document.cookie.length
-                return unescape(document.cookie.substring(c_start, c_end))
+                c_end = document.cookie.length;
+                if(c_name === 'pwd'){
+                    //解密密码
+                    return Base64.decode(document.cookie.substring(c_start, c_end))
+                }else {
+                    return unescape(document.cookie.substring(c_start, c_end))
+                }
             }
         }
         return ""   

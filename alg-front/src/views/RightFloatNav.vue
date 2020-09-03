@@ -7,10 +7,10 @@
 					<a href="#"><i :style="active1_1"></i></a>
 				</li>
 				<li class="i_sbar_goods" @mouseover="mouseOver2" @mouseleave="mouseLeave2" @click="mouseClick2" :style="active2">
-					<a href="">
+					<a >
 						<i class="i_sbar_goods_top" :style="active2_2"></i>
 						<span style="width: 12px;" :style="active2_1">购物车</span>
-						<i class="i_sbar_goods_botton">0</i>
+						<i class="i_sbar_goods_botton">{{cartNum}}</i>
 					</a>
 				</li>
 				<li class="i_sbar_money"><a href="">
@@ -26,7 +26,8 @@
 			<div class="sbar_top">
 				<a href="javascript:void(0);" @click="goTop">
 					<i></i>
-					<span>TOP</span></li></a>
+					<span>TOP</span></li>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -41,13 +42,22 @@
 				active1_1: "",
 				active2_1: "",
 				active2_2: "",
+				cartNum:0
 			}
 		},
 		methods: {
 			goTop() {
-				window.pageYOffset = 0; //IE9及以上使用
-				document.documentElement.scrollTop = 0; //有DTD声明 html4.0.1 xHTML1.0
-				document.body.scrollTop = 0; //没有DTD声明  html5
+				let top = document.documentElement.scrollTop || document.body.scrollTop;
+				// 实现滚动效果 
+				const timeTop = setInterval(() => {
+					document.body.scrollTop = document.documentElement.scrollTop = top -= 50;
+					if (top <= 0) {
+						clearInterval(timeTop);
+					}
+				}, 10);
+				// window.pageYOffset = 0; //IE9及以上使用
+				// document.documentElement.scrollTop = 0; //有DTD声明 html4.0.1 xHTML1.0
+				// document.body.scrollTop = 0; //没有DTD声明  html5
 			},
 			mouseOver1() {
 				this.active1 = "background-color:rgb(255,102,102);"
@@ -57,7 +67,7 @@
 				this.active1 = ""
 			},
 			mouseClick1() {
-				this.active1 = "background-color:rgb(255,102,102);"
+				this.$router.push('/mypage/zhuye');	
 			},
 			mouseOver2() {
 				this.active2 = "background-color:rgb(255,102,102);"
@@ -70,10 +80,12 @@
 				this.active2_2 = "";
 			},
 			mouseClick2() {
-				this.active2 = "background-color:rgb(255,102,102);";
-				this.active2_2 = "background-position-x:-36px ;";
-				this.active2_1 = "color:white";
+				this.$router.push("/shopcart")
 			},
+		},
+		mounted() {
+			this.cartNum = this.$store.cartNum;
+			// console.log(this.$store.cartNum)
 		}
 	}
 </script>
@@ -81,7 +93,7 @@
 <style>
 	a {
 		text-decoration: none;
-		background-position-x: ;
+
 	}
 
 	.RightFloatNav {
@@ -92,18 +104,14 @@
 		width: 36px;
 		height: 100%;
 		background-color: #0c0c0c;
-		-webkit-transform: translateZ(0);
-		-moz-opacity: 0.95;
 		opacity: 0.95;
-
 		font-size: 12px;
 	}
 
 	.RightFloatNavBox {
 		position: absolute;
-		top: 30%;
-		margin-top: -50%;
-		z-index: 1;
+		top: 10%;
+
 	}
 
 	.sbar_oper {
@@ -114,15 +122,14 @@
 		color: #666;
 		list-style: none;
 		border-bottom: 1px solid #343434;
+		width: 36px;
 	}
 
 	.RightFloatNavBox i {
-		/* 	font-style: normal; */
-
 		display: block;
 		width: 36px;
-		height: 36px;
-		margin: 0 auto;
+		height: 40px;
+		margin: 0 0;
 		cursor: pointer;
 	}
 
@@ -141,6 +148,8 @@
 		border-top: 1px solid #343434;
 		background: url(../assets/sbar_ico.png) no-repeat;
 		background-position: 0 0;
+		height: 36px;
+		width: 36px;
 
 	}
 
@@ -188,6 +197,7 @@
 		border-top: 1px solid #343434;
 		border-bottom: 1px solid #343434;
 		color: #666;
+		width: 36px;
 
 	}
 

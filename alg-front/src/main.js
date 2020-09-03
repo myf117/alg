@@ -6,6 +6,7 @@ import ElementUI, { Form } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import cookie from "./assets/js/cookie.js";
+import Base64 from "./assets/js/base64.js";
 import pagebottom from "./views/bottom.vue"
 import rightfloat from "./views/RightFloatNav.vue";
 // 这个是什么？
@@ -15,7 +16,8 @@ import rightfloat from "./views/RightFloatNav.vue";
 Vue.component("pagebottom",pagebottom);
 Vue.component("rightfloat",rightfloat);
 
-Vue.prototype.cookie = cookie
+Vue.prototype.cookie = cookie;
+Vue.prototype.Base64 = Base64;
 //定义全局的axios
 Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://localhost:8001';

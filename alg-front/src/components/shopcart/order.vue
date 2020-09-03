@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <h3 class="order-h3">请填写订单信息</h3>
+    <div class="ordersss">
+        <h3 class="order-h3" style="margin:40px 0">请填写订单信息</h3>
         地址：<input type="text" class="myinput" v-model.lazy="address">
-        <p class="addText">{{addText}}</p>
-        电话：<input type="text" class="myinput" v-model="pnumber">
-        <p class="phoText">{{phoText}}</p>
+        <p class="addText" style="margin:5px 0;margin-right:195px">{{addText}}</p>
+        电话：<input type="text" class="myinput"  v-model="pnumber">
+        <p class="phoText" style="margin:5px 0;margin-right:235px">{{phoText}}</p>
         <orderproduct v-for="item in selectedArr" :key="item.id"
             :img_src="item.img_url" :product_name="item.product_name"
             :price="item.price" :count="item.count" class="order-product"
@@ -12,7 +12,7 @@
         <!-- <div v-for="item in selectedArr" :key="item.id">
             1111122222
         </div> -->
-        <el-button type="primary" @click="addToOrder">提交</el-button>
+        <el-button type="primary" @click="addToOrder" style="width:200px">提交</el-button>
     </div>
 </template>
 <script>
@@ -133,6 +133,10 @@
     .order-product {
         margin: 20px auto;
     }
+    /* .order-product img{
+        width: 60px;
+        height:60px;
+    } */
     .order-h3 {
         color: grey;
     }

@@ -3,19 +3,40 @@
 		<div class="bigbox">
 			<img src="../../../public/logo.png" alt="" @click="toHome">
 			<div>
-			<input type="text" class="search" placeholder="请输入词条/问题关键字">
-			<button type="button">点击搜索</button>	
+			<input type="text" class="search" placeholder="请输入词条/问题关键字" v-model="mes">
+			<button type="button" @click="searchkey" >点击搜索</button>	
 			</div>
-			<img src="../../../public/youhui.jpg" alt="">
+			<img src="../../../public/youhui.jpg" alt="" @click="toHome" >
 		</div>
 	</div>
 </template>
 
 <script>
+	import Bus from "../../assets/js/Bus.js"
 	export default{
+		data(){
+			return{
+				mes:"",
+				messlist:[]
+			}
+		},
 		methods: {
 			toHome(){
 				this.$router.push('/');
+			},
+			searchkey(){
+				this.$http.get("/getsearch",{params:{
+					classkey:this.mes
+				}}).then(res=>{
+					this.messlist=res.data;
+	                this.$router.push({
+	                	path:"/searchpage",
+	                	query:{name:this.messlist}
+	                })
+				}).catch(err=>{
+					console.log("请求失败")
+				})
+				// Bus.$emit("click",this.messlist)	
 			}
 		},
 	}

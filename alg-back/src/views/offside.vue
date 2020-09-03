@@ -38,12 +38,10 @@ export default {
       } else if (this.level1 == "3") {
         path = "/modifyProduct";
       } else if (this.level1 == "4") {
-        path = "/inventoryManagement";
+        path = "/petEncyclopedia";
       } else if (this.level1 == "5") {
-        path = "/modifyEncyclopedia";
-      } else if (this.level1 == "6") {
         path = "/userInfo";
-      }
+      } 
       if (this.$route.fullPath != path) {
         router.push(path);
       }
@@ -52,7 +50,7 @@ export default {
       let path;
       if (this.level2 == "3-1") {
         // 点击商品 详情跳转
-        path = "/newlyIncreased";
+        path = "/newlyIncreased";        
       } else if(this.level2 == "3-2"||this.level2 == "3-3"||this.level2 == "3-4"||this.level2 == "3-5" ) {
         path = "/modifyProduct";
       } else if(this.level2 == "5-1"){
@@ -64,7 +62,6 @@ export default {
       }else if(this.level2 == "5-4"){
         path = "/uploadImage";
       }
-
       if (this.$route.fullPath != path) {
         router.push(path);
       }

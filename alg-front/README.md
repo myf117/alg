@@ -1,4 +1,4 @@
-# mycli-1
+# alg-front
 
 ## Project setup
 ```

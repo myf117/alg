@@ -35,11 +35,14 @@ class shopCartService extends Service{
         count = Number(count);
         sql = 'select * from shopcart where user_id=? and product_name=?';
         let list = await this.ctx.app.mysql.query(sql,[user_id,product_name]);
+        // console.log(list)
         if(list.length){
+            // console.log(count)
             sql = 'update shopcart set count=? where user_id=? and product_name=?';
             list = await this.ctx.app.mysql.query(sql,[list[0].count + count,user_id,product_name]);
             return list;
         }else {
+            // console.log(count)
             sql = 'insert into shopcart(product_name,price,count,img_url,user_id) values(?,?,?,?,?)';
             list = await this.ctx.app.mysql.query(sql,[product_name,price,count,img_url,user_id]);
             return list;

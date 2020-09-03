@@ -66,10 +66,10 @@
         </div>
         <div class="class_right">
             <!-- 右边显示商品 -->
-            <showproductall :class_id="clazz_id" :goods_id="good_id"></showproductall>
+            <showproductall :class_id="clazz_id" :goods_id="good_id" :page="page"></showproductall>
             <rightfloat></rightfloat>
             <!-- 分页器 -->
-            <pagenation></pagenation>
+            <pagenation @pageevent="getPage"></pagenation>
         </div>
     </div>
 </template>
@@ -80,7 +80,8 @@
         data() {
             return {
                 clazz_id:2,
-                good_id:201
+                good_id:201,
+                page:1
             }
         },
         components:{
@@ -95,8 +96,19 @@
                     case '猫砂毛厕':this.good_id = 203;break;
                     case '猫咪玩具':this.good_id = 204;break;
                 }
+            },
+            getPage(page){
+                this.page = page;
             }
-        }
+        },
+        watch: {
+            '$route.query.goods_id'(){
+                this.goods_id = this.$route.query.goods_id;
+            }
+        },
+        mounted() {
+            // console.log(this.page);
+        },
     }
 </script>
 <style>

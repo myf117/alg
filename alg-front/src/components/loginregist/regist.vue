@@ -1,14 +1,14 @@
 <template>
-    <div class="login">
-        
+    <div class="mylogin" style="padding-bottom:100px">  
         账户：<el-input placeholder="请输入用户名" v-model="user" ></el-input><br>
         <p>{{textuser}}</p>
         密码：<el-input placeholder="请输入密码" v-model="pwd1" show-password></el-input><br>
         <p>{{textpwd1}}</p>
         确认：<el-input placeholder="请再次输入密码" v-model="pwd2" show-password></el-input><br>
-        <p>{{textpwd2}}</p>
-        <el-row>
-            <el-button type="primary" @click="regist" class="button">注册</el-button>
+        <p style="padding-right:70px">{{textpwd2}}</p>
+        <el-row style="margin-top:10px">
+            <el-button type="primary" @click="regist" class="button"
+             style="margin-right:90px;width:160px">注册</el-button>
             <el-button type="primary" @click="toHome" class="button">返回主页</el-button>
         </el-row>
     </div>
@@ -92,30 +92,34 @@ export default {
 }
 </script>
 <style scoped>
-    .el-input {
+    .mylogin .el-input {
         width: 300px;
         height: 50px;
         margin-bottom: 0;
         margin-top: 5px;
     }
-    .pwd-oper {
+    .mylogin .pwd-oper {
         width: 500px;
         display: flex;
         justify-content: space-around;
         margin: 5px auto;
     }
-    .login {
+    .mylogin .login {
         width: 500px;
         box-shadow: 0,0 0 6px rgba(0, 0, 0, .04),0 2px 4px rgba(0, 0, 0, .12);
         border-radius: 4px;
         /* margin: -20px auto; */
     }
-    p {
+    .mylogin p {
         font-size: 10px;
         color: lightgray;
         margin-bottom: 5px;
+        margin-right: 110px;
     }
-    .el-button {
-        color: #ffffff;
+    .mylogin .el-button {
+        background-color:#ccc;
+    }
+    .mylogin .el-button:hover{
+        background-color: #ddd;
     }
 </style>

@@ -7,6 +7,15 @@ Vue.use(VueRouter)
       path:'/anency',
       component:() => import('../views/anency.vue')
     },
+    {
+      path:'/searchpage',
+      name:"searchpage",
+      component:() => import('../components/anency/searchpage.vue')
+    },
+    {
+      path: '/small',
+      component: () => import('../components/anency/small.vue')
+    },
   {
     path: '/dogpage',
     component: () => import('../components/anency/dogpage.vue')
@@ -46,8 +55,22 @@ Vue.use(VueRouter)
         component: () => import('../views/Water.vue')
       },
       {
-        path:'/gouwu',
+        path:'gouwu',
+        name:'gouwu',
         component: () => import( '../views/gouwu.vue')
+      },
+      {
+        path: 'productall',
+        name: 'Productall',
+        component: () => import( '../components/usercenter/productall.vue')
+        // ,
+        // beforeEnter: (to, from, next) => {
+        //     if(from.path == '/gouwu'){
+        //       this.$router.go(-1);
+        //     }else {
+        //       next()
+        //     }
+        // }
       }
 
   ]},

@@ -197,7 +197,7 @@
 		}
 </script>
 
-<style>
+<style scoped="">
 	.antip{
 		display: flex;
 		flex-wrap: wrap;

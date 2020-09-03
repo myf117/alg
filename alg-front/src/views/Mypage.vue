@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="daohanglan">
+    <div class="daohanglan" >
       <div class="img">
         <img class="img1" src="../assets/logoll.png" @click="toHome" />
       </div>
@@ -11,13 +11,9 @@
           </span>
         </el-tab-pane>
         <el-tab-pane label="社区主页" name="shequzheye"></el-tab-pane>
-        <el-tab-pane label="个人设置">
-          <div id="shezhi"></div>
-          <!-- <privateset></privateset> -->
+        <el-tab-pane label="个人设置"  name="privateset">
         </el-tab-pane>
-        <el-tab-pane label="消息" id="xiaoxi">
-          <!-- <xiaoxi></xiaoxi> -->
-        </el-tab-pane>
+        
       </el-tabs>
       <input class="shuru" v-model="input" placeholder="宠物用品/宠物百科" />
       <!-- <el-icon-search> -->
@@ -32,21 +28,19 @@
 // import zhuye from "../components/usercenter/zhuye.vue";
 // import shequ from "../components/usercenter/shequ.vue";
 // import privateset from "../components/usercenter/privateset.vue";
-import productall from "../components/usercenter/productall.vue";
+// import productall from "../components/usercenter/productall.vue";
 
 export default {
   components: {
     // zhuye,
     // shequ,
-    productall,
+    // productall,
     // privateset,
   },
   data() {
     return {
       input: "",
       prodArr: [],
-      // prodArrlist:[],
-      // message: '我是来自父组件的第一条message',
     };
   },
   methods: {
@@ -56,11 +50,13 @@ export default {
     checked(tab, event) {
       console.log(tab.name);
       if (tab.name == "myzhuye") {
-        // this.$router.go(-1);
         this.$router.push({ path: "/mypage/zhuye" });
       }
       if (tab.name == "shequzheye") {
         this.$router.push({ path: "/mypage/shequ" });
+      }
+      if (tab.name == "privateset") {
+        this.$router.push({ path: "/mypage/gerenziliao" });
       }
     },
     search() {
@@ -86,6 +82,11 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.prodArr = res.data;
+          console.log(this.prodArr);
+          this.$router.push({
+            path: "/mypage/productall",
+            query: this.prodArr,
+          });
         })
         .catch((e) => {
           console.log("请求失败");
@@ -131,10 +132,7 @@ export default {
 .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active:hover {
   color: red !important;
 }
-.shezhi {
-  width: 100px;
-  height: 60px;
-}
+
 .shuru {
   position: absolute;
   right: 50px;
@@ -157,12 +155,10 @@ export default {
 .img {
   display: inline-block;
   width: 200px;
-  /* height: 100%; */
   position: absolute;
   left: 55px;
   top: 20px;
   z-index: 50;
-  /* background-image: url(./img/logo.png); */
 }
 .img1 {
   width: 200px;

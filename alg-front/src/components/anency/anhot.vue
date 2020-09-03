@@ -71,9 +71,13 @@
 		height: 34px;
 		line-height: 34px;
 	}
+	.anhotimg-inf:hpver{
+		cursor: pointer;
+	}
 	.anhotimg:hover{
 		color: #99cc55;
 		transform: translate(0,-10px);
 		transition: all 0.5s; 
+		
 	}
 </style>
