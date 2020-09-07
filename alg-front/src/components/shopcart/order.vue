@@ -133,10 +133,10 @@
     .order-product {
         margin: 20px auto;
     }
-    /* .order-product img{
+    .order-product img{
         width: 60px;
         height:60px;
-    } */
+    }
     .order-h3 {
         color: grey;
     }

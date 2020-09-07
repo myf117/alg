@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 	<div>
 		<top></top>
 		<h3 style="width: 1200px;margin:0 auto; text-align: left;">为您搜索到以下内容：</h3>
@@ -57,7 +57,7 @@
 	margin-right: 10px;
 }
 .sp-1{
-	height: 192px;
+	height: 170px;
 overflow: hidden;
 text-overflow: ellipsis;
 display:-webkit-box;

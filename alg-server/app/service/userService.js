@@ -25,9 +25,9 @@ class userService extends Service {
             return '注册成功';
         }
     }
-    async addMessage(userMessage){
+    async addMessage(userMessage) {
         let sql = 'update user set nichen=?,birth=?,sex=?,qianmin=?,head_url=?,address=?,phone=? where username=?';
-        let list = await this.ctx.app.mysql.query(sql,[userMessage.name,userMessage.date1,userMessage.sex,userMessage.qianmin,userMessage.adatar,userMessage.address,userMessage.phonenum,userMessage.username]);
+        let list = await this.ctx.app.mysql.query(sql, [userMessage.nichen, userMessage.birth, userMessage.sex, userMessage.qianmin, userMessage.head_url, userMessage.address, userMessage.phone, userMessage.username]);
         return list;
     }
 }

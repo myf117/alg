@@ -36,7 +36,7 @@ export default {
     methods:{
         checkUser(){
             let a = document.getElementsByClassName('a');
-            if(this.cookie.getCookie('user')){
+            if(this.cookie.getCookie('user') && this.cookie.getCookie('user') !== 'admin'){
                 a[0].innerHTML = this.cookie.getCookie('user');
                 a[1].innerHTML = '退出';
                 a[1].onclick = ()=>{

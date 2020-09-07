@@ -156,7 +156,7 @@ export default {
   background-color: rgb(248, 245, 221);
 }
 .main {
-  width: 870px;
+  width: 800px;
   margin: 0 auto;
 }
 

@@ -1,41 +1,46 @@
 <template>
   <div class="showproduct-one">
-    <div style="padding-left:50px" >
+    <div style="margin:20px auto;" >
       <div class="sear_goods_list" v-for="item in product" :key="item.id" @click="toXQ(item.id)">
           <div class="dl">
             <img :src="item.img_url" alt />
             <p class="name">{{item.discription}}</p>
-            <p class="sear_price">?{{item.price}}</p>
+            <p class="sear_price">￥{{item.price}}</p>
           </div>
       </div>
   </div>
+  <!-- <pagenation :page_count="page_count" @pageevent="getpage"></pagenation> -->
   </div>
   
 </template>
 
 <script>
+import pagenation from "../shopping/pagenation";
 export default {
    data() {
     return {
       product: [],
+      page_count:1,
+      page:1
     };
   },
+  components:{
+    pagenation
+  },
   mounted() {
-  //   console.log(this);
-  //   console.log(this.$route.query);
     this.product=this.$route.query
-    // console.log(this.product);
-    // console.log(this.$router);
   },
   methods: {
     toXQ(product_id){
-      // this.$store.commit('modifyProductMsg',product_id,price,img_url,discription);
         this.$router.push({
           name:'gouwu',
           query:{
               product_id:product_id
           }
       });
+    },
+    getpage(page){
+      this.page = page;
     }
   },
 };

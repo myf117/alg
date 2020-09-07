@@ -41,7 +41,7 @@
           <el-upload
             class="upload-demo"
             drag
-            action="http://192.168.6.24:8001/uploadFile"
+            action="http://localhost:8001/uploadFile"
             multiple
             :on-success="uploadSuccess"
             :limit="Number(1)"
@@ -87,6 +87,10 @@
         <div class="theFourthly">
           <button class="submitBut" @click="submit">立即提交</button>
           <button class="resetBut" @click="resetBut">重置</button>
+          <div class="qtynely">
+            <span class="qtynelyQ" >库存</span>
+            <input type="text" class="qtynelyInp" onkeyup="value=value.replace(/[^\d.]/g,'')" v-model="myqtynumber"/>
+          </div>
         </div>
       </form>
     </div>
@@ -119,6 +123,7 @@ export default {
       secondClass: "主粮", //二级分类
       discription: "",
       hint: "",
+      myqtynumber:""
     };
   },
   methods: {
@@ -140,7 +145,8 @@ export default {
         this.discription !== "" &&
         this.imgUrl !== "" &&
         this.firstClass !== "" &&
-        this.secondClass !== ""
+        this.secondClass !== ""&&
+        this.myqtynumber!==""
       ) {
         // 发起请求，将数据传到后端
         this.$http
@@ -151,9 +157,15 @@ export default {
             firstClass: this.firstClass,
             secondClass: this.secondClass,
             discription: this.discription,
+            qty:this.myqtynumber
           })
           .then((r) => {
             this.reset();
+             this.$notify({
+                title: "成功",
+                message: "已上传成功！",
+                type: "success",
+              });
           })
           .catch((e) => {
             console.log(e);
@@ -167,6 +179,8 @@ export default {
           this.hint = "商品描述不能为空";
         } else if (this.imgUrl == "") {
           this.hint = "请上传图片";
+        }else if( this.myqtynumber==""){
+          this.hint = "库存不能为空";
         }
         // 输入框为空则弹出提示框
         this.$alert(this.hint, "提示", {
@@ -205,6 +219,7 @@ export default {
       this.imgUrl = "";
       this.firstClass = "狗狗商品";
       this.secondClass = "主粮";
+      this.myqtynumber="";
     },
     // 点击重置按钮
     resetBut() {
@@ -218,7 +233,7 @@ export default {
 .new-titel {
   width: 100%;
   height: 40px;
-  background-color:rgba(204, 205, 207, 0.753);
+  background-color: rgba(204, 205, 207, 0.753);
 }
 .new-titel span {
   display: block;
@@ -295,10 +310,10 @@ export default {
   top: 0px;
   left: 388px;
 }
-.newf{
-position: absolute;
-top: 8px;
-left: 315px;
+.newf {
+  position: absolute;
+  top: 8px;
+  left: 315px;
 }
 /* 重置和提交按钮 */
 .theFourthly {
@@ -328,5 +343,24 @@ left: 315px;
   background-color: #eee;
   color: #000;
   outline: none;
+}
+.qtynely {
+  position: absolute;
+  right: 400px;
+  bottom: 2px;
+}
+.qtynelyQ {
+  margin: 20px;
+}
+.qtynelyInp {
+  outline: none;
+  padding-left: 10px;
+  height: 38px;
+  width: 140px;
+  line-height: 38px;
+  border-width: 1px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 3px;
 }
 </style>

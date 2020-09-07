@@ -21,6 +21,7 @@ Vue.prototype.Base64 = Base64;
 //定义全局的axios
 Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://localhost:8001';
+// axios.defaults.baseURL = 'http://192.168.6.11:8001';
 // axios.defaults.baseURL = 'http://192.168.6.24:8001';
 Vue.config.productionTip = false
 Vue.use(ElementUI);

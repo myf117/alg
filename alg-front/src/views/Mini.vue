@@ -65,10 +65,10 @@
         </div>
         <div class="class_right">
             <!-- 右边显示商品 -->
-            <showproductall :class_id="clazz_id" :goods_id="good_id" :page="page"></showproductall>
+            <showproductall :class_id="clazz_id" :goods_id="good_id" :page="page" @pagecountevent='getpageCount'></showproductall>
             <!-- 分页器 -->
             <rightfloat></rightfloat>
-            <pagenation @pageevent="getPage"></pagenation>
+            <pagenation @pageevent="getPage" :page_count="page_count"></pagenation>
         </div>
     </div>
 </template>
@@ -80,7 +80,8 @@
             return {
                 clazz_id:3,
                 good_id:301,
-                page:1
+                page:1,
+                page_count:1
             }
         },
         components:{
@@ -97,6 +98,9 @@
             },
             getPage(page){
                 this.page = page;
+            },
+            getpageCount(page_count){
+                this.page_count = page_count;
             }
         },
         watch: {

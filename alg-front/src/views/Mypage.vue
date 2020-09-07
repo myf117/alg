@@ -108,7 +108,7 @@ export default {
 .daohanglan {
   position: relative;
 }
-.el-tabs__nav {
+.daohanglan  .el-tabs__nav {
   background-color: #f05030;
   float: none !important;
   height: 100px;

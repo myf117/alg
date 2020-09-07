@@ -5,7 +5,7 @@
 
       <div id="photo">
         <!-- 上传头像 -->
-        <img width="80px" height="80px" id="myImg" />
+        <img width="80px" height="80px" id="myImg"  src="../../assets/touxiang.gif" />
         <input type="file" id="myFile" />
       </div>
 
@@ -16,8 +16,8 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label="昵称" prop="name">
-          <el-input v-model="ruleForm.name" placeholder="aa"></el-input>
+        <el-form-item label="昵称" prop="nichen">
+          <el-input v-model="ruleForm.nichen"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="ruleForm.sex">
@@ -26,25 +26,25 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="出生日期" required>
-          <el-col :span="11">
-            <el-form-item prop="date1">
+        <el-form-item label="出生日期">
+          <!-- <el-col :span="11"> -->
+            <el-form-item prop="birth">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
-                v-model="ruleForm.date1"
+                v-model="ruleForm.birth"
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-          </el-col>
+          <!-- </el-col> -->
         </el-form-item>
 
         <el-form-item label="收货地址" prop="address">
           <el-input type="input" v-model="ruleForm.address"></el-input>
         </el-form-item>
 
-        <el-form-item label="手机号" prop="phonenum">
-          <el-input type="input" v-model="ruleForm.phonenum"></el-input>
+        <el-form-item label="手机号" prop="phone">
+          <el-input type="number" v-model="ruleForm.phone"></el-input>
         </el-form-item>
 
         <el-form-item label="个性签名" prop="qianmin">
@@ -67,42 +67,42 @@ export default {
     return {
       myselfxinxi: [],
       ruleForm: {
-        name: "", //昵称
-        date1: "", //出生日期
+        nichen: "", //昵称
+        birth: "", //出生日期
         sex: "", //性别
         qianmin: "", //签名
-        adatar: "", //图片地址
+        head_url: "", //图片地址
         address: "", //收货地址
-        phonenum: "", //手机号码
+        phone: "", //手机号码
         username: ""
       },
       rules: {
-        name: [
-          { required: true, message: "请输入昵称", trigger: "blur" },
+        nichen: [
+          { required: false, message: "请输入昵称", trigger: "blur" },
           {
-            min: 3,
+            min: 1,
             max: 10,
-            message: "长度在 3 到 10 个字符",
+            message: "长度在 1 到 10 个字符",
             trigger: "blur",
           },
         ],
-        date1: [
+        birth: [
           {
             type: "date",
-            required: true,
+            // required: true,
             message: "请选择日期",
-            trigger: "change",
+            trigger: "change"
           },
         ],
-        sex: [{ required: true, message: "请选择性别", trigger: "change" }],
+        sex: [{ required: false, message: "请选择性别", trigger: "change" }],
         qianmin: [
           { required: false, message: "请填写个性签名", trigger: "blur" },
         ],
         address: [
-          { required: true, message: "请填写收货地址", trigger: "change" },
+          { required: false, message: "请填写收货地址", trigger: "blur" },
         ],
-        phonenum: [
-          { required: true, message: "请填写手机号码", trigger: "blur" },
+        phone: [
+          { required: false, message: "请填写手机号码", trigger: "blur" },
           {
             min: 11,
             max: 11,
@@ -131,9 +131,12 @@ export default {
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            });
         } else {
-          console.log("error submit!!");
+          this.$message.error('修改失败');
           return false;
         }
       });
@@ -147,12 +150,12 @@ export default {
         .then((res) => {
           console.log("文件上传成功");
           // console.log(res.data);
-          this.ruleForm.adatar = res.data;
-          console.log(this.ruleForm.adatar);
+          this.ruleForm.head_url = res.data;
+          console.log(this.ruleForm.head_url);
           let myImg = document.getElementById("myImg");
           // console.log(myImg);
-          myImg.setAttribute("src", this.ruleForm.adatar);
-          // console.log(this.ruleForm.adatar);
+          myImg.setAttribute("src", this.ruleForm.head_url);
+          // console.log(this.ruleForm.head_url);
           //   this.upPhoto(res.data);
         })
         .catch((err) => {
@@ -260,6 +263,7 @@ export default {
   position: relative;
 }
 #myImg {
+  background-color: blanchedalmond;
   position: absolute;
   left: 0;
   top: 0;

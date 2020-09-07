@@ -4,15 +4,13 @@
             <input type="text" placeholder="搜索商品" id="input" v-model="likeName">
         <button type="button" id="button" @click="productAll">搜索</button>
         </div>
-        <div class="sssbottom" style="display:inline-block;margin-right:210px" >
+        <div class="sssbottom" style="display:inline-block;margin-right:210px" @click="getProductByA">
             <span class="searchsss">热门搜索：</span>
-            <a href="#" style="margin-left:20px">主粮</a>
+            <a href="#" style="margin-left:20px">狗粮</a>
             <a href="#" style="margin-left:20px">零食</a>
-            <a href="#" style="margin-left:20px">保健</a>
+            <a href="#" style="margin-left:20px">龙猫</a>
             <a href="#" style="margin-left:20px">猫砂</a>
             <a href="#" style="margin-left:20px">玩具</a>
-          
-            
         </div>
     </div>
 </template>
@@ -24,15 +22,30 @@ export default {
         }
     },
     methods: {
+        getProductByA(e){
+            // console.log(e.target.innerHTML)
+            if(e.target.innerHTML === '狗粮' || e.target.innerHTML === '零食' 
+                || e.target.innerHTML === '龙猫' || e.target.innerHTML === '猫砂' 
+                || e.target.innerHTML === '玩具'){
+                    this.$http.get('/getAllProduct',{
+                        params:{
+                            keyword:e.target.innerHTML
+                        }
+                    }).then(res => {
+                        console.log(res.data);
+                        this.$router.push({path:'/productall',query:res.data});
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
+            
+        },
         productAll(){
-            console.log(this.likeName);
             this.$http.get('/getAllProduct',{
                 params:{
                     keyword:this.likeName
                 }
             }).then(res => {
-                // console.log(res.data);
-                this.$store.commit('modifySearchArr',res.data);
                 this.$router.push({path:'/productall',query:res.data});
             }).catch(err => {
                 console.log(err);

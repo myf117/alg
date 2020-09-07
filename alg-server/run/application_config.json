@@ -144,7 +144,7 @@
         ".txt"
       ],
       "whitelist": null,
-      "tmpdir": "C:\\Users\\lenovo\\AppData\\Local\\Temp\\egg-multipart-tmp\\pet-adoption-center",
+      "tmpdir": "C:\\Users\\admin\\AppData\\Local\\Temp\\egg-multipart-tmp\\pet-adoption-center",
       "cleanSchedule": {
         "cron": "0 30 4 * * *"
       }
@@ -231,7 +231,7 @@
       "description": ""
     },
     "baseDir": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server",
-    "HOME": "C:\\Users\\lenovo",
+    "HOME": "C:\\Users\\admin",
     "rundir": "D:\\华清学习\\在线学习\\Vue\\项目\\alg\\alg-server\\run",
     "dump": {
       "ignore": "<Set>"

@@ -29,7 +29,7 @@ exports.cors = {
 exports.cluster = {
     listen: {
         port: 8001,
-        // hostname: '192.168.6.24'
+        // hostname: '192.168.6.11'
         hostname:'localhost'
     }
 };

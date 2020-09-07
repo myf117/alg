@@ -1,4 +1,4 @@
-import Vue from 'vue'
+﻿import Vue from 'vue'
 import VueRouter from 'vue-router';
 import mainpage from '../views/mainpage';
 import homepage from "../components/commodity/homepage";
@@ -48,13 +48,7 @@ const routes = [
         path: 'modifyEncyclopedia',
         // 设置路由的懒加载 modifyEncyclopedia
         component: () => import('../components/commodity/modifyEncyclopedia')
-      },
-      {
-        // 图片修改路由 editPicture
-        path: 'editPicture',
-        // 设置路由的懒加载
-        component: () => import('../components/commodity/editPicture')
-      },
+      },  
       {
         // 上传图片路由 uploadImage
         path: 'uploadImage',
@@ -70,7 +64,7 @@ const routes = [
     ]
 
   },
-  {
+{
     path:"/login",
     name:"login",
     component: () => import('../views/login.vue')

@@ -4,6 +4,7 @@ class shopCartService extends Service{
     async showList(username){
         let sql = 'select id from user where username=?';
         let list1 = await this.ctx.app.mysql.query(sql,[username]);
+        // console.log(list1)
         sql = 'select * from shopcart where user_id=?';
         let list2 = await this.ctx.app.mysql.query(sql,[list1[0].id]);
         return list2;
@@ -19,7 +20,7 @@ class shopCartService extends Service{
         let sql = 'delete from shopcart where user_id=? and product_name=?';
         console.log(user_id,product_name);
         let list = await this.ctx.app.mysql.query(sql,[user_id,product_name]);
-        console.log(list)
+        // console.log(list)
         return list;
     }
     //加入购物车
@@ -32,6 +33,7 @@ class shopCartService extends Service{
         let product_name = result[0].product_name;
         let price = result[0].price;
         let img_url = result[0].img_url;
+        let product_count = result[0].count;
         count = Number(count);
         sql = 'select * from shopcart where user_id=? and product_name=?';
         let list = await this.ctx.app.mysql.query(sql,[user_id,product_name]);
@@ -40,11 +42,15 @@ class shopCartService extends Service{
             // console.log(count)
             sql = 'update shopcart set count=? where user_id=? and product_name=?';
             list = await this.ctx.app.mysql.query(sql,[list[0].count + count,user_id,product_name]);
+            sql = 'update product set count=? where id=?';
+            await this.ctx.app.mysql.query(sql,[product_count - count, id]);
             return list;
         }else {
             // console.log(count)
             sql = 'insert into shopcart(product_name,price,count,img_url,user_id) values(?,?,?,?,?)';
             list = await this.ctx.app.mysql.query(sql,[product_name,price,count,img_url,user_id]);
+            sql = 'update product set count=? where id=?';
+            await this.ctx.app.mysql.query(sql,[product_count - count, id]);
             return list;
         }
     }

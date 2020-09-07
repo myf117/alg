@@ -183,6 +183,7 @@
   </div>
 </template>
 <script>
+  import Bus from "../../../assets/js/Bus";
   export default {
     data() {
       return {
@@ -241,11 +242,37 @@
         //   this.$router.go(0);
         // }
         
-      }
+      },
+      getCartNum(){
+        this.cartNum = 0;
+				if(this.cookie.getCookie('user')){
+					this.$http.get('/showlist',{params:{
+						username:this.cookie.getCookie('user')
+					}}).then(res => {
+						for(let i = 0; i < res.data.length; i++){
+							this.cartNum += res.data[i].count;
+            }
+            Bus.$on('shopcount',value => {
+							this.cartNum = value + this.cartNum;
+							console.log(this.cartNum);
+            });
+            Bus.$on('cartcount',value => {
+							this.cartNum = value + this.cartNum;
+							console.log(this.cartNum);
+						});
+					})
+				}
+			}
     },
     mounted() {
-      this.cartNum = this.$store.cartNum;
-    },
+      this.getCartNum();
+    }
+    // ,
+    // watch: {
+    //   'cartNum'(){
+    //     this.getCartNum();
+    //   }
+    // },
   };
 </script>
 <style>

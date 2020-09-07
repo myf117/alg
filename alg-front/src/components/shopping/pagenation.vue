@@ -4,7 +4,7 @@
             background
             layout="prev, pager, next"
             hide-on-single-page 
-            :page-count="5"
+            :page-count="page_count"
             @current-change='currntChange'
             @prev-click="preClick"
             @next-click="nextClick">
@@ -13,26 +13,14 @@
 </template>
 <script>
     export default {
-        // props:['class_id','goods_id'],
+        props:['page_count'],
         methods: {
             currntChange(cpage){
-                // console.log(cpage);
-                // this.$http.get('/showClassProduct',{
-                //     params:{
-                //         class_id:this.class_id,
-                //         goods_id:this.goods_id,
-                //         page:cpage
-                //     }
-                // }).then(res => {
-                //     console.log(res.data);
-                // })
                 this.$emit("pageevent",cpage);
             },
             preClick(curr){
-                // console.log(curr);
             },
             nextClick(curr){
-                // console.log(curr);
             }
         },
     }

@@ -20,10 +20,16 @@ class shoppingService extends Service {
         return list;
     }
     async limitClassProduct(class_id,goods_id,page){
-        let sql = 'select * from product where class_id=? and goods_id=? limit ?,8';
+        let sql = 'select * from product where class_id=? and goods_id=?';
+        let list = await this.ctx.app.mysql.query(sql,[class_id,goods_id]);
+        let page_count = ((list.length % 8) === 0) ? (list.length / 8) : Math.ceil(list.length / 8);
+        sql = 'select * from product where class_id=? and goods_id=? limit ?,8';
         let start = (page - 1) * 8;
-        let list  = await this.ctx.app.mysql.query(sql,[class_id,goods_id,start]);
-        return list;
+        list  = await this.ctx.app.mysql.query(sql,[class_id,goods_id,start]);
+        return {
+            page_count:page_count,
+            list:list
+        };
     }
     async getproduct(){
         let sql = 'select * from product limit 4';

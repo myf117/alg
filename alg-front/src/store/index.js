@@ -16,7 +16,12 @@ export default new Vuex.Store({
   },
   mutations:{
     modifyData(state,cartNum){
+      // console.log(this)
+      if(cartNum !== undefined){
         state.cartNum = cartNum;
+      }else {
+        state.cartNum = 0;
+      }
         // console.log(state.cartNum);
     },
     modifySelect(state,selected){

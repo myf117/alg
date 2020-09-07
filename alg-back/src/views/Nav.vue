@@ -7,10 +7,10 @@
           <i class="el-icon-user"></i>
           <span>{{user}}</span>
         </div>
-        <div>
+        <!-- <div>
           <i class="el-icon-edit"></i>
           <span>修改密码</span>
-        </div>
+        </div> -->
         <div @click="logout">
           <i class="el-icon-switch-button"></i>
           <span>注销</span>
@@ -32,7 +32,7 @@
         <div class="list">
           <el-col :span="12">
             <el-menu
-              default-active="2"
+              :default-active=AC
               class="el-menu-vertical-demo"
               @open="handleOpen"
               @close="handleClose"
@@ -59,10 +59,7 @@
                 </template>
                 <el-menu-item-group>
                   <el-menu-item index="3-1">新增商品</el-menu-item>
-                  <el-menu-item index="3-2">狗狗商品</el-menu-item>
-                  <el-menu-item index="3-3">猫猫商品</el-menu-item>
-                  <el-menu-item index="3-4">奇趣小宠</el-menu-item>
-                  <el-menu-item index="3-5">水族市场</el-menu-item>
+                  <el-menu-item index="3-2">修改商品</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <!-- 界面管理 -->
@@ -74,8 +71,7 @@
                 <el-menu-item-group>
                   <el-menu-item index="5-1">修改百科</el-menu-item>
                   <el-menu-item index="5-2">新增百科</el-menu-item>
-                  <el-menu-item index="5-3">修改图片</el-menu-item>
-                  <el-menu-item index="5-4">上传图片</el-menu-item>
+                  <el-menu-item index="5-3">上传图片</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <!-- 用户信息管理 -->
@@ -108,13 +104,12 @@ export default {
       soncotent: "",
       // 点击的index初始值
       clickIndex: { f: "", s: "" },
-      user:this.cookie.getCookie('user')
+      user:(this.cookie.getCookie('user') === 'admin')? 'admin': '登录',
+      AC:"1"
     };
   },
   methods: {
-    logout(){
-      this.$router.push('/login');
-    },
+    logout(){this.$router.push('/login')},
     // 获取点击的activeName
     handleChange(val) {
       console.log(val);
@@ -133,6 +128,7 @@ export default {
         key == "6"
       ) {
         this.clickIndex.f = key;
+        this.AC=key
       } else {
         this.clickIndex.s = key;        
       }
@@ -154,6 +150,9 @@ export default {
     passClickIndex(index) {
       bus.$emit("passClickIndex", this.clickIndex);
     },
+    routerchange(){
+
+    }
   },
   // 注册子组件
   components: {},
@@ -235,7 +234,7 @@ export default {
 }
 /* 设置左侧导航栏 */
 .nav-left {
-  width: 250px;
+  width: 200px;
   height: 100%;
   background-color: #1c1c1c;
   position: absolute;
@@ -247,8 +246,8 @@ export default {
 /* 修改模版样式 */
 
 .el-menu-vertical-demo {
-  width: 250px;
-  height: 100%;
+  width: 200px;
+   height:692px;
 }
 .el-submenu,
 .el-menu-item {

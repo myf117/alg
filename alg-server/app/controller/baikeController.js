@@ -5,5 +5,6 @@ class baikeController extends Controller{
         let result = await this.ctx.service.baikeService.getClassBaike(class_id);
         this.ctx.response.body = result;
     }
+    
 }
 module.exports = baikeController;

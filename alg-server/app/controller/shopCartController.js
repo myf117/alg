@@ -5,7 +5,7 @@ class shopCartController extends Controller{
         let result = await this.ctx.service.shopCartService.showList(username);
         this.ctx.response.body = result;
     }
-    async shopCount(){
+    async shopCount(){ 
         let count = this.ctx.request.query.count;
         let user_id = this.ctx.request.query.user_id;
         let product_name = this.ctx.request.query.product_name;

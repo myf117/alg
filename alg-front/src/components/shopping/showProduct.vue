@@ -10,6 +10,7 @@
     </div>
 </template>
 <script>
+    import Bus from "../../assets/js/Bus"
     export default {
         data() {
             return {
@@ -21,24 +22,32 @@
         //         this.toXQ(product_id,price,img_url,discription)
         //     }            
         // },
-        props:['product_id','img_url','price','discription'],
+        props:['product_id','img_url','price','discription','count'],
         methods: {
-            addToCart(){
+            async addToCart(){
                 if(this.cookie.getCookie('user')){
-                    this.$http.get('/addToCart',{
-                        params:{
-                            id:this.product_id,
-                            user:this.cookie.getCookie('user'),
-                            count:1
-                        }
-                    }).then(res => {
-                        // console.log('添加购物车成功');
-                        this.$alert('添加购物车成功', '成功提示', {
-							confirmButtonText: '确定'
-						});
-                    }).catch(err => {
-                        console.log(err);
-                    })
+                    if(this.count !== 0){
+                        this.$http.get('/addToCart',{
+                            params:{
+                                id:this.product_id,
+                                user:this.cookie.getCookie('user'),
+                                count:1
+                            }
+                        }).then(res => {
+                            this.$message({
+                                message: '添加到购物车成功，请前往购物车查看',
+                                type: 'success'
+                            });
+                            Bus.$emit('cartcount',1);
+                            
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }else {
+                        this.$alert('商品被抢光啦，已通知掌柜的补货', '缺货提示', {
+                            confirmButtonText: '确定',
+                        });
+                    }
                 }else {
                     this.$router.push("/loginregist/login");
                 }
@@ -68,7 +77,8 @@
         cursor: pointer;
     }
     .product:hover{
-        border:2px solid #EE5533;
+        transform: translateY(-10px);
+        transition: all .5s;
     } 
     .product .dis{
         width: 90px;
@@ -77,9 +87,10 @@
         top:155px;
         right: 10px;
     }
-    .product:hover {
-        top: -10px;
-    }
+    /* .product:hover {
+        
+        transition-delay: 2s;
+    } */
     .price {
         position: absolute;
         top:153px;

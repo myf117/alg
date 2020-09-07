@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h1>这里是猫猫页面</h1>
 		<top></top>
 		<topnav></topnav>
 		<div style="text-align: left;width: 1200px;margin: 10px auto;padding-left: 40px;">

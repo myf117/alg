@@ -1,6 +1,6 @@
 <template>
     <div class="productall">
-        <showproduct v-for="item in productArr" :key="item.id" :img_url='item.img_url'
+        <showproduct v-for="item in productArr" :key="item.id" :img_url='item.img_url' :count="item.count"
             :price="item.price" :discription="item.discription" :product_id="item.id" class="showproduct"
             > </showproduct>
     </div>
@@ -30,7 +30,8 @@
                         page:this.page
                     }
                 }).then(res => {
-                    this.productArr = res.data;
+                    this.productArr = res.data.list;
+                    this.$emit('pagecountevent',res.data.page_count);
                     //将查询出的数组暂存在store的productArr中
                     // this.$store.commit('modifyProductArr',this.productArr);
                 }).catch(err => {

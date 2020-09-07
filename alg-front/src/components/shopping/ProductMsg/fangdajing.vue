@@ -88,7 +88,7 @@
 					}
 					return tmp;
 				}
-				console.log(getOffsetLeft(small))
+				// console.log(getOffsetLeft(small))
 				var getOffsetTop = function(obj) {
 					var tmp = obj.offsetTop;
 					var node = obj.offsetParent;
@@ -104,7 +104,7 @@
 // console.log(l,t)
 				if (l < 0) l = 0; // 超出左边界赋值为0
 				if (t < 0) t = 0; // 超出上边界赋值为0
-				console.log(movebox.offsetTop)
+				// console.log(movebox.offsetTop)
 				if (l > float_maxJL_l) l = float_maxJL_l; //限制其运动范围在容器之内
 				if (t > float_maxJL_t) t = float_maxJL_t;
 

@@ -102,101 +102,148 @@
             </div>
             <div class="send_cont">
               <input type="hidden" class="imgpad" />
-              <textarea name="textarea" id="bqcom1" cols="45" rows="5"></textarea>
-              <i class="arr_ico"></i>
-              <span class="num" id="bqtexsub">0/140</span>
-            </div>
-            <div class="send_fun">
-              <div class="emot">
-                <a href class="face">表情</a>
-                <a href class="img3">图片</a>
-              </div>
-              <div class="pub">
-                <input type="submit" class="disable" name="button2" value=" " />
-              </div>
-              <div class="sync">
-                <span>分享：</span>
-                <a href class="qq qq_selected"></a>
-                <a href class="sina sina_selected"></a>
-              </div>
-            </div>
-          </div>
-          <div class="feed_tab">
-            <ul>
-              <li class="current">全部动静</li>
-              <li class>
-                <a href>好友动态</a>
-              </li>
-              <li>
-                <a href>与我有关</a>
-              </li>
-            </ul>
-          </div>
-          <div class="feeds">
-            <div class="feed">
-              <dl class="feed_list">
-                <dt class="head"></dt>
-                <dd class="content">
-                  <p class="feed_list_content">
-                    <span class="tips_txt">暂无动态</span>
-                  </p>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-        <div class="main_right" id>
-          <div class="baike">
-            <div class="hd">
-              <h3>百科小知识话题</h3>
-            </div>
-            <div class="bd">
-              <p>
-                “当狗狗发烧的时候，一般会伴有精神状态下降、发蔫，饮食欲状态下降或废绝的症状。此时主人可以触摸狗狗的身体、耳朵、腋下、脚底等部位，会发现滚烫的感觉特别明显。有很多狗狗发烧时也可能会有呼吸加快、张嘴喘气、吐舌头、不停散热的表现。甚至会有意识模糊、半昏迷、半休克的表现。”
-                <br />
-                <br />发寒热时狗狗的嗅觉变得极差，这也是其食欲不振的一个重要因素，针对这种情况，我们可以拿些香味扑鼻的食物给它吃，勾起它的食欲。波奇网提醒您这时候别忘记狗狗可是病着呢，全身机体功效都有所降低，吃太多的肉食很可能会拉肚子。
-              </p>
-              <p class="source">
-                ----本期小知识由
-                <a href>波奇广播站</a>
-                分享
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+							<textarea maxlength="140" name="textarea" id="bqcom1" cols="45" rows="5" v-model="toketext"></textarea>
+							<i class="arr_ico"></i>
+							<span class="num" id="bqtexsub">{{textnum}}/140</span>
+						</div>
+						<div class="send_fun">
+							<div class="emot">
+								<a href class="face">表情</a>
+								<a href class="img3">图片</a>
+							</div>
+							<div class="pub">
+								<input type="submit" :class="abc" name="button2" value=" " @click="tijiaoclick" @mouseover="tijiaopver"
+								 @mouseleave="tijiaoleave" />
+							</div>
+							<div class="sync">
+								<span>分享：</span>
+								<a href class="qq qq_selected"></a>
+								<a href class="sina sina_selected"></a>
+							</div>
+						</div>
+					</div>
+					<div class="feed_tab">
+						<ul>
+							<li class="current">全部动态</li>
+							<li class>
+								<a href>好友动态</a>
+							</li>
+							<li>
+								<a href>与我有关</a>
+							</li>
+						</ul>
+					</div>
+					<div class="feeds">
+						<div class="feed">
+							<dl class="feed_list">
+								<dt class="head"></dt>
+								<dd class="content">
+									<p class="feed_list_content">
+										<span class="tips_txt" v-if="talkn">{{usetalktext}}</span>
+										<span class="tips_txt" v-for="item in usetalklist" :key="item.id">
+											<p>我的动态{{item.index}}：</p><br>{{item.usetalke}}
+										</span>
+									</p>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<div class="main_right" id>
+					<div class="baike">
+						<div class="hd">
+							<h3>百科小知识话题</h3>
+						</div>
+						<div class="bd">
+							<p>
+								“当狗狗发烧的时候，一般会伴有精神状态下降、发蔫，饮食欲状态下降或废绝的症状。此时主人可以触摸狗狗的身体、耳朵、腋下、脚底等部位，会发现滚烫的感觉特别明显。有很多狗狗发烧时也可能会有呼吸加快、张嘴喘气、吐舌头、不停散热的表现。甚至会有意识模糊、半昏迷、半休克的表现。”
+								<br />
+								<br />发寒热时狗狗的嗅觉变得极差，这也是其食欲不振的一个重要因素，针对这种情况，我们可以拿些香味扑鼻的食物给它吃，勾起它的食欲。波奇网提醒您这时候别忘记狗狗可是病着呢，全身机体功效都有所降低，吃太多的肉食很可能会拉肚子。
+							</p>
+							<p class="source">
+								----本期小知识由
+								<a href>波奇广播站</a>
+								分享
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      username1:"",
-      imgurl1: ""
-    }
-  },
-  created() {
-    this.username1= this.cookie.getCookie("user")
-    let username= this.cookie.getCookie("user")
-    this.$http
-        .get("/gettouxiang", {
-            params:{username}
-        })
-        .then((res) => {
-          console.log("成功取到头像");
-          console.log(res.data);
-          this.imgurl1 = res.data[0].head_url;
-          console.log(this.imgurl1);
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log("ajax出错");
-        });
-  },
-  
-};
+	export default {
+		data() {
+			return {
+				username1: "",
+				imgurl1: "",
+				textnum: 0,
+				toketext: "",
+				usetalktext: "暂无动态",
+				usetalklist: [{
+					id: 1,
+					usetalke: "你好"
+				}],
+				talkn: true,
+				abc: "disable"
+			}
+		},
+		created() {
+			this.username1 = this.cookie.getCookie("user")
+			let username = this.cookie.getCookie("user")
+			this.$http
+				.get("/gettouxiang", {
+					params: {
+						username
+					}
+				})
+				.then((res) => {
+					console.log("成功取到头像");
+					console.log(res.data);
+					this.imgurl1 = res.data[0].head_url;
+					console.log(this.imgurl1);
+				})
+				.catch((err) => {
+					console.log(err);
+					console.log("ajax出错");
+				});
+			console.log(this.usetalklist.length)
+		
+		},
+		watch: {
+			toketext: function() {
+				this.textnum = this.toketext.length
+				if (this.textnum < 140) {
+					this.textnum = this.toketext.length
+				} else {
+					this.textnum = 140
+				}
+			},
+			// 监控评论条数显示是不是显示前面暂无评论
+			// usetalklist1: function() {
+			// 	if (this.usetalklist.length > 0) {
+			// 		this.talkn = false
+			// 		console.log(123)
+			// 	}
+			// }
+
+
+		},
+		methods: {
+			tijiaopver() {
+				this.abc = "disabler"
+			},
+			tijiaoleave() {
+				this.abc = "disable"
+			},
+			tijiaoclick() {
+				this.abc = "disabler"
+			},
+
+		}
+	};
 </script>
 
 <style >
@@ -526,31 +573,40 @@ input[type="hidden" i] {
   background-position: 0 -250px;
   cursor: default;
 }
-.talk_box .send_fun .pub input {
-  width: 68px;
-  height: 28px;
-  overflow: hidden;
-  background: url(../../assets/common_bg.png) no-repeat 0 -279px;
-  cursor: pointer;
-  border: none;
-}
-.talk_box .send_fun .sync a.qq_selected {
-  background-position: -36px -209px;
-}
-.talk_box .send_fun .sync a.qq {
-  /* background-position: 0 -209px; */
-  margin-right: 5px;
-}
-.talk_box .send_fun .sync a {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  background: url(../../assets/common_bg.png) no-repeat;
-  vertical-align: top;
-}
-.talk_box .send_fun .sync a.sina_selected {
-  background-position: -36px -230px;
-}
+	.disabler {
+		background-position: 0 -279px;
+		cursor: default;
+	}
+
+	.talk_box .send_fun .pub input {
+		width: 68px;
+		height: 28px;
+		overflow: hidden;
+		background: url(../../assets/common_bg.png) no-repeat 0 -279px;
+		cursor: pointer;
+		border: none;
+	}
+
+	.talk_box .send_fun .sync a.qq_selected {
+		background-position: -36px -209px;
+	}
+
+	.talk_box .send_fun .sync a.qq {
+		/* background-position: 0 -209px; */
+		margin-right: 5px;
+	}
+
+	.talk_box .send_fun .sync a {
+		width: 16px;
+		height: 16px;
+		display: inline-block;
+		background: url(../../assets/common_bg.png) no-repeat;
+		vertical-align: top;
+	}
+
+	.talk_box .send_fun .sync a.sina_selected {
+		background-position: -36px -230px;
+	}
 
 /* 动态列表 */
 .feed_tab {

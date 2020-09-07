@@ -70,13 +70,16 @@ export default {
                 }
                 
             }else if(tab.name=='second'){
-                if(this.$route.fullPath=='/Nav'){
-                    path='/anency';
-                    this.$router.push(path)
-                }else{
-                    this.$router.go(0);
+                path='/anency';
+                this.$router.push(path)
+                // if(this.$route.fullPath=='/Nav' || this.$route.fullPath=='/dog' || this.$route.fullPath=='/cat'
+                //     || this.$route.fullPath=='/mini' || this.$route.fullPath=='/water'){
+                //     path='/anency';
+                //     this.$router.push(path)
+                // }else{
+                //     this.$router.go(0);
                 
-                }
+                // }
                 
             }
             

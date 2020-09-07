@@ -34,6 +34,7 @@
 </template>
 
 <script>
+	import Bus from "../assets/js/Bus";
 	export default {
 		data: function() {
 			return {
@@ -82,11 +83,42 @@
 			mouseClick2() {
 				this.$router.push("/shopcart")
 			},
+			getCartNum(){
+				this.cartNum = 0;
+				if(this.cookie.getCookie('user')){
+				// console.log(1)
+					this.$http.get('/showlist',{params:{
+						username:this.cookie.getCookie('user')
+					}}).then(res => {
+						// console.log(res.data)
+						for(let i = 0; i < res.data.length; i++){
+							// console.log(typeof res.data[i].count)
+							// console.log(this.cartNum)
+							this.cartNum += res.data[i].count;
+						}
+						Bus.$on('shopcount',value => {
+							this.cartNum = value + this.cartNum;
+							console.log(this.cartNum);
+						});
+						Bus.$on('cartcount',value => {
+							this.cartNum = value + this.cartNum;
+							console.log(this.cartNum);
+						});
+						// console.log(this.cartNum)
+						// this.$store.commit('modifyData',this.cartNum);
+					})
+				}
+			}
 		},
 		mounted() {
-			this.cartNum = this.$store.cartNum;
-			// console.log(this.$store.cartNum)
+			this.getCartNum();
 		}
+		// ,
+		// watch: {
+		// 	'cartNum'(){
+		// 		this.getCartNum();
+		// 	}
+		// },
 	}
 </script>
 

@@ -81,7 +81,7 @@ export default {
                     username:this.user,
                     password:this.pwd1
                 }).then(res => {
-                    // this.$router.router.push()
+                    this.$router.push('/loginregist/login')
                     console.log(res.data);
                 }).catch(err => {
                     console.log(err);

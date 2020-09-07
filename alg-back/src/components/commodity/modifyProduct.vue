@@ -2,7 +2,7 @@
   <div>
     <!-- 头部开始 -->
     <div class="mptop">
-      <el-input v-model="input" placeholder="请输入商品名称" class="md-search" @change="searchForPN"></el-input>
+      <el-input v-model="input" placeholder="请输入商品名称" class="md-search" @blur="searchForPN"></el-input>
       <div class="mpclass">
         <label class="theFrist-cll theFrist-mp">一级分类</label>
         <div class="classify">
@@ -40,62 +40,27 @@
     <!-- 表格开始 -->
     <el-table
       :data="changedData"
-      style="width: 1138px;"
+      style="width: 85%;"
       border
       class="product-list"
+      :height="585"
       @selection-change="handleSelectionChange"
       @select="handlechexCh"
     >
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="mid" label="序号" width="80" sortable></el-table-column>
-      <el-table-column prop="mpdname" label="商品名称" sortable>
-        <template slot-scope="{row,$index}">
-          <input
-            class="edit-cell"
-            v-if="showEdit[$index]"
-            v-model="mychangename"
-            @blur="blurchange1($index, row)"
-            @focus="focuschange1($index, row)"
-          />
-          <span v-if="!showEdit[$index]">{{row.mpdname}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="mpdname" label="商品名称" sortable ref="kpi"></el-table-column>
       <el-table-column label="商品图片" width="130">
         <template slot-scope="scope">
           <img :src="scope.row.mimgUrl" width="65" height="50" />
         </template>
       </el-table-column>
-      <el-table-column prop="mprice" label="参考价格(元)" width="130" sortable row.showEdit>
-        <template slot-scope="{row,$index}">
-          <input
-            class="edit-cell"
-            v-if="showEdit[$index]"
-            v-model="mychangeprice"
-            onkeyup="value=value.replace(/^(0+)|[^\d.]/g,'')"
-            @blur="blurchange2($index, row)"
-            @focus="focuschange2($index, row)"
-          />
-          <span v-if="!showEdit[$index]">{{row.mprice}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="mprice" label="参考价格(元)" width="130" sortable row.showEdit></el-table-column>
       <el-table-column prop="firstClass" label="一级分类" width="105" sortable></el-table-column>
       <el-table-column prop="secondClass" label="二级分类" width="105" sortable></el-table-column>
-      <el-table-column prop="minventoryQuantity" label="库存" width="80" sortable>
-        <template slot-scope="{row,$index}">
-          <input
-            class="edit-cell"
-            v-if="showEdit[$index]"
-            v-model="mychangeQty"
-            onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
-            @blur="blurchange3($index, row)"
-            @focus="focuschange3($index, row)"
-          />
-          <span v-if="!showEdit[$index]">{{row.minventoryQuantity}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="minventoryQuantity" label="库存" width="80" sortable></el-table-column>
       <el-table-column label="操作" width="220">
         <template slot-scope="scope">
-          <el-button size="mini" id="baocun" @click="saveChange">保存</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
             size="mini"
@@ -106,14 +71,54 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- 提示框 -->
-
+    <!-- 修改用信息对话框 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisiblebianji"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="130px"
+        class="demo-ruleForm"
+        validate="valRes"
+      >
+        <el-form-item label="商品名称" prop="name">
+          <el-input v-model="ruleForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="一级分类" prop="cfirstClass">
+          <el-input v-model="ruleForm.cfirstClass"></el-input>
+        </el-form-item>
+        <el-form-item label="二级分类" prop="csecondClass">
+          <el-input v-model="ruleForm.csecondClass"></el-input>
+        </el-form-item>
+        <el-form-item label="价格" prop="mychangeprice">
+          <el-input v-model="ruleForm.mychangeprice"></el-input>
+        </el-form-item>
+        <el-form-item label="库存" prop="mychangeQty">
+          <el-input v-model="ruleForm.mychangeQty"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="resetForm('ruleForm')">取 消</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      </span>
+    </el-dialog>
+    <!-- 修改用信息对话框结束 -->
     <!-- 分页 -->
-    <el-pagination background layout="prev, pager, next" :total="1000" class="Pagination"></el-pagination>
+    <div class="mypage1">
+      <pagenation @pageevent="getpage" :page_count="page_count"></pagenation>
+    </div>
   </div>
 </template>
 <script >
 import router from "../../router/index";
+import pagenation from "./../common/pagenation";
+// 引入中央控制总线
+import bus from "../../assets/js/bus";
 export default {
   data() {
     return {
@@ -157,145 +162,81 @@ export default {
           test: "Demo",
         },
       ],
-      tableColumn: [
-        {
-          label: "可编辑项",
-          prop: "editTag",
-        },
-        {
-          label: "demo",
-          prop: "test",
-        },
-      ],
-      // 编辑初始参数
-      showEdit: [], //显示编辑框,
-      showBtn: [],
+      // 修改商品信息对话框
+      dialogVisiblebianji: false,
+      // 编辑初始参数 用于提交时是否有修改数据
       showBtnOrdinary: true,
-      mychangename: "",
-      mychangeprice: "",
-      mychangeQty: "",
-      // 定义一个中间参数，用于判断3个编辑框是否都失焦
-      blurCode:false,
-      focusCode:false
+      namep: "",
+      mychangepricep: "",
+      mychangeQtyp: "",
+      cfirstClassp: "",
+      csecondClassp: "",
+      cid: "",
+      // 修改表单验证对象
+      ruleForm: {
+        name: "",
+        mychangeprice: "",
+        mychangeQty: "",
+        cfirstClass: "",
+        csecondClass: "",
+      },
+      //规则
+      rules: {
+        cfirstClass: [
+          { required: true, message: "一级分类不能为空", trigger: "blur" },
+        ],
+        name: [
+          { required: true, message: "商品名称不能为空", trigger: "blur" },
+        ],
+        csecondClass: [
+          {
+            message: "二级分类不能为空",
+            trigger: "blur",
+            required: true,
+          },
+        ],
+        mychangeprice: [
+          {
+            message: "价格不能为空",
+            trigger: "blur",
+            required: true,
+          },
+        ],
+        mychangeQty: [
+          {
+            message: "库存不能为空",
+            trigger: "blur",
+            required: true,
+          },
+        ],
+      },
+      page: 1,
+      page_count:1,
+      // 初始化保存bus传过来的值
+      level1:"",
+      level2:""
     };
   },
   mounted() {
-    this.$http
-      .get("/adminGetProduct", {
-        params: {},
-      })
-      .then((list) => {
-        // console.log(list.data);
-        // 将查询的原始值保存起来,不改变
-        this.displayGoodslist = list.data;
-        //整理过的数据
-        this.willChangeDate = list.data;
-        // 对数据库传来的数据进行处理
-        let arr = [];
-        let res = list.data;
-        // console.log(list.data)
-        for (let i = 0; i < res.length; i++) {
-          let id,
-            discription,
-            firstClass,
-            secondClass,
-            price,
-            pdname,
-            imgUrl,
-            inventoryQuantity,
-            pid,
-            woid = i + 1;
-          discription = res[i].discription;
-          // 库存
-          inventoryQuantity = res[i].count;
-          price = res[i].price;
-          pdname = res[i].product_name;
-          imgUrl = res[i].img_url;
-          pid = res[i].id;
-          this.mid = i + 1;
-          secondClass = "";
-          // 将数据分类 firstClass, secondClass
-          if (res[i].class_id === 1) {
-            firstClass = "狗狗商品";
-            switch (res[i].goods_id) {
-              case 101:
-                secondClass = "主粮";
-                break;
-              case 102:
-                secondClass = "零食";
-                break;
-              case 103:
-                secondClass = "玩具";
-                break;
-            }
-          } else if (res[i].class_id === 2) {
-            firstClass = "猫猫商品";
-            switch (res[i].goods_id) {
-              case 201:
-                secondClass = "主粮";
-                break;
-              case 202:
-                secondClass = "零食";
-                break;
-              case 203:
-                secondClass = "猫砂";
-                break;
-              case 204:
-                secondClass = "玩具";
-                break;
-            }
-          } else if (res[i].class_id === 3) {
-            firstClass = "奇趣小宠";
-            switch (res[i].goods_id) {
-              case 301:
-                secondClass = "兔子";
-                break;
-              case 302:
-                secondClass = "仓鼠";
-                break;
-              case 303:
-                secondClass = "龙猫";
-                break;
-            }
-          } else if (res[i].class_id === 4) {
-            firstClass = "水族市场";
-            switch (res[i].goods_id) {
-              case 401:
-                secondClass = "鱼食";
-                break;
-              case 402:
-                secondClass = "鱼缸";
-                break;
-              case 403:
-                secondClass = "器材";
-                break;
-            }
-          }
-          arr.push({
-            mid: woid,
-            pid: pid,
-            mprice: price,
-            minventoryQuantity: inventoryQuantity,
-            mpdname: pdname,
-            mimgUrl: imgUrl,
-            mdiscription: discription,
-            firstClass: firstClass,
-            secondClass: secondClass,
-          });
-          // console.log(arr[0].mid,arr[0].pid)
-          this.SingleStatus = arr[i].mid;
-        }
-        this.displayGoodslist = arr;
-        this.willChangeDate = arr;
-        this.changedData = arr;
-
-        // console.log(arr);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // 发送请求并展示数据
+    this.getMsg();
+    // 接受传过来的index值
+    bus.$on("passClickIndex", (index) => {
+      this.getIndexNum = index;
+      this.level1 = index.f;
+      this.level2 = index.s;
+    });
   },
   watch: {
+    page() {
+      this.getMsg();
+    },
+    firstClass() {
+      this.getMsg();
+    },
+    secondClass() {
+      this.getMsg();
+    },
     // 监听willdelval，如果要删除的为空，则批量删除的button为禁用状态
     willdelval: function () {
       if (this.willdelval.length === 0) {
@@ -303,16 +244,23 @@ export default {
       } else {
         this.changedel = false;
       }
-    }
-    // ,
-    // $options.methods:function(){
-    //   console.log(this.$options.methods)
-    // }
-  },
-  computed: {
-    check(){
-      
-    }
+    },
+    // 利用中央控制总线将点击商品的详细信息实现筛选
+    level2() {
+      console.log(this.level2);
+      if (this.level2 == "3-2") {
+        // 点击分类 渲染对应类别
+        this.firstClass = "狗狗商品";
+      } else if (this.level2 == "3-3") {
+        this.firstClass = "猫猫商品";
+      } else if (this.level2 == "3-4") {
+        this.firstClass = "奇趣小宠";
+      } else if (this.level2 == "3-5") {
+        this.firstClass = "水族市场";
+      }
+       this.getMsg();
+       console.log( this.firstClass)
+    },
   },
   methods: {
     // 一级分类 给子选项设置click事件,并将值赋值给input框
@@ -372,71 +320,119 @@ export default {
     },
     // 点击编辑时的回调函数
     handleEdit(index, row) {
-      this.showEdit = []; //回到初始化状态
-      // 将选中的栏位设为可编辑状态，并将改变的值存起来
-      this.showEdit[index] = true;
-      this.showBtn[index] = true;
-      this.$set(this.showEdit, row, true);
-      this.$set(this.showBtn, row, true);
-      this.mychangename = row.mpdname;
-      this.mychangeprice = row.mprice;
-      this.mychangeQty = row.minventoryQuantity;
-      console.log(this.$options.methods)
+      this.dialogVisiblebianji = true;
+      this.ruleForm.name = row.mpdname;
+      this.ruleForm.mychangeprice = row.mprice;
+      this.ruleForm.mychangeQty = row.minventoryQuantity;
+      this.ruleForm.cfirstClass = row.firstClass;
+      this.ruleForm.csecondClass = row.secondClass;
+      this.cid = row.pid;
+      // 用于提交时判断是否有修改的数据
+      this.namep = row.mpdname;
+      this.mychangepricep = row.mprice;
+      this.mychangeQtyp = row.minventoryQuantity;
+      this.cfirstClassp = row.firstClass;
+      this.csecondClassp = row.secondClass;
     },
-    //  blurCode:false,
-    //   focusCode:true
-    // 1聚焦状态
-    focuschange1(){
-      this.focusCode=true;
+    //编辑用户信息点击表格外部或取消
+    handleClose(done) {
+      this.$confirm("还未提交哦，确认关闭吗？")
+        .then((_) => {
+          // 清空表格
+          this.$refs[formName].resetFields();
+          this.dialogVisiblebianji=false;
+          done();
+        })
+        .catch((_) => {});
     },
-    // 1失焦状态
-    editchange1(index, row) {
-      // this.showEdit = [];
-      this.blurCode=true;
+    // 编辑商品信息，点击取消的回调函数
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (
+            this.namep == this.ruleForm.name &&
+            this.mychangepricep == this.ruleForm.mychangeprice &&
+            this.mychangeQtyp == this.ruleForm.mychangeQty &&
+            this.cfirstClassp == this.ruleForm.firstClass &&
+            this.csecondClassp == this.ruleForm.csecondClass
+          ) {
+            // 未修改数据
+            this.dialogVisiblebianji = false;
+          } else {
+            this.$http
+              .post("/updateProduct", {
+                product_name: this.ruleForm.name,
+                price: this.ruleForm.mychangeprice,
+                count: this.ruleForm.mychangeQty,
+                firstClass: this.ruleForm.cfirstClass,
+                secondClass: this.ruleForm.csecondClass,
+                id: this.cid,
+              })
+              .then((r) => {
+                this.dialogVisiblebianji = false;
+                this.$alert("提示", "修改成功！", {
+                  confirmButtonText: "确定",
+                });
+                this.$router.go(0);
+              })
+              .catch((e) => {
+                this.$alert("提示", "操作失败！", {
+                  confirmButtonText: "确定",
+                });
+                this.dialogVisiblebianji = false;
+              });
+          }
+        } else {
+          this.$alert("提示", "请输入有效的信息", {
+            confirmButtonText: "确定",
+          });
+        }
+      });
     },
-     // 2聚焦状态
-    focuschange2(){
-      this.focusCode=true;
-    },
-    // 2失焦状态
-    editchange2(index, row) {
-      // this.showEdit = [];
-      this.blurCode=true;
-    },
-     // 3聚焦状态
-    focuschange3(){
-      this.focusCode=true;
-    },
-    // 3失焦状态
-    editchange3(index, row) {
-     this.blurCode=true;
+    // 点击取消按钮
+    resetForm(formName) {
+      this.$confirm("还未提交哦，确认取消吗？")
+        .then((_) => {
+          // 清空表格
+          this.$refs[formName].resetFields();
+          // 关闭表格
+          this.dialogVisiblebianji = false;
+          // 关闭对话框
+          done();
+        })
+        .catch((_) => {});
     },
     // 单行删除回调的函数,并发送删除请求
     handleDelete(index, row) {
       this.backDelId = "";
       console.log(index, row);
-      // this.backDelId = row.pid;
-      // console.log(this.backDelId)
-      // this.$http
-      //   .get("/adminDelProduct", {
-      //     params: {
-      //       idArr: this.backDelId,
-      //     },
-      //   })
-      //   .then((r) => {
-      //     console.log(r);
-      //     this.$message({
-      //       type: "success",
-      //       message: "删除成功!",
-      //     });
-      //     router.go(0);
-      //   })
-      //   .catch((e) => {
-      //     this.$message({
-      //       type: "info",
-      //       message: "请求失败",
-      //     });
-      //   });
+      this.backDelId = row.pid;
+      console.log(this.backDelId);
+      this.$confirm("确认要删除吗？")
+        .then((_) => {
+          this.$http
+            .get("/adminDelProduct", {
+              params: {
+                idArr: this.backDelId,
+              },
+            })
+            .then((r) => {
+              console.log(r);
+              this.$message({
+                type: "success",
+                message: "删除成功!",
+              });
+              router.go(0);
+            })
+            .catch((e) => {
+              this.$message({
+                type: "info",
+                message: "请求失败",
+              });
+            });
+          done();
+        })
+        .catch((_) => {});
     },
     // 选中回调的函数 val为选中的行
     handleSelectionChange(val) {
@@ -512,45 +508,227 @@ export default {
     // 搜索商品名
     searchForPN() {
       if (this.input != "") {
-        // this.changedData
-        let karr = [];
-        for (let i = 0; i < this.willChangeDate.length; i++) {
-          if (this.input == this.willChangeDate[i].mpdname) {
-            karr.push(this.willChangeDate[i]);
-          }
-          console.log(this.input);
-          // console.log(this.willChangeDate[i].mpdname.search(this.input) != -1 );
-        }
-
-        if (karr.length === 0) {
-          this.$message({
-            type: "info",
-            message: "找不到该商品信息",
-          });
-        } else {
-          this.changedData = karr;
-        }
+        console.log(this.input)
+         this.$http
+        .get("/getAllProduct", {
+          params: {
+            keyword: this.input
+          },
+        }).then(r=>{
+           this.dispose(r.data)
+        }).catch(e=>{
+          console.log(e)
+        })     
+       
       }
     },
     // 点击重置
     clickRet() {
-      this.changedData = this.willChangeDate;
+      this.firstClass = "狗狗商品";
+      this.secondClass = "主粮";
+      this.page = 1;
+      this.getMsg();
     },
-    //点击保存
-    saveChange() {
-      if (
-        this.mychangename == "" &&
-        this.mychangeprice == "" &&
-        this.mychangeQty == ""
-      ) {
-        console.log("kong");
-      } else {
-        console.log("该");
+    // 页数设置
+    getpage(page) {
+      this.page = page;
+    },
+    // 分页查询
+    getMsg() {
+      let class_id, goods_id;
+      // 分类判断
+      switch (this.firstClass) {
+        case "狗狗商品":
+          class_id = 1;
+          break;
+        case "猫猫商品":
+          class_id = 2;
+          break;
+        case "奇趣小宠":
+          class_id = 3;
+          break;
+        case "水族市场":
+          class_id = 4;
+          break;
       }
+      if (class_id === 1) {
+        switch (this.secondClass) {
+          case "主粮":
+            goods_id = 101;
+            break;
+          case "零食":
+            goods_id = 102;
+            break;
+          case "玩具":
+            goods_id = 103;
+            break;
+        }
+      } else if (class_id === 2) {
+        switch (this.secondClass) {
+          case "主粮":
+            goods_id = 201;
+            break;
+          case "零食":
+            goods_id = 202;
+            break;
+          case "猫砂":
+            goods_id = 203;
+            break;
+          case "玩具":
+            goods_id = 204;
+            break;
+        }
+      } else if (class_id === 3) {
+        switch (this.secondClass) {
+          case "兔子":
+            goods_id = 301;
+            break;
+          case "仓鼠":
+            goods_id = 302;
+            break;
+          case "龙猫":
+            goods_id = 303;
+            break;
+        }
+      } else if (class_id === 4) {
+        switch (this.secondClass) {
+          case "鱼食":
+            goods_id = 401;
+            break;
+          case "鱼缸":
+            goods_id = 401;
+            break;
+          case "器材":
+            goods_id = 401;
+            break;
+        }
+      }
+      this.$http
+        .get("/adminGetProduct", {
+          params: {
+            page: this.page,
+            class_id: class_id,
+            goods_id: goods_id
+          },
+        })
+        .then((list) => {
+          this.dispose(list.data.list);
+          this.page_count = list.data.page_count;
+          // console.log(arr);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
+    // 处理数据
+    dispose(list){
+          // console.log(list.data);
+          // 将查询的原始值保存起来,不改变
+          this.displayGoodslist = list;
+          //整理过的数据
+          this.willChangeDate = list;
+          // 对数据库传来的数据进行处理
+          let arr = [];
+          let res = list;
+          // console.log(list.data)
+          for (let i = 0; i < res.length; i++) {
+            let id,
+              discription,
+              firstClass,
+              secondClass,
+              price,
+              pdname,
+              imgUrl,
+              inventoryQuantity,
+              pid,
+              woid = i + 1;
+            discription = res[i].discription;
+            // 库存
+            inventoryQuantity = res[i].count;
+            price = res[i].price;
+            pdname = res[i].product_name;
+            imgUrl = res[i].img_url;
+            pid = res[i].id;
+            this.mid = i + 1;
+            secondClass = "";
+            // 将数据分类 firstClass, secondClass
+            if (res[i].class_id === 1) {
+              firstClass = "狗狗商品";
+              switch (res[i].goods_id) {
+                case 101:
+                  secondClass = "主粮";
+                  break;
+                case 102:
+                  secondClass = "零食";
+                  break;
+                case 103:
+                  secondClass = "玩具";
+                  break;
+              }
+            } else if (res[i].class_id === 2) {
+              firstClass = "猫猫商品";
+              switch (res[i].goods_id) {
+                case 201:
+                  secondClass = "主粮";
+                  break;
+                case 202:
+                  secondClass = "零食";
+                  break;
+                case 203:
+                  secondClass = "猫砂";
+                  break;
+                case 204:
+                  secondClass = "玩具";
+                  break;
+              }
+            } else if (res[i].class_id === 3) {
+              firstClass = "奇趣小宠";
+              switch (res[i].goods_id) {
+                case 301:
+                  secondClass = "兔子";
+                  break;
+                case 302:
+                  secondClass = "仓鼠";
+                  break;
+                case 303:
+                  secondClass = "龙猫";
+                  break;
+              }
+            } else if (res[i].class_id === 4) {
+              firstClass = "水族市场";
+              switch (res[i].goods_id) {
+                case 401:
+                  secondClass = "鱼食";
+                  break;
+                case 402:
+                  secondClass = "鱼缸";
+                  break;
+                case 403:
+                  secondClass = "器材";
+                  break;
+              }
+            }
+            arr.push({
+              mid: woid,
+              pid: pid,
+              mprice: price,
+              minventoryQuantity: inventoryQuantity,
+              mpdname: pdname,
+              mimgUrl: imgUrl,
+              mdiscription: discription,
+              firstClass: firstClass,
+              secondClass: secondClass,
+            });
+            // console.log(arr[0].mid,arr[0].pid)
+            this.SingleStatus = arr[i].mid;
+          }
+          this.displayGoodslist = arr;
+          this.willChangeDate = arr;
+          this.changedData = arr;
+    }
   },
   components: {
-    // classify,
+    pagenation,
   },
 };
 </script>
@@ -616,14 +794,12 @@ export default {
 .el-table tr {
   border: 1px solid #ebeef5;
 }
-#baocun {
-  background-color: rgb(133, 206, 97);
-}
 /* 分页设置 */
-.Pagination {
+.mypage1 {
   position: relative;
-  top: 500px;
-  left: 300px;
+  top: 69px;
+  left: 470px;
+  z-index: 1;
 }
 /* 点击编辑 */
 .edit-cell {
@@ -635,4 +811,14 @@ export default {
   padding: 3px 3px;
   box-sizing: border-box;
 }
+.changePInfo {
+  margin: 10px 55px;
+  outline: none;
+  width: 650px;
+  height: 50px;
+  border: 1px solid #cccccc;
+  display: inline-block;
+  border-radius: 5px;
+}
+.cell{max-height: 45px !important;overflow: hidden !important;}
 </style>

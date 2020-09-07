@@ -23,7 +23,7 @@
 
 				<div class="money">
 					<dl>波奇价：<i style="color: red;font-size: 30px;"> ￥{{price}}</i><i style="color: red;"> 波奇豆抵5%</i></dl><br>
-					<dl>厂商指导价：<del style="color: #8C8C8C;">¥4.30</del></dl><br>
+					<dl>库存：{{count}}件</dl><br>
 					<dl>促销信息：<i style="background-color: red;color: white;">多买多惠</i> <i style="color: red;"> 2件8折</i></dl>
 					<br><br>
 					<dl>配送至：<xiala></xiala>
@@ -47,10 +47,12 @@
 </template>
 
 <script>
+	import Bus from "../assets/js/Bus"
 	import fangdajing from "../components/shopping/ProductMsg/fangdajing.vue"
 	import xiala from "../components/shopping/ProductMsg/xiala";
 	import taocan from "../components/shopping/ProductMsg/taocan";
 	import rightlist from "../components/shopping/ProductMsg/rightlist";
+		
 	export default {
 		components: {
 			xiala,
@@ -66,7 +68,8 @@
 				num: 1,
 				price:0,
 				img_url:'',
-				discription:''
+				discription:'',
+				count:0
 			}
 		},
 		methods: {
@@ -97,20 +100,27 @@
 			addToCart(){
 				//用户是否登录
 				if(this.cookie.getCookie('user')){
-					this.$http.get('/addToCart',{
-						params:{
-							user:this.cookie.getCookie('user'),
-							id:this.product_id,
-							count:this.num
-						}
-					}).then(res => {
-						console.log(res.data);
-						this.$alert('添加购物车成功', '成功提示', {
-							confirmButtonText: '确定'
-						});
-					}).catch(err => {
-						console.log(err);
-					})
+					if(this.count !== 0 && this.num <= this.count){
+						this.$http.get('/addToCart',{
+							params:{
+								user:this.cookie.getCookie('user'),
+								id:this.$route.query.product_id,
+								count:this.num
+							}
+						}).then(res => {
+							this.$message({
+								message: '添加到购物车成功，请前往购物车查看',
+								type: 'success'
+							});
+							Bus.$emit('shopcount',this.num)
+						}).catch(err => {
+							console.log(err);
+						})
+					}else {
+						this.$alert('商品被抢光啦，已通知掌柜的补货', '缺货提示', {
+                            confirmButtonText: '确定',
+                        });
+					}
 				}else {
 					this.$router.push('/loginregist/login');
 				}
@@ -124,6 +134,7 @@
 					this.price = res.data[0].price;
 					this.img_url = res.data[0].img_url;
 					this.discription = res.data[0].discription;
+					this.count = res.data[0].count;
 				}).catch(err => {
 					console.log(err);
 				})

@@ -51,15 +51,13 @@ export default {
       if (this.level2 == "3-1") {
         // 点击商品 详情跳转
         path = "/newlyIncreased";        
-      } else if(this.level2 == "3-2"||this.level2 == "3-3"||this.level2 == "3-4"||this.level2 == "3-5" ) {
+      } else if(this.level2 == "3-2" ) {
         path = "/modifyProduct";
       } else if(this.level2 == "5-1"){
         path = "/petEncyclopedia";
       }else if(this.level2 == "5-2"){
         path = "/modifyEncyclopedia";
       }else if(this.level2 == "5-3"){
-        path = "/editPicture";
-      }else if(this.level2 == "5-4"){
         path = "/uploadImage";
       }
       if (this.$route.fullPath != path) {
@@ -73,10 +71,11 @@ export default {
 <style scoped>
 /* 设置主要内容区排版 */
 .main-boxs {
-  width: 100%;
-  height: auto;
+  width: 95%;
+  height:730px;
   position: absolute;
   border-top: 1px solid #ccc;
-  left: 250px;
+  left: 200px;
+  background-color: rgb(240, 238, 238);
 }
 </style>
